@@ -58,12 +58,7 @@ describe('Controls', () => {
     const user = userEvent.setup()
     const onRefresh = vi.fn()
 
-    render(
-      <Controls
-        onWidthChange={vi.fn()}
-        {...({ onRefresh } as unknown as Record<string, unknown>)}
-      />,
-    )
+    render(<Controls onWidthChange={vi.fn()} onRefresh={onRefresh} />)
 
     await user.click(screen.getByRole('button', { name: /refresh/i }))
 

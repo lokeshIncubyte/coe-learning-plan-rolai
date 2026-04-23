@@ -6,9 +6,16 @@ type ControlsProps = {
   onHeightChange?: (height: number) => void
   onGrayscaleChange?: (enabled: boolean) => void
   onBlurChange?: (enabled: boolean) => void
+  onRefresh?: () => void
 }
 
-export function Controls({ onWidthChange, onHeightChange, onGrayscaleChange, onBlurChange }: ControlsProps) {
+export function Controls({
+  onWidthChange,
+  onHeightChange,
+  onGrayscaleChange,
+  onBlurChange,
+  onRefresh,
+}: ControlsProps) {
   const handleWidthChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value)
     onWidthChange(clampDimension(value))
@@ -45,6 +52,9 @@ export function Controls({ onWidthChange, onHeightChange, onGrayscaleChange, onB
         Blur
         <input id="blur-input" name="blur" type="checkbox" onChange={handleBlurChange} />
       </label>
+      <button type="button" onClick={onRefresh}>
+        Refresh
+      </button>
     </>
   )
 }
