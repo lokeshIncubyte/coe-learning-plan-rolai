@@ -21,7 +21,7 @@ describe('Controls', () => {
     const user = userEvent.setup()
     const onHeightChange = vi.fn()
 
-    render(<Controls {...({ onWidthChange: vi.fn(), onHeightChange } as any)} />)
+    render(<Controls onWidthChange={vi.fn()} onHeightChange={onHeightChange} />)
 
     const heightInput = screen.getByLabelText(/height/i)
     await user.clear(heightInput)
