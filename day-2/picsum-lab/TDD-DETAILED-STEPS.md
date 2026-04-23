@@ -538,7 +538,7 @@ Wait for expected failure.
 
 **STOP — WAIT**
 
-- [ ] 03.4 RED committed ✅
+- [x] 03.4 RED committed ✅
 
 ---
 
@@ -554,7 +554,7 @@ Create `src/features/picsum-lab/model/types.ts` with `PicsumPhoto`, `PicsumListR
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 03.5 GREEN code written ✅
+- [x] 03.5 GREEN code written ✅
 
 ---
 
@@ -565,7 +565,7 @@ Create `src/features/picsum-lab/model/types.ts` with `PicsumPhoto`, `PicsumListR
 
 **STOP — WAIT**
 
-- [ ] 03.6 GREEN confirmed ✅
+- [x] 03.6 GREEN confirmed ✅
 
 ---
 
