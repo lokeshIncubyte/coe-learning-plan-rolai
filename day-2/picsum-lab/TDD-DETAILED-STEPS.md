@@ -454,7 +454,7 @@ Command step. Wait for commit hash.
 **STOP — WAIT**
 Human action + command. Wait for merge confirmation.
 
-- [ ] 02.11 Merged to `main` ✅
+- [x] 02.11 Merged to `main` ✅
 
 ---
 
