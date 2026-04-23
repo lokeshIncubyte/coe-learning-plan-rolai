@@ -298,7 +298,7 @@ Gallery shows loading state while the request is in flight.
 **STOP — WAIT**
 Command step. Wait for branch confirmation.
 
-- [ ] 02.1 Branch created ✅
+- [x] 02.1 Branch created ✅
 
 ---
 
@@ -313,7 +313,7 @@ Create `src/features/picsum-lab/hooks/usePicsumGallery.test.ts`. Write one test 
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 02.2 RED test written ✅
+- [x] 02.2 RED test written ✅
 
 ---
 
@@ -328,7 +328,7 @@ Create `src/features/picsum-lab/hooks/usePicsumGallery.test.ts`. Write one test 
 **STOP — WAIT**
 Command step. Wait for expected failure output.
 
-- [ ] 02.3 RED confirmed ✅
+- [x] 02.3 RED confirmed ✅
 
 ---
 
