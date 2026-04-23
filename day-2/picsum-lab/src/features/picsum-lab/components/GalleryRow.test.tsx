@@ -1,0 +1,22 @@
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { describe, expect, it, vi } from 'vitest'
+import { GalleryRow } from './GalleryRow'
+
+describe('GalleryRow', () => {
+  it('calls onSelectPhoto with clicked photo', async () => {
+    const user = userEvent.setup()
+    const photo = {
+      id: '3',
+      author: 'Carol',
+      download_url: 'https://example.com/download/3',
+    }
+    const onSelectPhoto = vi.fn()
+
+    render(<GalleryRow photo={photo} onSelectPhoto={onSelectPhoto} />)
+
+    await user.click(screen.getByRole('button', { name: /3/i }))
+
+    expect(onSelectPhoto).toHaveBeenCalledWith(photo)
+  })
+})
