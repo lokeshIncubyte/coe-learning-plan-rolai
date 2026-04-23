@@ -733,7 +733,7 @@ Add two tests to `usePicsumGallery.test.ts`. First: mock `fetch` to reject (netw
 
 **STOP — WAIT**
 
-- [ ] 04.4 RED committed ✅
+- [x] 04.4 RED committed ✅
 
 ---
 
@@ -748,7 +748,7 @@ Update `usePicsumGallery.ts` to wrap the fetch + parse in a `try/catch`. On any 
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 04.5 GREEN code written ✅
+- [x] 04.5 GREEN code written ✅
 
 ---
 
@@ -759,7 +759,7 @@ Update `usePicsumGallery.ts` to wrap the fetch + parse in a `try/catch`. On any 
 
 **STOP — WAIT**
 
-- [ ] 04.6 GREEN confirmed ✅
+- [x] 04.6 GREEN confirmed ✅
 
 ---
 
