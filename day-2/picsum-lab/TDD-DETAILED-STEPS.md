@@ -99,7 +99,7 @@ App boots and renders Gallery, Controls, and Preview sections.
 **STOP — WAIT**
 Command step. Wait for branch creation confirmation.
 
-- [ ] 01.1 Branch created ✅
+- [x] 01.1 Branch created ✅
 
 ---
 
@@ -114,7 +114,7 @@ Create `src/features/picsum-lab/components/PicsumLabPage.test.tsx`. Write one te
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 01.2 RED test written ✅
+- [x] 01.2 RED test written ✅
 
 ---
 
@@ -129,7 +129,7 @@ Create `src/features/picsum-lab/components/PicsumLabPage.test.tsx`. Write one te
 **STOP — WAIT**
 Command step. Wait for output showing new test fails as expected.
 
-- [ ] 01.3 RED confirmed ✅
+- [x] 01.3 RED confirmed ✅
 
 ---
 
@@ -145,7 +145,7 @@ Command step. Wait for output showing new test fails as expected.
 **STOP — WAIT**
 Command step. Wait for commit hash output.
 
-- [ ] 01.4 RED committed ✅
+- [x] 01.4 RED committed ✅
 
 ---
 
@@ -159,7 +159,7 @@ Create `src/app/App.tsx` and `src/features/picsum-lab/components/PicsumLabPage.t
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 01.5 GREEN code written ✅
+- [x] 01.5 GREEN code written ✅
 
 ---
 
@@ -174,7 +174,7 @@ Create `src/app/App.tsx` and `src/features/picsum-lab/components/PicsumLabPage.t
 **STOP — WAIT**
 Command step. Wait for all tests passing.
 
-- [ ] 01.6 GREEN confirmed ✅
+- [x] 01.6 GREEN confirmed ✅
 
 ---
 
@@ -190,7 +190,7 @@ Command step. Wait for all tests passing.
 **STOP — WAIT**
 Command step. Wait for commit hash.
 
-- [ ] 01.7 GREEN committed ✅
+- [x] 01.7 GREEN committed ✅
 
 ---
 
@@ -204,7 +204,7 @@ Review `App.tsx` and `PicsumLabPage.tsx` for any naming, structure, or import in
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 01.8 REFACTOR written ✅
+- [x] 01.8 REFACTOR written ✅
 
 ---
 
@@ -219,7 +219,7 @@ Review `App.tsx` and `PicsumLabPage.tsx` for any naming, structure, or import in
 **STOP — WAIT**
 Command step. Wait for all tests passing.
 
-- [ ] 01.9 REFACTOR confirmed ✅
+- [x] 01.9 REFACTOR confirmed ✅
 
 ---
 
