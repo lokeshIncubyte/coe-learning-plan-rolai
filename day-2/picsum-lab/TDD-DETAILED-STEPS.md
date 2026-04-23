@@ -99,7 +99,7 @@ App boots and renders Gallery, Controls, and Preview sections.
 **STOP — WAIT**
 Command step. Wait for branch creation confirmation.
 
-- [ ] 01.1 Branch created ✅
+- [x] 01.1 Branch created ✅
 
 ---
 
@@ -114,7 +114,7 @@ Create `src/features/picsum-lab/components/PicsumLabPage.test.tsx`. Write one te
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 01.2 RED test written ✅
+- [x] 01.2 RED test written ✅
 
 ---
 
@@ -129,7 +129,7 @@ Create `src/features/picsum-lab/components/PicsumLabPage.test.tsx`. Write one te
 **STOP — WAIT**
 Command step. Wait for output showing new test fails as expected.
 
-- [ ] 01.3 RED confirmed ✅
+- [x] 01.3 RED confirmed ✅
 
 ---
 
