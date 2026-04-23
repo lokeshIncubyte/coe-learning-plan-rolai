@@ -14,3 +14,22 @@ export type GalleryFetchState =
   | { status: 'loading' }
   | { status: 'success'; photos: PicsumPhoto[] }
   | { status: 'error'; message: string }
+
+export type ImageSource =
+  | { kind: 'id'; id: string }
+  | { kind: 'seed'; seed: string }
+  | { kind: 'random' }
+
+export type ImageEffects = {
+  grayscale: boolean
+  blur: boolean
+  blurAmount?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+}
+
+export type BuildImageUrlInput = {
+  source: ImageSource
+  width: number
+  height: number
+  effects: ImageEffects
+  randomNonce?: number
+}
