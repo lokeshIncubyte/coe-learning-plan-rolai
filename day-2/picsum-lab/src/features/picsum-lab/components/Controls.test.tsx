@@ -16,4 +16,17 @@ describe('Controls', () => {
 
     expect(onWidthChange).toHaveBeenCalledWith(640)
   })
+
+  it('calls onHeightChange with numeric value when height input changes', async () => {
+    const user = userEvent.setup()
+    const onHeightChange = vi.fn()
+
+    render(<Controls {...({ onWidthChange: vi.fn(), onHeightChange } as any)} />)
+
+    const heightInput = screen.getByLabelText(/height/i)
+    await user.clear(heightInput)
+    await user.type(heightInput, '480')
+
+    expect(onHeightChange).toHaveBeenCalledWith(480)
+  })
 })
