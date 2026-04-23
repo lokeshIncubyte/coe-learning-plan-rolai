@@ -65,4 +65,35 @@ describe('useLocalStorageState', () => {
 
     expect(result.current).toEqual(stored.data)
   })
+
+  it('returns defaults when localStorage contains invalid JSON', () => {
+    const key = 'picsum-lab-prefs-invalid'
+    const defaults: PrefsData = { width: 400, height: 300 }
+
+    localStorage.setItem(key, '{invalid-json')
+
+    const validateStoredPrefs = (value: unknown): value is StoredPrefsV1 => {
+      if (typeof value !== 'object' || value === null) {
+        return false
+      }
+
+      const candidate = value as Partial<StoredPrefsV1>
+      return (
+        candidate.version === 1 &&
+        typeof candidate.savedAt === 'string' &&
+        typeof candidate.data?.width === 'number' &&
+        typeof candidate.data?.height === 'number'
+      )
+    }
+
+    expect(() =>
+      renderHook(() => useLocalStorageState<PrefsData>(key, defaults, validateStoredPrefs)),
+    ).not.toThrow()
+
+    const { result } = renderHook(() =>
+      useLocalStorageState<PrefsData>(key, defaults, validateStoredPrefs),
+    )
+
+    expect(result.current).toEqual(defaults)
+  })
 })
