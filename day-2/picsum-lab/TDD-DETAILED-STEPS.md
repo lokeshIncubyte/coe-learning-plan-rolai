@@ -235,7 +235,7 @@ Command step. Wait for all tests passing.
 **STOP — WAIT**
 Command step. Wait for commit hash.
 
-- [ ] 01.10 REFACTOR committed ✅
+- [x] 01.10 REFACTOR committed ✅
 
 ---
 
@@ -255,7 +255,7 @@ Command step. Wait for commit hash.
 **STOP — WAIT**
 Human action + command. Wait for push confirmation then PR merge confirmation.
 
-- [ ] 01.11 Merged to `main` ✅
+- [x] 01.11 Merged to `main` ✅
 
 ---
 
@@ -274,7 +274,7 @@ Human action + command. Wait for push confirmation then PR merge confirmation.
 **STOP — WAIT**
 Command step. Wait for log output showing squash commit on `main`.
 
-- [ ] 01.12 Cleanup and log captured ✅
+- [x] 01.12 Cleanup and log captured ✅
 
 ---
 
