@@ -51,4 +51,32 @@ describe('usePicsumGallery', () => {
       })
     })
   })
+
+  it('returns error state when the request fails', async () => {
+    vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('network failed'))
+
+    const { result } = renderHook(() => usePicsumGallery())
+
+    await waitFor(() => {
+      expect(result.current).toMatchObject({
+        status: 'error',
+        message: expect.any(String),
+      })
+    })
+  })
+
+  it('returns error state when the payload is invalid', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+      json: async () => [{ bad: 'shape' }],
+    } as Response)
+
+    const { result } = renderHook(() => usePicsumGallery())
+
+    await waitFor(() => {
+      expect(result.current).toMatchObject({
+        status: 'error',
+        message: expect.any(String),
+      })
+    })
+  })
 })

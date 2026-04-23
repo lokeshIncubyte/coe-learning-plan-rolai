@@ -669,7 +669,7 @@ Review `guards.ts` and `types.ts`. Ensure guard functions are composable (e.g. `
 
 **STOP — WAIT**
 
-- [ ] 03.12 Cleanup done ✅
+- [x] 03.12 Cleanup done ✅
 
 ---
 
@@ -692,7 +692,7 @@ Gallery shows error message when fetch fails or payload is invalid.
 
 **STOP — WAIT**
 
-- [ ] 04.1 Branch created ✅
+- [x] 04.1 Branch created ✅
 
 ---
 
@@ -707,7 +707,7 @@ Add two tests to `usePicsumGallery.test.ts`. First: mock `fetch` to reject (netw
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 04.2 RED tests written ✅
+- [x] 04.2 RED tests written ✅
 
 ---
 
@@ -718,7 +718,7 @@ Add two tests to `usePicsumGallery.test.ts`. First: mock `fetch` to reject (netw
 
 **STOP — WAIT**
 
-- [ ] 04.3 RED confirmed ✅
+- [x] 04.3 RED confirmed ✅
 
 ---
 
