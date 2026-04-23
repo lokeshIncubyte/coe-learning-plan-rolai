@@ -8,7 +8,7 @@ export function buildPicsumImageUrl(input: BuildImageUrlInput): string {
   if (effects.grayscale) {
     query = '?grayscale'
   } else if (effects.blur) {
-    query = '?blur'
+    query = effects.blurAmount ? `?blur=${effects.blurAmount}` : '?blur'
   }
 
   switch (source.kind) {
