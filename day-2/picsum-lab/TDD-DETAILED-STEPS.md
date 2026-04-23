@@ -298,7 +298,7 @@ Gallery shows loading state while the request is in flight.
 **STOP — WAIT**
 Command step. Wait for branch confirmation.
 
-- [ ] 02.1 Branch created ✅
+- [x] 02.1 Branch created ✅
 
 ---
 
@@ -313,7 +313,7 @@ Create `src/features/picsum-lab/hooks/usePicsumGallery.test.ts`. Write one test 
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 02.2 RED test written ✅
+- [x] 02.2 RED test written ✅
 
 ---
 
@@ -328,7 +328,7 @@ Create `src/features/picsum-lab/hooks/usePicsumGallery.test.ts`. Write one test 
 **STOP — WAIT**
 Command step. Wait for expected failure output.
 
-- [ ] 02.3 RED confirmed ✅
+- [x] 02.3 RED confirmed ✅
 
 ---
 
@@ -344,7 +344,7 @@ Command step. Wait for expected failure output.
 **STOP — WAIT**
 Command step. Wait for commit hash.
 
-- [ ] 02.4 RED committed ✅
+- [x] 02.4 RED committed ✅
 
 ---
 
@@ -359,7 +359,7 @@ Create `src/features/picsum-lab/hooks/usePicsumGallery.ts` and `src/features/pic
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 02.5 GREEN code written ✅
+- [x] 02.5 GREEN code written ✅
 
 ---
 
@@ -374,7 +374,7 @@ Create `src/features/picsum-lab/hooks/usePicsumGallery.ts` and `src/features/pic
 **STOP — WAIT**
 Command step. Wait for all tests passing.
 
-- [ ] 02.6 GREEN confirmed ✅
+- [x] 02.6 GREEN confirmed ✅
 
 ---
 
@@ -390,7 +390,7 @@ Command step. Wait for all tests passing.
 **STOP — WAIT**
 Command step. Wait for commit hash.
 
-- [ ] 02.7 GREEN committed ✅
+- [x] 02.7 GREEN committed ✅
 
 ---
 
@@ -404,7 +404,7 @@ Review `usePicsumGallery.ts` and `fetchJson.ts`. Ensure they sit in the correct 
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 02.8 REFACTOR written ✅
+- [x] 02.8 REFACTOR written ✅
 
 ---
 
@@ -419,7 +419,7 @@ Review `usePicsumGallery.ts` and `fetchJson.ts`. Ensure they sit in the correct 
 **STOP — WAIT**
 Command step. Wait for all tests passing.
 
-- [ ] 02.9 REFACTOR confirmed ✅
+- [x] 02.9 REFACTOR confirmed ✅
 
 ---
 
