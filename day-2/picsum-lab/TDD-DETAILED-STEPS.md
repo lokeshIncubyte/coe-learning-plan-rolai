@@ -8,6 +8,10 @@ Each cycle covers one behavior. The agent writes all code. Stop points exist onl
 - For any command step, provide commands in chat first and wait for explicit approval before executing.
 - `main` must always stay green.
 - Merge after every completed cycle.
+- If a cycle has no real refactor changes, skip the refactor commit for that cycle.
+- If the only change after a cycle is marking checklist items as completed (`✅`), commit that as a separate docs-only commit.
+- Checklist-only commit message format:
+  - `docs(tdd): update cycle <step-number> completion checkmarks`
 
 ---
 
@@ -223,7 +227,9 @@ Command step. Wait for all tests passing.
 
 ---
 
-### 01.10 REFACTOR commit
+
+
+> **Cycle rule:** If refactor produces no actual code/file changes, skip this refactor commit step and continue to the next step.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -259,7 +265,9 @@ Human action + command. Wait for push confirmation then PR merge confirmation.
 
 ---
 
-### 01.12 Post-merge cleanup
+
+
+> **Checklist commit rule:** After marking cycle items as ✅, if those checkmark edits are the only remaining changes, create a separate docs-only commit using `docs(tdd): update cycle <step-number> completion checkmarks`.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -423,7 +431,9 @@ Command step. Wait for all tests passing.
 
 ---
 
-### 02.10 REFACTOR commit
+
+
+> **Cycle rule:** If refactor produces no actual code/file changes, skip this refactor commit step and continue to the next step.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -458,7 +468,9 @@ Human action + command. Wait for merge confirmation.
 
 ---
 
-### 02.12 Post-merge cleanup
+
+
+> **Checklist commit rule:** After marking cycle items as ✅, if those checkmark edits are the only remaining changes, create a separate docs-only commit using docs(tdd): update cycle <step-number> completion checkmarks.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -607,7 +619,9 @@ Review `guards.ts` and `types.ts`. Ensure guard functions are composable (e.g. `
 
 ---
 
-### 03.10 REFACTOR commit
+
+
+> **Cycle rule:** If refactor produces no actual code/file changes, skip this refactor commit step and continue to the next step.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -618,7 +632,7 @@ Review `guards.ts` and `types.ts`. Ensure guard functions are composable (e.g. `
 
 **STOP — WAIT**
 
-- [ ] 03.10 REFACTOR committed ✅
+- [x] 03.10 REFACTOR committed ✅
 
 ---
 
@@ -633,11 +647,13 @@ Review `guards.ts` and `types.ts`. Ensure guard functions are composable (e.g. `
 
 **STOP — WAIT**
 
-- [ ] 03.11 Merged to `main` ✅
+- [x] 03.11 Merged to `main` ✅
 
 ---
 
-### 03.12 Post-merge cleanup
+
+
+> **Checklist commit rule:** After marking cycle items as ✅, if those checkmark edits are the only remaining changes, create a separate docs-only commit using docs(tdd): update cycle <step-number> completion checkmarks.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -783,7 +799,9 @@ Review the error handling in `usePicsumGallery.ts` and `fetchJson.ts`. Ensure th
 
 ---
 
-### 04.10 REFACTOR commit
+
+
+> **Cycle rule:** If refactor produces no actual code/file changes, skip this refactor commit step and continue to the next step.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -813,7 +831,9 @@ Review the error handling in `usePicsumGallery.ts` and `fetchJson.ts`. Ensure th
 
 ---
 
-### 04.12 Post-merge cleanup
+
+
+> **Checklist commit rule:** After marking cycle items as ✅, if those checkmark edits are the only remaining changes, create a separate docs-only commit using docs(tdd): update cycle <step-number> completion checkmarks.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -963,7 +983,9 @@ Review `Gallery.tsx` and `GalleryRow.tsx`. Ensure prop types are derived from `P
 
 ---
 
-### 05.10 REFACTOR commit
+
+
+> **Cycle rule:** If refactor produces no actual code/file changes, skip this refactor commit step and continue to the next step.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -993,7 +1015,9 @@ Review `Gallery.tsx` and `GalleryRow.tsx`. Ensure prop types are derived from `P
 
 ---
 
-### 05.12 Post-merge cleanup
+
+
+> **Checklist commit rule:** After marking cycle items as ✅, if those checkmark edits are the only remaining changes, create a separate docs-only commit using docs(tdd): update cycle <step-number> completion checkmarks.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -1141,7 +1165,9 @@ Review `buildPicsumImageUrl.ts`. Ensure the switch on `source.kind` is exhaustiv
 
 ---
 
-### 06.10 REFACTOR commit
+
+
+> **Cycle rule:** If refactor produces no actual code/file changes, skip this refactor commit step and continue to the next step.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -1171,7 +1197,9 @@ Review `buildPicsumImageUrl.ts`. Ensure the switch on `source.kind` is exhaustiv
 
 ---
 
-### 06.12 Post-merge cleanup
+
+
+> **Checklist commit rule:** After marking cycle items as ✅, if those checkmark edits are the only remaining changes, create a separate docs-only commit using docs(tdd): update cycle <step-number> completion checkmarks.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -1318,7 +1346,9 @@ Extract the dimension clamping logic into a small pure helper (e.g. `clampDimens
 
 ---
 
-### 07.10 REFACTOR commit
+
+
+> **Cycle rule:** If refactor produces no actual code/file changes, skip this refactor commit step and continue to the next step.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -1348,7 +1378,9 @@ Extract the dimension clamping logic into a small pure helper (e.g. `clampDimens
 
 ---
 
-### 07.12 Post-merge cleanup
+
+
+> **Checklist commit rule:** After marking cycle items as ✅, if those checkmark edits are the only remaining changes, create a separate docs-only commit using docs(tdd): update cycle <step-number> completion checkmarks.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -1494,7 +1526,9 @@ Extract the query string building logic into a dedicated pure helper (e.g. `buil
 
 ---
 
-### 08.10 REFACTOR commit
+
+
+> **Cycle rule:** If refactor produces no actual code/file changes, skip this refactor commit step and continue to the next step.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -1524,7 +1558,9 @@ Extract the query string building logic into a dedicated pure helper (e.g. `buil
 
 ---
 
-### 08.12 Post-merge cleanup
+
+
+> **Checklist commit rule:** After marking cycle items as ✅, if those checkmark edits are the only remaining changes, create a separate docs-only commit using docs(tdd): update cycle <step-number> completion checkmarks.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -1670,7 +1706,9 @@ If nonce generation logic is inline, extract it to a named helper for clarity. E
 
 ---
 
-### 09.10 REFACTOR commit
+
+
+> **Cycle rule:** If refactor produces no actual code/file changes, skip this refactor commit step and continue to the next step.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -1700,7 +1738,9 @@ If nonce generation logic is inline, extract it to a named helper for clarity. E
 
 ---
 
-### 09.12 Post-merge cleanup
+
+
+> **Checklist commit rule:** After marking cycle items as ✅, if those checkmark edits are the only remaining changes, create a separate docs-only commit using docs(tdd): update cycle <step-number> completion checkmarks.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -1846,7 +1886,9 @@ Verify the switch is fully exhaustive and TypeScript would report a type error i
 
 ---
 
-### 10.10 REFACTOR commit
+
+
+> **Cycle rule:** If refactor produces no actual code/file changes, skip this refactor commit step and continue to the next step.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -1876,7 +1918,9 @@ Verify the switch is fully exhaustive and TypeScript would report a type error i
 
 ---
 
-### 10.12 Post-merge cleanup
+
+
+> **Checklist commit rule:** After marking cycle items as ✅, if those checkmark edits are the only remaining changes, create a separate docs-only commit using docs(tdd): update cycle <step-number> completion checkmarks.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -2022,7 +2066,9 @@ Ensure the read and write concerns in `useLocalStorageState` are cleanly separat
 
 ---
 
-### 11.10 REFACTOR commit
+
+
+> **Cycle rule:** If refactor produces no actual code/file changes, skip this refactor commit step and continue to the next step.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -2052,7 +2098,9 @@ Ensure the read and write concerns in `useLocalStorageState` are cleanly separat
 
 ---
 
-### 11.12 Post-merge cleanup
+
+
+> **Checklist commit rule:** After marking cycle items as ✅, if those checkmark edits are the only remaining changes, create a separate docs-only commit using docs(tdd): update cycle <step-number> completion checkmarks.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -2146,7 +2194,9 @@ Command step. Wait for all three to pass with no errors.
 
 ---
 
-### 12.5 Post-merge cleanup and final log
+
+
+> **Checklist commit rule:** After marking cycle items as ✅, if those checkmark edits are the only remaining changes, create a separate docs-only commit using docs(tdd): update cycle <step-number> completion checkmarks.
 
 1. Ask user in chat to run the following command(s). Do not run via agent.
 2. Run:
@@ -2195,5 +2245,6 @@ Human action. Wait for confirmation all checks are ticked.
 | Squash on `main` | `feat: <completed behavior>` |
 | Fix on `main` | `fix: <corrected behavior>` |
 | Test-only on `main` | `test: <what is covered>` |
+
 
 
