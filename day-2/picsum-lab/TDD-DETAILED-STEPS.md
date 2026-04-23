@@ -190,7 +190,7 @@ Command step. Wait for all tests passing.
 **STOP — WAIT**
 Command step. Wait for commit hash.
 
-- [ ] 01.7 GREEN committed ✅
+- [x] 01.7 GREEN committed ✅
 
 ---
 
@@ -204,7 +204,7 @@ Review `App.tsx` and `PicsumLabPage.tsx` for any naming, structure, or import in
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 01.8 REFACTOR written ✅
+- [x] 01.8 REFACTOR written ✅
 
 ---
 
@@ -219,7 +219,7 @@ Review `App.tsx` and `PicsumLabPage.tsx` for any naming, structure, or import in
 **STOP — WAIT**
 Command step. Wait for all tests passing.
 
-- [ ] 01.9 REFACTOR confirmed ✅
+- [x] 01.9 REFACTOR confirmed ✅
 
 ---
 
