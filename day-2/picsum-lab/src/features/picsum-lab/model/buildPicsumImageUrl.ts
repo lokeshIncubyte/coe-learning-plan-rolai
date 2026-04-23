@@ -1,17 +1,11 @@
 import type { BuildImageUrlInput } from './types'
+import { buildEffectsQuery } from './buildEffectsQuery'
 
 const PICSUM_BASE_URL = 'https://picsum.photos'
 
 export function buildPicsumImageUrl(input: BuildImageUrlInput): string {
   const { source, width, height, effects } = input
-  const queryParts: string[] = []
-  if (effects.grayscale) {
-    queryParts.push('grayscale')
-  }
-  if (effects.blur) {
-    queryParts.push(effects.blurAmount ? `blur=${effects.blurAmount}` : 'blur')
-  }
-  const query = queryParts.length > 0 ? `?${queryParts.join('&')}` : ''
+  const query = buildEffectsQuery(effects)
 
   switch (source.kind) {
     case 'id':
