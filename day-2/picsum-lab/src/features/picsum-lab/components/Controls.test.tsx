@@ -29,4 +29,21 @@ describe('Controls', () => {
 
     expect(onHeightChange).toHaveBeenCalledWith(480)
   })
+
+  it('calls onGrayscaleChange with boolean when grayscale checkbox is toggled', async () => {
+    const user = userEvent.setup()
+    const onGrayscaleChange = vi.fn()
+
+    render(
+      <Controls
+        onWidthChange={vi.fn()}
+        {...({ onGrayscaleChange } as unknown as Record<string, unknown>)}
+      />,
+    )
+
+    const grayscaleCheckbox = screen.getByRole('checkbox', { name: /grayscale/i })
+    await user.click(grayscaleCheckbox)
+
+    expect(onGrayscaleChange).toHaveBeenCalledWith(true)
+  })
 })
