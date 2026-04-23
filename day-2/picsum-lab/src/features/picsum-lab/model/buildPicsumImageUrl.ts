@@ -4,12 +4,14 @@ const PICSUM_BASE_URL = 'https://picsum.photos'
 
 export function buildPicsumImageUrl(input: BuildImageUrlInput): string {
   const { source, width, height, effects } = input
-  let query = ''
+  const queryParts: string[] = []
   if (effects.grayscale) {
-    query = '?grayscale'
-  } else if (effects.blur) {
-    query = effects.blurAmount ? `?blur=${effects.blurAmount}` : '?blur'
+    queryParts.push('grayscale')
   }
+  if (effects.blur) {
+    queryParts.push(effects.blurAmount ? `blur=${effects.blurAmount}` : 'blur')
+  }
+  const query = queryParts.length > 0 ? `?${queryParts.join('&')}` : ''
 
   switch (source.kind) {
     case 'id':
