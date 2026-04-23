@@ -31,7 +31,7 @@ Scaffold the React + TypeScript app and confirm tests can run.
 **STOP — WAIT**
 Command step. Wait for console output confirming installation completes without errors.
 
-- [ ] 00.1 App scaffold ✅
+- [x] 00.1 App scaffold ✅
 
 ---
 
@@ -46,7 +46,7 @@ Command step. Wait for console output confirming installation completes without 
 **STOP — WAIT**
 Command step. Wait for install output with no errors.
 
-- [ ] 00.2 Test dependencies installed ✅
+- [x] 00.2 Test dependencies installed ✅
 
 ---
 
@@ -60,7 +60,7 @@ Configure Vitest for a React + TypeScript project. Update `vite.config.ts` to ad
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 00.3 Test config written ✅
+- [x] 00.3 Test config written ✅
 
 ---
 
@@ -75,7 +75,7 @@ Configure Vitest for a React + TypeScript project. Update `vite.config.ts` to ad
 **STOP — WAIT**
 Command step. Wait for output confirming the test runner starts (0 tests passing is fine at this stage; no crash).
 
-- [ ] 00.4 Test runner confirmed ✅
+- [x] 00.4 Test runner confirmed ✅
 
 ---
 
