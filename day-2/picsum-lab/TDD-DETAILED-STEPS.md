@@ -485,7 +485,7 @@ Human action + command. Wait for merge confirmation.
 **STOP — WAIT**
 Command step. Wait for log output.
 
-- [ ] 02.12 Cleanup done ✅
+- [x] 02.12 Cleanup done ✅
 
 ---
 
@@ -508,7 +508,7 @@ Gallery shows list of photos after successful fetch.
 
 **STOP — WAIT**
 
-- [ ] 03.1 Branch created ✅
+- [x] 03.1 Branch created ✅
 
 ---
 
@@ -523,7 +523,7 @@ Add a new test to `usePicsumGallery.test.ts`. Mock `fetch` to return a valid JSO
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 03.2 RED test written ✅
+- [x] 03.2 RED test written ✅
 
 ---
 
@@ -535,7 +535,7 @@ Add a new test to `usePicsumGallery.test.ts`. Mock `fetch` to return a valid JSO
 **STOP — WAIT**
 Wait for expected failure.
 
-- [ ] 03.3 RED confirmed ✅
+- [x] 03.3 RED confirmed ✅
 
 ---
 
@@ -550,7 +550,7 @@ Wait for expected failure.
 
 **STOP — WAIT**
 
-- [ ] 03.4 RED committed ✅
+- [x] 03.4 RED committed ✅
 
 ---
 
@@ -566,7 +566,7 @@ Create `src/features/picsum-lab/model/types.ts` with `PicsumPhoto`, `PicsumListR
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 03.5 GREEN code written ✅
+- [x] 03.5 GREEN code written ✅
 
 ---
 
@@ -577,7 +577,7 @@ Create `src/features/picsum-lab/model/types.ts` with `PicsumPhoto`, `PicsumListR
 
 **STOP — WAIT**
 
-- [ ] 03.6 GREEN confirmed ✅
+- [x] 03.6 GREEN confirmed ✅
 
 ---
 
@@ -592,7 +592,7 @@ Create `src/features/picsum-lab/model/types.ts` with `PicsumPhoto`, `PicsumListR
 
 **STOP — WAIT**
 
-- [ ] 03.7 GREEN committed ✅
+- [x] 03.7 GREEN committed ✅
 
 ---
 
@@ -606,6 +606,8 @@ Review `guards.ts` and `types.ts`. Ensure guard functions are composable (e.g. `
 
 **NO STOP** — Agent-owned. Continues automatically.
 
+- [x] 03.8 REFACTOR written ✅
+
 ---
 
 ### 03.9 REFACTOR proof run
@@ -615,7 +617,7 @@ Review `guards.ts` and `types.ts`. Ensure guard functions are composable (e.g. `
 
 **STOP — WAIT**
 
-- [ ] 03.9 REFACTOR confirmed ✅
+- [x] 03.9 REFACTOR confirmed ✅
 
 ---
 
