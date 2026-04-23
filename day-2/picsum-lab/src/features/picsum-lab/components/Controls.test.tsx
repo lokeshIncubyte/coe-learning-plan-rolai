@@ -29,4 +29,28 @@ describe('Controls', () => {
 
     expect(onHeightChange).toHaveBeenCalledWith(480)
   })
+
+  it('calls onGrayscaleChange with boolean when grayscale checkbox is toggled', async () => {
+    const user = userEvent.setup()
+    const onGrayscaleChange = vi.fn()
+
+    render(<Controls onWidthChange={vi.fn()} onGrayscaleChange={onGrayscaleChange} />)
+
+    const grayscaleCheckbox = screen.getByRole('checkbox', { name: /grayscale/i })
+    await user.click(grayscaleCheckbox)
+
+    expect(onGrayscaleChange).toHaveBeenCalledWith(true)
+  })
+
+  it('calls onBlurChange with boolean when blur checkbox is toggled', async () => {
+    const user = userEvent.setup()
+    const onBlurChange = vi.fn()
+
+    render(<Controls onWidthChange={vi.fn()} onBlurChange={onBlurChange} />)
+
+    const blurCheckbox = screen.getByRole('checkbox', { name: /blur/i })
+    await user.click(blurCheckbox)
+
+    expect(onBlurChange).toHaveBeenCalledWith(true)
+  })
 })
