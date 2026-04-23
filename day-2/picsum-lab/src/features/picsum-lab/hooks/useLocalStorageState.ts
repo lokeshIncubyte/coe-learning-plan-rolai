@@ -15,7 +15,13 @@ export function useLocalStorageState<T, TStored extends StoredWithData<T>>(
       return defaults
     }
 
-    const parsed: unknown = JSON.parse(raw)
+    let parsed: unknown
+    try {
+      parsed = JSON.parse(raw)
+    } catch {
+      return defaults
+    }
+
     if (!validate(parsed)) {
       return defaults
     }
