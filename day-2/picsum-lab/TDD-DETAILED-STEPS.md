@@ -390,7 +390,7 @@ Command step. Wait for all tests passing.
 **STOP — WAIT**
 Command step. Wait for commit hash.
 
-- [ ] 02.7 GREEN committed ✅
+- [x] 02.7 GREEN committed ✅
 
 ---
 
@@ -404,7 +404,7 @@ Review `usePicsumGallery.ts` and `fetchJson.ts`. Ensure they sit in the correct 
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 02.8 REFACTOR written ✅
+- [x] 02.8 REFACTOR written ✅
 
 ---
 
@@ -419,7 +419,7 @@ Review `usePicsumGallery.ts` and `fetchJson.ts`. Ensure they sit in the correct 
 **STOP — WAIT**
 Command step. Wait for all tests passing.
 
-- [ ] 02.9 REFACTOR confirmed ✅
+- [x] 02.9 REFACTOR confirmed ✅
 
 ---
 
