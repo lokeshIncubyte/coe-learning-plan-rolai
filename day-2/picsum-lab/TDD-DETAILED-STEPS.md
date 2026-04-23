@@ -473,7 +473,7 @@ Human action + command. Wait for merge confirmation.
 **STOP — WAIT**
 Command step. Wait for log output.
 
-- [ ] 02.12 Cleanup done ✅
+- [x] 02.12 Cleanup done ✅
 
 ---
 
@@ -496,7 +496,7 @@ Gallery shows list of photos after successful fetch.
 
 **STOP — WAIT**
 
-- [ ] 03.1 Branch created ✅
+- [x] 03.1 Branch created ✅
 
 ---
 
@@ -511,7 +511,7 @@ Add a new test to `usePicsumGallery.test.ts`. Mock `fetch` to return a valid JSO
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 03.2 RED test written ✅
+- [x] 03.2 RED test written ✅
 
 ---
 
@@ -523,7 +523,7 @@ Add a new test to `usePicsumGallery.test.ts`. Mock `fetch` to return a valid JSO
 **STOP — WAIT**
 Wait for expected failure.
 
-- [ ] 03.3 RED confirmed ✅
+- [x] 03.3 RED confirmed ✅
 
 ---
 
