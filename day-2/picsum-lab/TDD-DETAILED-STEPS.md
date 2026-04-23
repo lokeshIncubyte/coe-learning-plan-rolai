@@ -344,7 +344,7 @@ Command step. Wait for expected failure output.
 **STOP — WAIT**
 Command step. Wait for commit hash.
 
-- [ ] 02.4 RED committed ✅
+- [x] 02.4 RED committed ✅
 
 ---
 
@@ -359,7 +359,7 @@ Create `src/features/picsum-lab/hooks/usePicsumGallery.ts` and `src/features/pic
 
 **NO STOP** — Agent-owned. Continues automatically.
 
-- [ ] 02.5 GREEN code written ✅
+- [x] 02.5 GREEN code written ✅
 
 ---
 
@@ -374,7 +374,7 @@ Create `src/features/picsum-lab/hooks/usePicsumGallery.ts` and `src/features/pic
 **STOP — WAIT**
 Command step. Wait for all tests passing.
 
-- [ ] 02.6 GREEN confirmed ✅
+- [x] 02.6 GREEN confirmed ✅
 
 ---
 
