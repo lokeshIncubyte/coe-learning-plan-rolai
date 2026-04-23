@@ -73,4 +73,19 @@ describe('buildPicsumImageUrl', () => {
     expect(url).toContain('grayscale')
     expect(url).toContain('blur')
   })
+
+  it('appends random query param when randomNonce is provided', () => {
+    const url = buildPicsumImageUrl({
+      source: { kind: 'id', id: '0' },
+      width: 400,
+      height: 300,
+      effects: {
+        grayscale: false,
+        blur: false,
+      },
+      randomNonce: 42,
+    })
+
+    expect(url).toContain('random=42')
+  })
 })
