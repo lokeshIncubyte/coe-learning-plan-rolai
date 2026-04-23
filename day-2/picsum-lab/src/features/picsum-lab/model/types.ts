@@ -33,3 +33,14 @@ export type BuildImageUrlInput = {
   effects: ImageEffects
   randomNonce?: number
 }
+
+export type PicsumLabPrefsData = {
+  width: number
+  height: number
+}
+
+export type StoredPicsumLabPrefsV1 = {
+  version: 1
+  savedAt: string
+  data: PicsumLabPrefsData
+}

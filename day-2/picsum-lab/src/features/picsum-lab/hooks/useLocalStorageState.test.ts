@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { useLocalStorageState } from './useLocalStorageState'
 
 type PrefsData = {
@@ -14,6 +14,26 @@ type StoredPrefsV1 = {
 }
 
 describe('useLocalStorageState', () => {
+  beforeEach(() => {
+    const storage = new Map<string, string>()
+
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      value: {
+        getItem: (key: string) => storage.get(key) ?? null,
+        setItem: (key: string, value: string) => {
+          storage.set(key, value)
+        },
+        removeItem: (key: string) => {
+          storage.delete(key)
+        },
+        clear: () => {
+          storage.clear()
+        },
+      },
+    })
+  })
+
   it('returns stored data when localStorage contains a valid StoredPrefsV1 blob', () => {
     const key = 'picsum-lab-prefs'
     const defaults: PrefsData = { width: 400, height: 300 }
