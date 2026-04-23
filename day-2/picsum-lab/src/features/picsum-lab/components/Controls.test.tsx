@@ -34,12 +34,7 @@ describe('Controls', () => {
     const user = userEvent.setup()
     const onGrayscaleChange = vi.fn()
 
-    render(
-      <Controls
-        onWidthChange={vi.fn()}
-        {...({ onGrayscaleChange } as unknown as Record<string, unknown>)}
-      />,
-    )
+    render(<Controls onWidthChange={vi.fn()} onGrayscaleChange={onGrayscaleChange} />)
 
     const grayscaleCheckbox = screen.getByRole('checkbox', { name: /grayscale/i })
     await user.click(grayscaleCheckbox)
