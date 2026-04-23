@@ -1,4 +1,5 @@
 import type { PicsumPhoto } from '../model/types'
+import { GalleryRow } from './GalleryRow'
 
 type GalleryProps = {
   photos: PicsumPhoto[]
@@ -11,14 +12,15 @@ export function Gallery({ photos, selectedPhotoId, onSelectPhoto }: GalleryProps
     <ul>
       {photos.map((photo) => (
         <li key={photo.id}>
-          <button
-            type="button"
-            aria-pressed={selectedPhotoId === photo.id}
-            onClick={() => onSelectPhoto(photo)}
-          >
-            <span>{photo.id}</span>
-            <span>{photo.author}</span>
-          </button>
+          <GalleryRow
+            photo={{
+              id: photo.id,
+              author: photo.author,
+              download_url: photo.download_url,
+            }}
+            isSelected={selectedPhotoId === photo.id}
+            onSelectPhoto={() => onSelectPhoto(photo)}
+          />
         </li>
       ))}
     </ul>
