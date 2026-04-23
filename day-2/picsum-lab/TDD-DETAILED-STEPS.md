@@ -1,10 +1,11 @@
-# Picsum Lab — Detailed TDD Execution Steps
+﻿# Picsum Lab — Detailed TDD Execution Steps
 
 Each cycle covers one behavior. The agent writes all code. Stop points exist only for commands and PR actions that require console output or human approval. Mark each step ✅ when done.
 
 **Rules**
 - Agent writes all code — no stops for coding steps.
 - Stop only for: commands, PR actions, human approval.
+- For any command step, provide commands in chat first and wait for explicit approval before executing.
 - `main` must always stay green.
 - Merge after every completed cycle.
 
@@ -19,7 +20,8 @@ Scaffold the React + TypeScript app and confirm tests can run.
 
 ### 00.1 Scaffold the app
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    npm create vite@latest picsum-lab -- --template react-ts
    cd picsum-lab
@@ -35,7 +37,8 @@ Command step. Wait for console output confirming installation completes without 
 
 ### 00.2 Install test dependencies
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    npm install -D vitest @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
    ```
@@ -63,7 +66,8 @@ Configure Vitest for a React + TypeScript project. Update `vite.config.ts` to ad
 
 ### 00.4 Confirm test runner works
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    npm test
    ```
@@ -72,24 +76,6 @@ Configure Vitest for a React + TypeScript project. Update `vite.config.ts` to ad
 Command step. Wait for output confirming the test runner starts (0 tests passing is fine at this stage; no crash).
 
 - [ ] 00.4 Test runner confirmed ✅
-
----
-
-### 00.5 Initialise git and push initial commit
-
-1. Run:
-   ```
-   git init
-   git add .
-   git commit -m "chore: scaffold Picsum Lab with Vite React TS and Vitest"
-   git remote add origin <your-github-repo-url>
-   git push -u origin main
-   ```
-
-**STOP — WAIT**
-Command step + human provides repo URL. Wait for push confirmation.
-
-- [ ] 00.5 Initial commit pushed to `main` ✅
 
 ---
 
@@ -102,7 +88,8 @@ App boots and renders Gallery, Controls, and Preview sections.
 
 ### 01.1 Branch setup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git checkout main
    git pull
@@ -133,7 +120,8 @@ Create `src/features/picsum-lab/components/PicsumLabPage.test.tsx`. Write one te
 
 ### 01.3 RED proof run
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    npm test
    ```
@@ -147,7 +135,8 @@ Command step. Wait for output showing new test fails as expected.
 
 ### 01.4 RED commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "red: app shell renders gallery, controls and preview sections"
@@ -176,7 +165,8 @@ Create `src/app/App.tsx` and `src/features/picsum-lab/components/PicsumLabPage.t
 
 ### 01.6 GREEN proof run
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    npm test
    ```
@@ -190,7 +180,8 @@ Command step. Wait for all tests passing.
 
 ### 01.7 GREEN commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "green: app shell renders gallery, controls and preview sections"
@@ -219,7 +210,8 @@ Review `App.tsx` and `PicsumLabPage.tsx` for any naming, structure, or import in
 
 ### 01.9 REFACTOR proof run
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    npm test
    ```
@@ -233,7 +225,8 @@ Command step. Wait for all tests passing.
 
 ### 01.10 REFACTOR commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "refactor: clean up app shell structure"
@@ -248,7 +241,8 @@ Command step. Wait for commit hash.
 
 ### 01.11 PR + squash merge
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git push -u origin tdd/app-shell-renders
    ```
@@ -267,7 +261,8 @@ Human action + command. Wait for push confirmation then PR merge confirmation.
 
 ### 01.12 Post-merge cleanup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git checkout main
    git pull
@@ -292,7 +287,8 @@ Gallery shows loading state while the request is in flight.
 
 ### 02.1 Branch setup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git checkout main
    git pull
@@ -323,7 +319,8 @@ Create `src/features/picsum-lab/hooks/usePicsumGallery.test.ts`. Write one test 
 
 ### 02.3 RED proof run
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    npm test
    ```
@@ -337,7 +334,8 @@ Command step. Wait for expected failure output.
 
 ### 02.4 RED commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "red: show loading state while gallery request is in flight"
@@ -367,7 +365,8 @@ Create `src/features/picsum-lab/hooks/usePicsumGallery.ts` and `src/features/pic
 
 ### 02.6 GREEN proof run
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    npm test
    ```
@@ -381,7 +380,8 @@ Command step. Wait for all tests passing.
 
 ### 02.7 GREEN commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "green: set gallery status to loading before request resolves"
@@ -410,7 +410,8 @@ Review `usePicsumGallery.ts` and `fetchJson.ts`. Ensure they sit in the correct 
 
 ### 02.9 REFACTOR proof run
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    npm test
    ```
@@ -424,7 +425,8 @@ Command step. Wait for all tests passing.
 
 ### 02.10 REFACTOR commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "refactor: simplify gallery fetch status transitions"
@@ -439,7 +441,8 @@ Command step. Wait for commit hash.
 
 ### 02.11 PR + squash merge
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git push -u origin tdd/gallery-fetch-loading-state
    ```
@@ -457,7 +460,8 @@ Human action + command. Wait for merge confirmation.
 
 ### 02.12 Post-merge cleanup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git checkout main
    git pull
@@ -482,7 +486,8 @@ Gallery shows list of photos after successful fetch.
 
 ### 03.1 Branch setup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git checkout main
    git pull
@@ -512,7 +517,8 @@ Add a new test to `usePicsumGallery.test.ts`. Mock `fetch` to return a valid JSO
 
 ### 03.3 RED proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 Wait for expected failure.
@@ -523,7 +529,8 @@ Wait for expected failure.
 
 ### 03.4 RED commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "red: set gallery status to success with photos on valid response"
@@ -553,7 +560,8 @@ Create `src/features/picsum-lab/model/types.ts` with `PicsumPhoto`, `PicsumListR
 
 ### 03.6 GREEN proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -563,7 +571,8 @@ Create `src/features/picsum-lab/model/types.ts` with `PicsumPhoto`, `PicsumListR
 
 ### 03.7 GREEN commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "green: set gallery status to success with validated photos array"
@@ -589,7 +598,8 @@ Review `guards.ts` and `types.ts`. Ensure guard functions are composable (e.g. `
 
 ### 03.9 REFACTOR proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -599,7 +609,8 @@ Review `guards.ts` and `types.ts`. Ensure guard functions are composable (e.g. `
 
 ### 03.10 REFACTOR commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "refactor: extract photo list parsing into guard helper"
@@ -613,7 +624,8 @@ Review `guards.ts` and `types.ts`. Ensure guard functions are composable (e.g. `
 
 ### 03.11 PR + squash merge
 
-1. Run: `git push -u origin tdd/gallery-fetch-success`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `git push -u origin tdd/gallery-fetch-success`
 2. Open PR. Squash and merge:
    ```
    feat: populate gallery with validated photo list on success
@@ -627,9 +639,11 @@ Review `guards.ts` and `types.ts`. Ensure guard functions are composable (e.g. `
 
 ### 03.12 Post-merge cleanup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git branch -d tdd/gallery-fetch-success
    git push origin --delete tdd/gallery-fetch-success
    git log --oneline -n 5
@@ -650,9 +664,11 @@ Gallery shows error message when fetch fails or payload is invalid.
 
 ### 04.1 Branch setup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git checkout -b tdd/gallery-fetch-error
    ```
 
@@ -679,7 +695,8 @@ Add two tests to `usePicsumGallery.test.ts`. First: mock `fetch` to reject (netw
 
 ### 04.3 RED proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -689,7 +706,8 @@ Add two tests to `usePicsumGallery.test.ts`. First: mock `fetch` to reject (netw
 
 ### 04.4 RED commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "red: set gallery status to error on network failure or invalid payload"
@@ -718,7 +736,8 @@ Update `usePicsumGallery.ts` to wrap the fetch + parse in a `try/catch`. On any 
 
 ### 04.6 GREEN proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -728,7 +747,8 @@ Update `usePicsumGallery.ts` to wrap the fetch + parse in a `try/catch`. On any 
 
 ### 04.7 GREEN commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "green: transition gallery to error state on fetch failure or bad payload"
@@ -754,7 +774,8 @@ Review the error handling in `usePicsumGallery.ts` and `fetchJson.ts`. Ensure th
 
 ### 04.9 REFACTOR proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -764,7 +785,8 @@ Review the error handling in `usePicsumGallery.ts` and `fetchJson.ts`. Ensure th
 
 ### 04.10 REFACTOR commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "refactor: unify error mapping across fetch and parse failures"
@@ -778,7 +800,8 @@ Review the error handling in `usePicsumGallery.ts` and `fetchJson.ts`. Ensure th
 
 ### 04.11 PR + squash merge
 
-1. Run: `git push -u origin tdd/gallery-fetch-error`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `git push -u origin tdd/gallery-fetch-error`
 2. Squash and merge:
    ```
    feat: handle gallery fetch errors from network and invalid payload
@@ -792,9 +815,11 @@ Review the error handling in `usePicsumGallery.ts` and `fetchJson.ts`. Ensure th
 
 ### 04.12 Post-merge cleanup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git branch -d tdd/gallery-fetch-error
    git push origin --delete tdd/gallery-fetch-error
    git log --oneline -n 5
@@ -815,9 +840,11 @@ Gallery renders rows; clicking a row marks it selected.
 
 ### 05.1 Branch setup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git checkout -b tdd/gallery-rows-selection
    ```
 
@@ -846,7 +873,8 @@ Create `src/features/picsum-lab/components/Gallery.test.tsx` and `src/features/p
 
 ### 05.3 RED proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -856,7 +884,8 @@ Create `src/features/picsum-lab/components/Gallery.test.tsx` and `src/features/p
 
 ### 05.4 RED commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "red: gallery renders rows and calls onSelectPhoto on click"
@@ -886,7 +915,8 @@ Create `src/features/picsum-lab/components/Gallery.tsx` and `src/features/picsum
 
 ### 05.6 GREEN proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -896,7 +926,8 @@ Create `src/features/picsum-lab/components/Gallery.tsx` and `src/features/picsum
 
 ### 05.7 GREEN commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "green: render gallery rows and emit selection callback"
@@ -923,7 +954,8 @@ Review `Gallery.tsx` and `GalleryRow.tsx`. Ensure prop types are derived from `P
 
 ### 05.9 REFACTOR proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -933,7 +965,8 @@ Review `Gallery.tsx` and `GalleryRow.tsx`. Ensure prop types are derived from `P
 
 ### 05.10 REFACTOR commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "refactor: separate row selection prop drilling from Gallery state"
@@ -947,7 +980,8 @@ Review `Gallery.tsx` and `GalleryRow.tsx`. Ensure prop types are derived from `P
 
 ### 05.11 PR + squash merge
 
-1. Run: `git push -u origin tdd/gallery-rows-selection`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `git push -u origin tdd/gallery-rows-selection`
 2. Squash and merge:
    ```
    feat: render selectable gallery rows with author and id
@@ -961,9 +995,11 @@ Review `Gallery.tsx` and `GalleryRow.tsx`. Ensure prop types are derived from `P
 
 ### 05.12 Post-merge cleanup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git branch -d tdd/gallery-rows-selection
    git push origin --delete tdd/gallery-rows-selection
    git log --oneline -n 5
@@ -984,9 +1020,11 @@ Selecting a row updates the preview image using a typed URL for that id.
 
 ### 06.1 Branch setup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git checkout -b tdd/preview-url-builder-id
    ```
 
@@ -1014,7 +1052,8 @@ Create `src/features/picsum-lab/model/buildPicsumImageUrl.test.ts`. Write tests 
 
 ### 06.3 RED proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1024,7 +1063,8 @@ Create `src/features/picsum-lab/model/buildPicsumImageUrl.test.ts`. Write tests 
 
 ### 06.4 RED commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "red: build preview URL from selected photo id with width and height"
@@ -1054,7 +1094,8 @@ Create `src/features/picsum-lab/model/buildPicsumImageUrl.ts`. It accepts `Build
 
 ### 06.6 GREEN proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1064,7 +1105,8 @@ Create `src/features/picsum-lab/model/buildPicsumImageUrl.ts`. It accepts `Build
 
 ### 06.7 GREEN commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "green: build correct Picsum id URL and render in Preview"
@@ -1090,7 +1132,8 @@ Review `buildPicsumImageUrl.ts`. Ensure the switch on `source.kind` is exhaustiv
 
 ### 06.9 REFACTOR proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1100,7 +1143,8 @@ Review `buildPicsumImageUrl.ts`. Ensure the switch on `source.kind` is exhaustiv
 
 ### 06.10 REFACTOR commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "refactor: simplify URL path composition in builder"
@@ -1114,7 +1158,8 @@ Review `buildPicsumImageUrl.ts`. Ensure the switch on `source.kind` is exhaustiv
 
 ### 06.11 PR + squash merge
 
-1. Run: `git push -u origin tdd/preview-url-builder-id`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `git push -u origin tdd/preview-url-builder-id`
 2. Squash and merge:
    ```
    feat: generate and display Picsum image URL from selected photo id
@@ -1128,9 +1173,11 @@ Review `buildPicsumImageUrl.ts`. Ensure the switch on `source.kind` is exhaustiv
 
 ### 06.12 Post-merge cleanup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git branch -d tdd/preview-url-builder-id
    git push origin --delete tdd/preview-url-builder-id
    git log --oneline -n 5
@@ -1151,9 +1198,11 @@ Width and height inputs update the preview URL; invalid values are clamped/rejec
 
 ### 07.1 Branch setup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git checkout -b tdd/size-controls
    ```
 
@@ -1181,7 +1230,8 @@ Create or update `src/features/picsum-lab/components/Controls.test.tsx`. Write t
 
 ### 07.3 RED proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1191,7 +1241,8 @@ Create or update `src/features/picsum-lab/components/Controls.test.tsx`. Write t
 
 ### 07.4 RED commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "red: width and height inputs update preview URL and reject invalid values"
@@ -1220,7 +1271,8 @@ Create `src/features/picsum-lab/components/Controls.tsx`. Add a width input and 
 
 ### 07.6 GREEN proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1230,7 +1282,8 @@ Create `src/features/picsum-lab/components/Controls.tsx`. Add a width input and 
 
 ### 07.7 GREEN commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "green: update preview URL from width and height with value clamping"
@@ -1256,7 +1309,8 @@ Extract the dimension clamping logic into a small pure helper (e.g. `clampDimens
 
 ### 07.9 REFACTOR proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1266,7 +1320,8 @@ Extract the dimension clamping logic into a small pure helper (e.g. `clampDimens
 
 ### 07.10 REFACTOR commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "refactor: centralise dimension validation logic"
@@ -1280,7 +1335,8 @@ Extract the dimension clamping logic into a small pure helper (e.g. `clampDimens
 
 ### 07.11 PR + squash merge
 
-1. Run: `git push -u origin tdd/size-controls`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `git push -u origin tdd/size-controls`
 2. Squash and merge:
    ```
    feat: add width and height controls that update preview URL
@@ -1294,9 +1350,11 @@ Extract the dimension clamping logic into a small pure helper (e.g. `clampDimens
 
 ### 07.12 Post-merge cleanup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git branch -d tdd/size-controls
    git push origin --delete tdd/size-controls
    git log --oneline -n 5
@@ -1317,9 +1375,11 @@ Grayscale and blur toggles correctly append/remove query params in the URL.
 
 ### 08.1 Branch setup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git checkout -b tdd/effects-controls
    ```
 
@@ -1346,7 +1406,8 @@ Add tests to `buildPicsumImageUrl.test.ts` covering: (1) `effects.grayscale = tr
 
 ### 08.3 RED proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1356,7 +1417,8 @@ Add tests to `buildPicsumImageUrl.test.ts` covering: (1) `effects.grayscale = tr
 
 ### 08.4 RED commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "red: grayscale and blur params append and remove correctly in URL"
@@ -1385,7 +1447,8 @@ Update `buildPicsumImageUrl.ts` to build a query string from `effects`: append `
 
 ### 08.6 GREEN proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1395,7 +1458,8 @@ Update `buildPicsumImageUrl.ts` to build a query string from `effects`: append `
 
 ### 08.7 GREEN commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "green: append grayscale and blur query params based on effect state"
@@ -1421,7 +1485,8 @@ Extract the query string building logic into a dedicated pure helper (e.g. `buil
 
 ### 08.9 REFACTOR proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1431,7 +1496,8 @@ Extract the query string building logic into a dedicated pure helper (e.g. `buil
 
 ### 08.10 REFACTOR commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "refactor: extract query param builder from URL composer"
@@ -1445,7 +1511,8 @@ Extract the query string building logic into a dedicated pure helper (e.g. `buil
 
 ### 08.11 PR + squash merge
 
-1. Run: `git push -u origin tdd/effects-controls`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `git push -u origin tdd/effects-controls`
 2. Squash and merge:
    ```
    feat: add grayscale and blur effect controls with correct query params
@@ -1459,9 +1526,11 @@ Extract the query string building logic into a dedicated pure helper (e.g. `buil
 
 ### 08.12 Post-merge cleanup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git branch -d tdd/effects-controls
    git push origin --delete tdd/effects-controls
    git log --oneline -n 5
@@ -1482,9 +1551,11 @@ A refresh action appends `?random={n}` to force the image to reload.
 
 ### 09.1 Branch setup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git checkout -b tdd/random-cache-bust
    ```
 
@@ -1511,7 +1582,8 @@ Add a test to `buildPicsumImageUrl.test.ts` asserting that when `randomNonce: 42
 
 ### 09.3 RED proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1521,7 +1593,8 @@ Add a test to `buildPicsumImageUrl.test.ts` asserting that when `randomNonce: 42
 
 ### 09.4 RED commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "red: random nonce appended to URL for cache-busting"
@@ -1550,7 +1623,8 @@ Update the query string builder (from step 08 refactor) to include `random={rand
 
 ### 09.6 GREEN proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1560,7 +1634,8 @@ Update the query string builder (from step 08 refactor) to include `random={rand
 
 ### 09.7 GREEN commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "green: append random nonce to URL to bust image cache on refresh"
@@ -1586,7 +1661,8 @@ If nonce generation logic is inline, extract it to a named helper for clarity. E
 
 ### 09.9 REFACTOR proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1596,7 +1672,8 @@ If nonce generation logic is inline, extract it to a named helper for clarity. E
 
 ### 09.10 REFACTOR commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "refactor: move nonce generation to dedicated helper"
@@ -1610,7 +1687,8 @@ If nonce generation logic is inline, extract it to a named helper for clarity. E
 
 ### 09.11 PR + squash merge
 
-1. Run: `git push -u origin tdd/random-cache-bust`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `git push -u origin tdd/random-cache-bust`
 2. Squash and merge:
    ```
    feat: add random nonce to image URL for cache-busting on refresh
@@ -1624,9 +1702,11 @@ If nonce generation logic is inline, extract it to a named helper for clarity. E
 
 ### 09.12 Post-merge cleanup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git branch -d tdd/random-cache-bust
    git push origin --delete tdd/random-cache-bust
    git log --oneline -n 5
@@ -1647,9 +1727,11 @@ URL builder handles `seed` and `random` source kinds with correct path patterns.
 
 ### 10.1 Branch setup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git checkout -b tdd/source-variants
    ```
 
@@ -1676,7 +1758,8 @@ Add tests to `buildPicsumImageUrl.test.ts` for the two remaining `ImageSource` v
 
 ### 10.3 RED proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1686,7 +1769,8 @@ Add tests to `buildPicsumImageUrl.test.ts` for the two remaining `ImageSource` v
 
 ### 10.4 RED commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "red: URL builder handles seed and random source variants"
@@ -1715,7 +1799,8 @@ Update the `switch (source.kind)` in `buildPicsumImageUrl.ts` to handle all thre
 
 ### 10.6 GREEN proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1725,7 +1810,8 @@ Update the `switch (source.kind)` in `buildPicsumImageUrl.ts` to handle all thre
 
 ### 10.7 GREEN commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "green: generate correct URL paths for seed and random source kinds"
@@ -1751,7 +1837,8 @@ Verify the switch is fully exhaustive and TypeScript would report a type error i
 
 ### 10.9 REFACTOR proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1761,7 +1848,8 @@ Verify the switch is fully exhaustive and TypeScript would report a type error i
 
 ### 10.10 REFACTOR commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "refactor: use exhaustive switch for source kind path building"
@@ -1775,7 +1863,8 @@ Verify the switch is fully exhaustive and TypeScript would report a type error i
 
 ### 10.11 PR + squash merge
 
-1. Run: `git push -u origin tdd/source-variants`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `git push -u origin tdd/source-variants`
 2. Squash and merge:
    ```
    feat: support seed and random image source modes in URL builder
@@ -1789,9 +1878,11 @@ Verify the switch is fully exhaustive and TypeScript would report a type error i
 
 ### 10.12 Post-merge cleanup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git branch -d tdd/source-variants
    git push origin --delete tdd/source-variants
    git log --oneline -n 5
@@ -1812,9 +1903,11 @@ User preferences are saved and restored across reload; corrupt data falls back s
 
 ### 11.1 Branch setup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git checkout -b tdd/localstorage-persistence
    ```
 
@@ -1841,7 +1934,8 @@ Create `src/features/picsum-lab/hooks/useLocalStorageState.test.ts`. Write three
 
 ### 11.3 RED proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1851,7 +1945,8 @@ Create `src/features/picsum-lab/hooks/useLocalStorageState.test.ts`. Write three
 
 ### 11.4 RED commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "red: hydrate user prefs from localStorage and fall back on corrupt data"
@@ -1880,7 +1975,8 @@ Create `src/features/picsum-lab/hooks/useLocalStorageState.ts` as a generic hook
 
 ### 11.6 GREEN proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1890,7 +1986,8 @@ Create `src/features/picsum-lab/hooks/useLocalStorageState.ts` as a generic hook
 
 ### 11.7 GREEN commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "green: restore valid prefs from localStorage with safe fallback on invalid data"
@@ -1916,7 +2013,8 @@ Ensure the read and write concerns in `useLocalStorageState` are cleanly separat
 
 ### 11.9 REFACTOR proof run
 
-1. Run: `npm test`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `npm test`
 
 **STOP — WAIT**
 
@@ -1926,7 +2024,8 @@ Ensure the read and write concerns in `useLocalStorageState` are cleanly separat
 
 ### 11.10 REFACTOR commit
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "refactor: separate storage read/write from hydration logic"
@@ -1940,7 +2039,8 @@ Ensure the read and write concerns in `useLocalStorageState` are cleanly separat
 
 ### 11.11 PR + squash merge
 
-1. Run: `git push -u origin tdd/localstorage-persistence`
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run: `git push -u origin tdd/localstorage-persistence`
 2. Squash and merge:
    ```
    feat: persist and restore user preferences via localStorage with safe fallback
@@ -1954,9 +2054,11 @@ Ensure the read and write concerns in `useLocalStorageState` are cleanly separat
 
 ### 11.12 Post-merge cleanup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git branch -d tdd/localstorage-persistence
    git push origin --delete tdd/localstorage-persistence
    git log --oneline -n 5
@@ -1977,9 +2079,11 @@ All flows work end to end. No open branches. `main` is fully green.
 
 ### 12.1 Branch setup
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git checkout -b tdd/final-integration
    ```
 
@@ -2007,7 +2111,8 @@ Review all five user stories in `user-stories.md` and all flows in the architect
 
 ### 12.3 Full test + build + typecheck run
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    npm test
    npm run build
@@ -2023,7 +2128,8 @@ Command step. Wait for all three to pass with no errors.
 
 ### 12.4 Commit and squash merge
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
    git add .
    git commit -m "test(integration): add end-to-end coverage for all Picsum Lab flows"
@@ -2042,9 +2148,11 @@ Command step. Wait for all three to pass with no errors.
 
 ### 12.5 Post-merge cleanup and final log
 
-1. Run:
+1. Ask user in chat to run the following command(s). Do not run via agent.
+2. Run:
    ```
-   git checkout main && git pull
+   git checkout main
+   git pull
    git branch -d tdd/final-integration
    git push origin --delete tdd/final-integration
    git log --oneline -n 20
@@ -2087,3 +2195,5 @@ Human action. Wait for confirmation all checks are ticked.
 | Squash on `main` | `feat: <completed behavior>` |
 | Fix on `main` | `fix: <corrected behavior>` |
 | Test-only on `main` | `test: <what is covered>` |
+
+
