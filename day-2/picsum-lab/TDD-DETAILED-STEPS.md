@@ -580,7 +580,7 @@ Create `src/features/picsum-lab/model/types.ts` with `PicsumPhoto`, `PicsumListR
 
 **STOP — WAIT**
 
-- [ ] 03.7 GREEN committed ✅
+- [x] 03.7 GREEN committed ✅
 
 ---
 
@@ -594,6 +594,8 @@ Review `guards.ts` and `types.ts`. Ensure guard functions are composable (e.g. `
 
 **NO STOP** — Agent-owned. Continues automatically.
 
+- [x] 03.8 REFACTOR written ✅
+
 ---
 
 ### 03.9 REFACTOR proof run
@@ -603,7 +605,7 @@ Review `guards.ts` and `types.ts`. Ensure guard functions are composable (e.g. `
 
 **STOP — WAIT**
 
-- [ ] 03.9 REFACTOR confirmed ✅
+- [x] 03.9 REFACTOR confirmed ✅
 
 ---
 
