@@ -46,12 +46,7 @@ describe('Controls', () => {
     const user = userEvent.setup()
     const onBlurChange = vi.fn()
 
-    render(
-      <Controls
-        onWidthChange={vi.fn()}
-        {...({ onBlurChange } as unknown as Record<string, unknown>)}
-      />,
-    )
+    render(<Controls onWidthChange={vi.fn()} onBlurChange={onBlurChange} />)
 
     const blurCheckbox = screen.getByRole('checkbox', { name: /blur/i })
     await user.click(blurCheckbox)
