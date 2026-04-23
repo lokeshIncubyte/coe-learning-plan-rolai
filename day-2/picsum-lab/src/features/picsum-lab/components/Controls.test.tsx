@@ -41,4 +41,21 @@ describe('Controls', () => {
 
     expect(onGrayscaleChange).toHaveBeenCalledWith(true)
   })
+
+  it('calls onBlurChange with boolean when blur checkbox is toggled', async () => {
+    const user = userEvent.setup()
+    const onBlurChange = vi.fn()
+
+    render(
+      <Controls
+        onWidthChange={vi.fn()}
+        {...({ onBlurChange } as unknown as Record<string, unknown>)}
+      />,
+    )
+
+    const blurCheckbox = screen.getByRole('checkbox', { name: /blur/i })
+    await user.click(blurCheckbox)
+
+    expect(onBlurChange).toHaveBeenCalledWith(true)
+  })
 })
