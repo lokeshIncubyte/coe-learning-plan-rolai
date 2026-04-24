@@ -8,7 +8,7 @@ export function buildEffectsQuery(effects: ImageEffects): string {
   }
 
   if (effects.blur) {
-    queryParts.push(effects.blurAmount ? `blur=${effects.blurAmount}` : 'blur')
+    queryParts.push(`blur=${effects.blurAmount ?? 1}`)
   }
 
   return queryParts.length > 0 ? `?${queryParts.join('&')}` : ''
