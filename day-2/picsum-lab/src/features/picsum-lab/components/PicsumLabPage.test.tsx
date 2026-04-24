@@ -22,6 +22,13 @@ describe('PicsumLabPage', () => {
     expect(within(right).getByRole('region', { name: /preview/i })).toBeInTheDocument()
   })
 
+  it('marks the left column as the viewport scroll container', () => {
+    render(<PicsumLabPage />)
+
+    const left = screen.getByTestId('layout-left')
+    expect(left).toHaveAttribute('data-scroll-container')
+  })
+
   it('renders a loading status inside the Gallery region while the fetch is pending', () => {
     vi.spyOn(globalThis, 'fetch').mockReturnValue(new Promise(() => {}))
 
