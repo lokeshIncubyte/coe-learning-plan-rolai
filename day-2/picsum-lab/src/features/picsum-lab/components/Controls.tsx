@@ -6,10 +6,12 @@ type ControlsProps = {
   height?: number
   grayscale?: boolean
   blur?: boolean
+  blurAmount?: number
   onWidthChange: (width: number) => void
   onHeightChange?: (height: number) => void
   onGrayscaleChange?: (enabled: boolean) => void
   onBlurChange?: (enabled: boolean) => void
+  onBlurAmountChange?: (amount: number) => void
 }
 
 export function Controls({
@@ -17,10 +19,12 @@ export function Controls({
   height,
   grayscale,
   blur,
+  blurAmount,
   onWidthChange,
   onHeightChange,
   onGrayscaleChange,
   onBlurChange,
+  onBlurAmountChange,
 }: ControlsProps) {
   const handleWidthChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value)
@@ -38,6 +42,10 @@ export function Controls({
 
   const handleBlurChange = (event: ChangeEvent<HTMLInputElement>) => {
     onBlurChange?.(event.target.checked)
+  }
+
+  const handleBlurAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
+    onBlurAmountChange?.(Number(event.target.value))
   }
 
   return (
@@ -84,6 +92,20 @@ export function Controls({
           onChange={handleBlurChange}
         />
       </label>
+      {blur && (
+        <label htmlFor="blur-amount-input">
+          Blur amount
+          <input
+            id="blur-amount-input"
+            name="blur-amount"
+            type="range"
+            min={1}
+            max={10}
+            value={blurAmount ?? 1}
+            onChange={handleBlurAmountChange}
+          />
+        </label>
+      )}
     </>
   )
 }
