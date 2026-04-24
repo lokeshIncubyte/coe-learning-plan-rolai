@@ -2,6 +2,7 @@ import type { ChangeEvent } from 'react'
 import { clampDimension } from '../model/clampDimension'
 
 type ControlsProps = {
+  width?: number
   onWidthChange: (width: number) => void
   onHeightChange?: (height: number) => void
   onGrayscaleChange?: (enabled: boolean) => void
@@ -10,6 +11,7 @@ type ControlsProps = {
 }
 
 export function Controls({
+  width,
   onWidthChange,
   onHeightChange,
   onGrayscaleChange,
@@ -38,7 +40,14 @@ export function Controls({
     <>
       <label htmlFor="width-input">
         Width
-        <input id="width-input" name="width" type="number" min={1} onChange={handleWidthChange} />
+        <input
+          id="width-input"
+          name="width"
+          type="number"
+          min={1}
+          value={width}
+          onChange={handleWidthChange}
+        />
       </label>
       <label htmlFor="height-input">
         Height

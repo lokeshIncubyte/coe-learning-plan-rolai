@@ -1,4 +1,4 @@
-import { render, screen, waitFor, within } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { PicsumLabPage } from './PicsumLabPage'
@@ -90,7 +90,7 @@ describe('PicsumLabPage integration', () => {
     await user.click(rows[0])
 
     const widthInput = screen.getByLabelText(/width/i)
-    await user.type(widthInput, '800')
+    fireEvent.change(widthInput, { target: { value: '800' } })
 
     const previewRegion = screen.getByRole('region', { name: /preview/i })
     const previewImage = await within(previewRegion).findByRole('img')
