@@ -36,6 +36,7 @@ export type PicsumLabPrefsData = {
   width: number
   height: number
   selectedPhotoId: string | null
+  effects: ImageEffects
 }
 
 export type StoredPicsumLabPrefsV1 = {

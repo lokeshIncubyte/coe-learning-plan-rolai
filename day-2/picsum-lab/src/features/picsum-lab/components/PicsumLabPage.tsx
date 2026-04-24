@@ -13,6 +13,7 @@ const DEFAULT_PREFS: PicsumLabPrefsData = {
   width: 600,
   height: 400,
   selectedPhotoId: null,
+  effects: { grayscale: false, blur: false },
 }
 
 export function PicsumLabPage() {

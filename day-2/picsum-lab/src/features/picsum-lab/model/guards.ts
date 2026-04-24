@@ -43,6 +43,13 @@ export function isStoredPicsumLabPrefsV1(value: unknown): value is StoredPicsumL
     'height' in value.data &&
     typeof value.data.height === 'number' &&
     'selectedPhotoId' in value.data &&
-    (typeof value.data.selectedPhotoId === 'string' || value.data.selectedPhotoId === null)
+    (typeof value.data.selectedPhotoId === 'string' || value.data.selectedPhotoId === null) &&
+    'effects' in value.data &&
+    typeof value.data.effects === 'object' &&
+    value.data.effects !== null &&
+    'grayscale' in value.data.effects &&
+    typeof value.data.effects.grayscale === 'boolean' &&
+    'blur' in value.data.effects &&
+    typeof value.data.effects.blur === 'boolean'
   )
 }
