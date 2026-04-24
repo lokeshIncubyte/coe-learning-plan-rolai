@@ -32,4 +32,16 @@ describe('GalleryRow', () => {
     const thumbnail = screen.getByRole('img')
     expect(thumbnail).toHaveAttribute('src', expect.stringContaining('/id/7/'))
   })
+
+  it('uses photo.author as the thumbnail alt text', () => {
+    const photo = {
+      id: '11',
+      author: 'Eve',
+      download_url: 'https://example.com/download/11',
+    }
+
+    render(<GalleryRow photo={photo} onSelectPhoto={vi.fn()} />)
+
+    expect(screen.getByRole('img', { name: 'Eve' })).toBeInTheDocument()
+  })
 })
