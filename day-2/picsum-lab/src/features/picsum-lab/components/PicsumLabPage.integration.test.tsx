@@ -337,14 +337,13 @@ describe('PicsumLabPage integration', () => {
 
     const galleryRegion = screen.getByRole('region', { name: /gallery/i })
     const rows = await within(galleryRegion).findAllByRole('button')
+
     await waitFor(() => {
-      for (const row of rows) {
-        expect(row).toHaveAttribute('aria-pressed', 'false')
-      }
+      expect(rows[0]).toHaveAttribute('aria-pressed', 'true')
     })
 
-    const previewRegion = screen.getByRole('region', { name: /preview/i })
-    expect(within(previewRegion).queryByRole('img')).toBeNull()
+    const stored = JSON.parse(localStorage.getItem('picsum-lab-prefs') ?? '{}')
+    expect(stored.data.selectedPhotoId).not.toBe('9999')
   })
 
   it('adds blur=N to preview image URL when blur amount is changed', async () => {

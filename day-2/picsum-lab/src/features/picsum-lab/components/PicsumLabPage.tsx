@@ -27,7 +27,11 @@ export function PicsumLabPage() {
   )
 
   useEffect(() => {
-    if (galleryState.status !== 'success' || prefs.selectedPhotoId === null) {
+    if (galleryState.status !== 'success' || galleryState.photos.length === 0) {
+      return
+    }
+    if (prefs.selectedPhotoId === null) {
+      setPrefs({ ...prefs, selectedPhotoId: galleryState.photos[0].id })
       return
     }
     const stillExists = galleryState.photos.some(
