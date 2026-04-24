@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { Controls } from './Controls'
@@ -70,5 +70,22 @@ describe('Controls', () => {
     await user.click(blurCheckbox)
 
     expect(onBlurChange).toHaveBeenCalledWith(true)
+  })
+
+  it('calls onBlurAmountChange with numeric value when the blur amount input changes', () => {
+    const onBlurAmountChange = vi.fn()
+
+    render(
+      <Controls
+        onWidthChange={vi.fn()}
+        blur={true}
+        onBlurAmountChange={onBlurAmountChange}
+      />,
+    )
+
+    const amountInput = screen.getByLabelText(/blur amount/i)
+    fireEvent.change(amountInput, { target: { value: '7' } })
+
+    expect(onBlurAmountChange).toHaveBeenCalledWith(7)
   })
 })
