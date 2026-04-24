@@ -3,6 +3,7 @@ import { clampDimension } from '../model/clampDimension'
 
 type ControlsProps = {
   width?: number
+  height?: number
   onWidthChange: (width: number) => void
   onHeightChange?: (height: number) => void
   onGrayscaleChange?: (enabled: boolean) => void
@@ -12,6 +13,7 @@ type ControlsProps = {
 
 export function Controls({
   width,
+  height,
   onWidthChange,
   onHeightChange,
   onGrayscaleChange,
@@ -51,7 +53,14 @@ export function Controls({
       </label>
       <label htmlFor="height-input">
         Height
-        <input id="height-input" name="height" type="number" min={1} onChange={handleHeightChange} />
+        <input
+          id="height-input"
+          name="height"
+          type="number"
+          min={1}
+          value={height}
+          onChange={handleHeightChange}
+        />
       </label>
       <label htmlFor="grayscale-input">
         Grayscale
