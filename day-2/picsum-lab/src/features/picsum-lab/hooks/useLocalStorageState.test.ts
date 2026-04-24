@@ -66,6 +66,30 @@ describe('useLocalStorageState', () => {
     expect(result.current).toEqual(stored.data)
   })
 
+  it('returns a setter function as the second tuple entry', () => {
+    const key = 'picsum-lab-prefs-tuple'
+    const defaults: PrefsData = { width: 400, height: 300 }
+
+    const validateStoredPrefs = (value: unknown): value is StoredPrefsV1 => {
+      if (typeof value !== 'object' || value === null) {
+        return false
+      }
+      const candidate = value as Partial<StoredPrefsV1>
+      return (
+        candidate.version === 1 &&
+        typeof candidate.savedAt === 'string' &&
+        typeof candidate.data?.width === 'number' &&
+        typeof candidate.data?.height === 'number'
+      )
+    }
+
+    const { result } = renderHook(() =>
+      useLocalStorageState<PrefsData>(key, defaults, validateStoredPrefs),
+    )
+
+    expect(typeof result.current[1]).toBe('function')
+  })
+
   it('returns defaults when localStorage contains invalid JSON', () => {
     const key = 'picsum-lab-prefs-invalid'
     const defaults: PrefsData = { width: 400, height: 300 }
