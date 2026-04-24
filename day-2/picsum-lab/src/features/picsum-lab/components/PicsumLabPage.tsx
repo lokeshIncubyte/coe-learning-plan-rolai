@@ -37,6 +37,7 @@ export function PicsumLabPage() {
             onSelectPhoto={(photo) => setSelectedPhotoId(photo.id)}
           />
         )}
+        {galleryState.status === 'error' && <p role="alert">{galleryState.message}</p>}
       </section>
 
       <section aria-label="Controls" role="region">
