@@ -379,6 +379,59 @@ describe('PicsumLabPage integration', () => {
     expect(previewImage).toHaveAttribute('src', expect.stringContaining('blur=5'))
   })
 
+  it('selects the first photo by default when there are no persisted prefs', async () => {
+    const storage = new Map<string, string>()
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      value: {
+        getItem: (key: string) => storage.get(key) ?? null,
+        setItem: (key: string, value: string) => {
+          storage.set(key, value)
+        },
+        removeItem: (key: string) => {
+          storage.delete(key)
+        },
+        clear: () => {
+          storage.clear()
+        },
+      },
+    })
+
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+      json: async () => [
+        {
+          id: '0',
+          author: 'Alejandro Escamilla',
+          width: 5000,
+          height: 3333,
+          url: 'https://unsplash.com/photos/yC-Yzbqy7PY',
+          download_url: 'https://picsum.photos/id/0/5000/3333',
+        },
+        {
+          id: '1',
+          author: 'Alejandro Escamilla',
+          width: 5000,
+          height: 3333,
+          url: 'https://unsplash.com/photos/LNRyGwIJr5c',
+          download_url: 'https://picsum.photos/id/1/5000/3333',
+        },
+      ],
+    } as Response)
+
+    render(<PicsumLabPage />)
+
+    const galleryRegion = screen.getByRole('region', { name: /gallery/i })
+    const rows = await within(galleryRegion).findAllByRole('button')
+
+    await waitFor(() => {
+      expect(rows[0]).toHaveAttribute('aria-pressed', 'true')
+    })
+
+    const previewRegion = screen.getByRole('region', { name: /preview/i })
+    const previewImage = await within(previewRegion).findByRole('img')
+    expect(previewImage).toHaveAttribute('src', expect.stringContaining('/id/0/'))
+  })
+
   it('shows an error message in the gallery when the fetch rejects', async () => {
     vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('network down'))
 
