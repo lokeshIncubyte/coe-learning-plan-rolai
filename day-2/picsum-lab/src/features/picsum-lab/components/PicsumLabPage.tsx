@@ -1,30 +1,34 @@
-import { useState } from 'react'
 import { useLocalStorageState } from '../hooks/useLocalStorageState'
 import { usePicsumGallery } from '../hooks/usePicsumGallery'
 import { buildPicsumImageUrl } from '../model/buildPicsumImageUrl'
 import { isStoredPicsumLabPrefsV1 } from '../model/guards'
-import type { ImageEffects, PicsumLabPrefsData } from '../model/types'
+import type { PicsumLabPrefsData } from '../model/types'
 import { Controls } from './Controls'
 import { Gallery } from './Gallery'
 import { Preview } from './Preview'
 
 const PREFS_KEY = 'picsum-lab-prefs'
-const DEFAULT_PREFS: PicsumLabPrefsData = { width: 600, height: 400 }
+const DEFAULT_PREFS: PicsumLabPrefsData = {
+  width: 600,
+  height: 400,
+  selectedPhotoId: null,
+  effects: { grayscale: false, blur: false },
+}
 
 export function PicsumLabPage() {
   const galleryState = usePicsumGallery()
-  const prefs = useLocalStorageState(PREFS_KEY, DEFAULT_PREFS, isStoredPicsumLabPrefsV1)
-  const [selectedPhotoId, setSelectedPhotoId] = useState<string | null>(null)
-  const [width, setWidth] = useState(prefs.width)
-  const [height, setHeight] = useState(prefs.height)
-  const [effects, setEffects] = useState<ImageEffects>({ grayscale: false, blur: false })
+  const [prefs, setPrefs] = useLocalStorageState(
+    PREFS_KEY,
+    DEFAULT_PREFS,
+    isStoredPicsumLabPrefsV1,
+  )
 
-  const previewUrl = selectedPhotoId
+  const previewUrl = prefs.selectedPhotoId
     ? buildPicsumImageUrl({
-        source: { kind: 'id', id: selectedPhotoId },
-        width,
-        height,
-        effects,
+        source: { kind: 'id', id: prefs.selectedPhotoId },
+        width: prefs.width,
+        height: prefs.height,
+        effects: prefs.effects,
       })
     : null
 
@@ -35,8 +39,8 @@ export function PicsumLabPage() {
         {galleryState.status === 'success' && (
           <Gallery
             photos={galleryState.photos}
-            selectedPhotoId={selectedPhotoId}
-            onSelectPhoto={(photo) => setSelectedPhotoId(photo.id)}
+            selectedPhotoId={prefs.selectedPhotoId}
+            onSelectPhoto={(photo) => setPrefs({ ...prefs, selectedPhotoId: photo.id })}
           />
         )}
         {galleryState.status === 'error' && <p role="alert">{galleryState.message}</p>}
@@ -45,14 +49,16 @@ export function PicsumLabPage() {
       <section aria-label="Controls" role="region">
         <h2>Controls</h2>
         <Controls
-          width={width}
-          height={height}
-          grayscale={effects.grayscale}
-          blur={effects.blur}
-          onWidthChange={setWidth}
-          onHeightChange={setHeight}
-          onGrayscaleChange={(enabled) => setEffects((prev) => ({ ...prev, grayscale: enabled }))}
-          onBlurChange={(enabled) => setEffects((prev) => ({ ...prev, blur: enabled }))}
+          width={prefs.width}
+          height={prefs.height}
+          grayscale={prefs.effects.grayscale}
+          blur={prefs.effects.blur}
+          onWidthChange={(width) => setPrefs({ ...prefs, width })}
+          onHeightChange={(height) => setPrefs({ ...prefs, height })}
+          onGrayscaleChange={(grayscale) =>
+            setPrefs({ ...prefs, effects: { ...prefs.effects, grayscale } })
+          }
+          onBlurChange={(blur) => setPrefs({ ...prefs, effects: { ...prefs.effects, blur } })}
         />
       </section>
 
