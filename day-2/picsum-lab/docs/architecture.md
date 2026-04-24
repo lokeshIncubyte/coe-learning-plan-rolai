@@ -86,4 +86,4 @@ mount → read → parse unknown → isStoredPicsumLabPrefsV1 → merge into sta
 
 ---
 
-[← Index](./README.md)
+[← Index](../README.md)

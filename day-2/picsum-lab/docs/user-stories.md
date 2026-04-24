@@ -1,6 +1,6 @@
 # User stories
 
-**Context**: [Architecture](./architecture.md), [schemas](./README.md).
+**Context**: [Architecture](./architecture.md), [schemas](../README.md).
 
 ---
 
@@ -49,4 +49,4 @@ Corrupt or invalid stored JSON should fall back to defaults without crashing.
 
 ---
 
-[← Index](./README.md)
+[← Index](../README.md)

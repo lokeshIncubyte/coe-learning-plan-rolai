@@ -1,84 +1,39 @@
-# React + TypeScript + Vite
-
 # Picsum Lab
 
-The app loads a list of photos from Lorem Picsum, lets you pick one, and shows a preview. You can change the preview size and use options such as grayscale and blur.
+A small React + TypeScript app that loads a gallery from the [Lorem Picsum](https://picsum.photos/) API, lets the user pick a photo, and shows a preview that can be resized and rendered with grayscale and blur effects. Preferences (selection, dimensions, effects) persist to `localStorage`.
 
-- [Remote API schema](./schema-remote.md)
-- [Application schema](./schema-app.md)
-- [Architecture](./architecture.md)
-- [User stories](./user-stories.md)
+Built with TDD, one behavior per commit. The full execution log lives in [`docs/TDD-DETAILED-STEPS.md`](./docs/TDD-DETAILED-STEPS.md).
 
-# React + TypeScript + Vite
+---
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Quick start
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev     # http://localhost:5173
+npm test        # watch mode; append --run for a single pass
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Docs index
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+| Doc | Purpose |
+|-----|---------|
+| [docs/architecture.md](./docs/architecture.md) | Layer boundaries, folder layout, data flow |
+| [docs/user-stories.md](./docs/user-stories.md) | A–E user stories (first open, select, change, reload, error) |
+| [docs/schema-remote.md](./docs/schema-remote.md) | Picsum API shapes (`/v2/list`, `/id/{id}/info`, image URL patterns) |
+| [docs/schema-app.md](./docs/schema-app.md) | In-app types, guards, persisted prefs shape |
+| [docs/TDD-DETAILED-STEPS.md](./docs/TDD-DETAILED-STEPS.md) | Full TDD execution log (phases 1 and 2) |
+
+---
+
+## Feature surface
+
+- Gallery load with loading state and error fallback
+- Photo selection; first photo auto-selected on fresh sessions
+- Controlled width, height, grayscale, blur, and blur amount (1–10)
+- Preferences persist across reload via a versioned `localStorage` envelope
+- Stale persisted selections reconcile to the first photo on the next load
+- Two-column layout: gallery grid on the left (independently scrollable), preview + controls on the right
