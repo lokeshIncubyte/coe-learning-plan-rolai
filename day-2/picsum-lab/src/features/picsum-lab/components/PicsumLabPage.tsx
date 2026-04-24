@@ -36,6 +36,11 @@ export function PicsumLabPage() {
     <>
       <section aria-label="Gallery" role="region">
         <h2>Gallery</h2>
+        {(galleryState.status === 'idle' || galleryState.status === 'loading') && (
+          <p role="status" aria-label="Loading gallery">
+            Loading gallery
+          </p>
+        )}
         {galleryState.status === 'success' && (
           <Gallery
             photos={galleryState.photos}
