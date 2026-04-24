@@ -3,7 +3,7 @@ import { useLocalStorageState } from '../hooks/useLocalStorageState'
 import { usePicsumGallery } from '../hooks/usePicsumGallery'
 import { buildPicsumImageUrl } from '../model/buildPicsumImageUrl'
 import { isStoredPicsumLabPrefsV1 } from '../model/guards'
-import type { PicsumLabPrefsData } from '../model/types'
+import type { ImageEffects, PicsumLabPrefsData } from '../model/types'
 import { Controls } from './Controls'
 import { Gallery } from './Gallery'
 import { Preview } from './Preview'
@@ -17,13 +17,14 @@ export function PicsumLabPage() {
   const [selectedPhotoId, setSelectedPhotoId] = useState<string | null>(null)
   const [width, setWidth] = useState(prefs.width)
   const [height, setHeight] = useState(prefs.height)
+  const [effects, setEffects] = useState<ImageEffects>({ grayscale: false, blur: false })
 
   const previewUrl = selectedPhotoId
     ? buildPicsumImageUrl({
         source: { kind: 'id', id: selectedPhotoId },
         width,
         height,
-        effects: { grayscale: false, blur: false },
+        effects,
       })
     : null
 
@@ -46,8 +47,10 @@ export function PicsumLabPage() {
         <Controls
           width={width}
           height={height}
+          grayscale={effects.grayscale}
           onWidthChange={setWidth}
           onHeightChange={setHeight}
+          onGrayscaleChange={(enabled) => setEffects((prev) => ({ ...prev, grayscale: enabled }))}
         />
       </section>
 
