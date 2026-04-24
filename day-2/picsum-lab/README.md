@@ -25,6 +25,7 @@ npm run build
 | [docs/user-stories.md](./docs/user-stories.md) | A–E user stories (first open, select, change, reload, error) |
 | [docs/schema-remote.md](./docs/schema-remote.md) | Picsum API shapes (`/v2/list`, `/id/{id}/info`, image URL patterns) |
 | [docs/schema-app.md](./docs/schema-app.md) | In-app types, guards, persisted prefs shape |
+| [docs/typescript-concepts.md](./docs/typescript-concepts.md) | Learning-goal map: where each TS / React concept lives in the code |
 | [docs/TDD-DETAILED-STEPS.md](./docs/TDD-DETAILED-STEPS.md) | Full TDD execution log (phases 1 and 2) |
 
 ---
