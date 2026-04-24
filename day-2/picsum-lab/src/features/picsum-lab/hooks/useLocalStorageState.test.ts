@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react'
+import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { useLocalStorageState } from './useLocalStorageState'
 
@@ -88,6 +88,40 @@ describe('useLocalStorageState', () => {
     )
 
     expect(typeof result.current[1]).toBe('function')
+  })
+
+  it('writes a StoredPrefsV1 envelope to localStorage when the setter is called', () => {
+    const key = 'picsum-lab-prefs-write'
+    const defaults: PrefsData = { width: 400, height: 300 }
+
+    const validateStoredPrefs = (value: unknown): value is StoredPrefsV1 => {
+      if (typeof value !== 'object' || value === null) {
+        return false
+      }
+      const candidate = value as Partial<StoredPrefsV1>
+      return (
+        candidate.version === 1 &&
+        typeof candidate.savedAt === 'string' &&
+        typeof candidate.data?.width === 'number' &&
+        typeof candidate.data?.height === 'number'
+      )
+    }
+
+    const { result } = renderHook(() =>
+      useLocalStorageState<PrefsData>(key, defaults, validateStoredPrefs),
+    )
+
+    const next: PrefsData = { width: 1024, height: 768 }
+    act(() => {
+      result.current[1](next)
+    })
+
+    const raw = localStorage.getItem(key)
+    expect(raw).not.toBeNull()
+    const envelope = JSON.parse(raw ?? '{}')
+    expect(envelope.version).toBe(1)
+    expect(typeof envelope.savedAt).toBe('string')
+    expect(envelope.data).toEqual(next)
   })
 
   it('returns defaults when localStorage contains invalid JSON', () => {
