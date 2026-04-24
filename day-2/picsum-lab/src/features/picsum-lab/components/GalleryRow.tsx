@@ -23,7 +23,7 @@ export function GalleryRow({ photo, isSelected = false, onSelectPhoto }: Gallery
       aria-pressed={isSelected}
       onClick={() => onSelectPhoto(photo)}
     >
-      <img src={thumbnailUrl} alt={`Photo ${photo.id}`} />
+      <img src={thumbnailUrl} alt={photo.author} />
       <span>{photo.id}</span>
       <span>{photo.author}</span>
     </button>
