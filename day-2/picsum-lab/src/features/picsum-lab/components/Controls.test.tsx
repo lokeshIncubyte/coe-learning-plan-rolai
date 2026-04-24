@@ -17,6 +17,12 @@ describe('Controls', () => {
     expect(onWidthChange).toHaveBeenCalledWith(640)
   })
 
+  it('renders the provided height value on the height input', () => {
+    render(<Controls onWidthChange={vi.fn()} height={512} />)
+
+    expect(screen.getByLabelText(/height/i)).toHaveValue(512)
+  })
+
   it('calls onHeightChange with numeric value when height input changes', async () => {
     const user = userEvent.setup()
     const onHeightChange = vi.fn()
@@ -30,6 +36,12 @@ describe('Controls', () => {
     expect(onHeightChange).toHaveBeenCalledWith(480)
   })
 
+  it('reflects the grayscale prop on the grayscale checkbox', () => {
+    render(<Controls onWidthChange={vi.fn()} grayscale={true} />)
+
+    expect(screen.getByRole('checkbox', { name: /grayscale/i })).toBeChecked()
+  })
+
   it('calls onGrayscaleChange with boolean when grayscale checkbox is toggled', async () => {
     const user = userEvent.setup()
     const onGrayscaleChange = vi.fn()
@@ -40,6 +52,12 @@ describe('Controls', () => {
     await user.click(grayscaleCheckbox)
 
     expect(onGrayscaleChange).toHaveBeenCalledWith(true)
+  })
+
+  it('reflects the blur prop on the blur checkbox', () => {
+    render(<Controls onWidthChange={vi.fn()} blur={true} />)
+
+    expect(screen.getByRole('checkbox', { name: /blur/i })).toBeChecked()
   })
 
   it('calls onBlurChange with boolean when blur checkbox is toggled', async () => {
