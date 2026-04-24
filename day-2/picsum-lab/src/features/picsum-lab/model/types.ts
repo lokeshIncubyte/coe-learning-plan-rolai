@@ -18,7 +18,6 @@ export type GalleryFetchState =
 export type ImageSource =
   | { kind: 'id'; id: string }
   | { kind: 'seed'; seed: string }
-  | { kind: 'random' }
 
 export type ImageEffects = {
   grayscale: boolean
@@ -31,7 +30,6 @@ export type BuildImageUrlInput = {
   width: number
   height: number
   effects: ImageEffects
-  randomNonce?: number
 }
 
 export type PicsumLabPrefsData = {

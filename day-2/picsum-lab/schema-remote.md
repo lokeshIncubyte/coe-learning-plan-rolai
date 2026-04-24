@@ -74,13 +74,11 @@ Used for `<img src>` when display size and effects differ from native dimensions
 
 - **By id**: `https://picsum.photos/id/{id}/{width}/{height}`
 - **By seed**: `https://picsum.photos/seed/{seed}/{width}/{height}`
-- **Random** (no id in path): `https://picsum.photos/{width}/{height}`
 
 **Query parameters** (combinable per docs):
 
 - `?grayscale`
 - `?blur` or `?blur=1` … `?blur=10`
-- `?random={n}` to reduce caching when reloading the same dimensions
 
 `download_url` on `PicsumPhoto` is valid at **native** size; the preview URL is usually **built** when width, height, or effects change.
 
