@@ -1,5 +1,5 @@
 import { render, screen, within } from '@testing-library/react'
-import { vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { PicsumLabPage } from './PicsumLabPage'
 
 describe('PicsumLabPage', () => {
