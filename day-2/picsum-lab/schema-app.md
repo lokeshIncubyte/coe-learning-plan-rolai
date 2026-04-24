@@ -9,8 +9,7 @@ Types and validation used inside the app. **Remote shapes**: [Remote API schema]
 ```ts
 type ImageSource =
   | { kind: 'id'; id: string }
-  | { kind: 'seed'; seed: string }
-  | { kind: 'random' };
+  | { kind: 'seed'; seed: string };
 ```
 
 ---
@@ -35,7 +34,6 @@ type BuildImageUrlInput = {
   width: number;
   height: number;
   effects: ImageEffects;
-  randomNonce?: number;
 };
 ```
 

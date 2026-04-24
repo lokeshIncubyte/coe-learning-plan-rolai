@@ -10,7 +10,6 @@ type ControlsProps = {
   onHeightChange?: (height: number) => void
   onGrayscaleChange?: (enabled: boolean) => void
   onBlurChange?: (enabled: boolean) => void
-  onRefresh?: () => void
 }
 
 export function Controls({
@@ -22,7 +21,6 @@ export function Controls({
   onHeightChange,
   onGrayscaleChange,
   onBlurChange,
-  onRefresh,
 }: ControlsProps) {
   const handleWidthChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value)
@@ -86,9 +84,6 @@ export function Controls({
           onChange={handleBlurChange}
         />
       </label>
-      <button type="button" onClick={onRefresh}>
-        Refresh
-      </button>
     </>
   )
 }

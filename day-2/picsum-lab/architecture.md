@@ -73,7 +73,7 @@ mount → usePicsumGallery
 
 ```text
 selection + dimensions + effects
-  → buildPicsumImageUrl({ source, width, height, effects, randomNonce? })
+  → buildPicsumImageUrl({ source, width, height, effects })
   → Preview updates src
 ```
 

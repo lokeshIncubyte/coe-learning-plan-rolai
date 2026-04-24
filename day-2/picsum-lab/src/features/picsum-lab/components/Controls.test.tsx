@@ -71,15 +71,4 @@ describe('Controls', () => {
 
     expect(onBlurChange).toHaveBeenCalledWith(true)
   })
-
-  it('calls onRefresh when refresh button is clicked', async () => {
-    const user = userEvent.setup()
-    const onRefresh = vi.fn()
-
-    render(<Controls onWidthChange={vi.fn()} onRefresh={onRefresh} />)
-
-    await user.click(screen.getByRole('button', { name: /refresh/i }))
-
-    expect(onRefresh).toHaveBeenCalledTimes(1)
-  })
 })
