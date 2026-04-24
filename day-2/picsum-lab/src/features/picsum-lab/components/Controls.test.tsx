@@ -54,6 +54,12 @@ describe('Controls', () => {
     expect(onGrayscaleChange).toHaveBeenCalledWith(true)
   })
 
+  it('reflects the blur prop on the blur checkbox', () => {
+    render(<Controls onWidthChange={vi.fn()} blur={true} />)
+
+    expect(screen.getByRole('checkbox', { name: /blur/i })).toBeChecked()
+  })
+
   it('calls onBlurChange with boolean when blur checkbox is toggled', async () => {
     const user = userEvent.setup()
     const onBlurChange = vi.fn()
