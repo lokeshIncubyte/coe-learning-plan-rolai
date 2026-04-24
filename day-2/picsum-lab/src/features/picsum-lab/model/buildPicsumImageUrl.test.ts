@@ -59,6 +59,20 @@ describe('buildPicsumImageUrl', () => {
     expect(url).toContain('?blur=5')
   })
 
+  it('defaults blur amount to 1 when blur is on without an explicit amount', () => {
+    const url = buildPicsumImageUrl({
+      source: { kind: 'id', id: '0' },
+      width: 400,
+      height: 300,
+      effects: {
+        grayscale: false,
+        blur: true,
+      },
+    })
+
+    expect(url).toContain('blur=1')
+  })
+
   it('includes both grayscale and blur query params when both effects are enabled', () => {
     const url = buildPicsumImageUrl({
       source: { kind: 'id', id: '0' },
