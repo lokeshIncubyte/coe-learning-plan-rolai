@@ -5,6 +5,7 @@ type ControlsProps = {
   width?: number
   height?: number
   grayscale?: boolean
+  blur?: boolean
   onWidthChange: (width: number) => void
   onHeightChange?: (height: number) => void
   onGrayscaleChange?: (enabled: boolean) => void
@@ -16,6 +17,7 @@ export function Controls({
   width,
   height,
   grayscale,
+  blur,
   onWidthChange,
   onHeightChange,
   onGrayscaleChange,
@@ -76,7 +78,13 @@ export function Controls({
       </label>
       <label htmlFor="blur-input">
         Blur
-        <input id="blur-input" name="blur" type="checkbox" onChange={handleBlurChange} />
+        <input
+          id="blur-input"
+          name="blur"
+          type="checkbox"
+          checked={blur ?? false}
+          onChange={handleBlurChange}
+        />
       </label>
       <button type="button" onClick={onRefresh}>
         Refresh
