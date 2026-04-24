@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useLocalStorageState } from '../hooks/useLocalStorageState'
 import { usePicsumGallery } from '../hooks/usePicsumGallery'
 import { buildPicsumImageUrl } from '../model/buildPicsumImageUrl'
@@ -23,6 +24,18 @@ export function PicsumLabPage() {
     isStoredPicsumLabPrefsV1,
   )
 
+  useEffect(() => {
+    if (galleryState.status !== 'success' || prefs.selectedPhotoId === null) {
+      return
+    }
+    const stillExists = galleryState.photos.some(
+      (photo) => photo.id === prefs.selectedPhotoId,
+    )
+    if (!stillExists) {
+      setPrefs({ ...prefs, selectedPhotoId: null })
+    }
+  }, [galleryState, prefs, setPrefs])
+
   const previewUrl = prefs.selectedPhotoId
     ? buildPicsumImageUrl({
         source: { kind: 'id', id: prefs.selectedPhotoId },
@@ -36,6 +49,11 @@ export function PicsumLabPage() {
     <>
       <section aria-label="Gallery" role="region">
         <h2>Gallery</h2>
+        {(galleryState.status === 'idle' || galleryState.status === 'loading') && (
+          <p role="status" aria-label="Loading gallery">
+            Loading gallery
+          </p>
+        )}
         {galleryState.status === 'success' && (
           <Gallery
             photos={galleryState.photos}
