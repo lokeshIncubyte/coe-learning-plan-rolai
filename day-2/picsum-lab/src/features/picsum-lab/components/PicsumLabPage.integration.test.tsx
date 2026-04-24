@@ -237,6 +237,57 @@ describe('PicsumLabPage integration', () => {
     expect(widthInput).toHaveValue(640)
   })
 
+  it('restores width and grayscale from localStorage after a remount', async () => {
+    const storage = new Map<string, string>()
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      value: {
+        getItem: (key: string) => storage.get(key) ?? null,
+        setItem: (key: string, value: string) => {
+          storage.set(key, value)
+        },
+        removeItem: (key: string) => {
+          storage.delete(key)
+        },
+        clear: () => {
+          storage.clear()
+        },
+      },
+    })
+
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+      json: async () => [
+        {
+          id: '0',
+          author: 'Alejandro Escamilla',
+          width: 5000,
+          height: 3333,
+          url: 'https://unsplash.com/photos/yC-Yzbqy7PY',
+          download_url: 'https://picsum.photos/id/0/5000/3333',
+        },
+      ],
+    } as Response)
+
+    const user = userEvent.setup()
+    const first = render(<PicsumLabPage />)
+
+    const galleryRegion = screen.getByRole('region', { name: /gallery/i })
+    const rows = await within(galleryRegion).findAllByRole('button')
+    await user.click(rows[0])
+
+    const widthInput = screen.getByLabelText(/width/i)
+    fireEvent.change(widthInput, { target: { value: '820' } })
+    await user.click(screen.getByRole('checkbox', { name: /grayscale/i }))
+
+    first.unmount()
+
+    render(<PicsumLabPage />)
+
+    const widthInputAfter = screen.getByLabelText(/width/i)
+    expect(widthInputAfter).toHaveValue(820)
+    expect(screen.getByRole('checkbox', { name: /grayscale/i })).toBeChecked()
+  })
+
   it('shows an error message in the gallery when the fetch rejects', async () => {
     vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('network down'))
 
