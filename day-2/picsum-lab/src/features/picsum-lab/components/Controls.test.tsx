@@ -88,4 +88,10 @@ describe('Controls', () => {
 
     expect(onBlurAmountChange).toHaveBeenCalledWith(7)
   })
+
+  it('hides the blur amount input when blur is off', () => {
+    render(<Controls onWidthChange={vi.fn()} blur={false} />)
+
+    expect(screen.queryByLabelText(/blur amount/i)).toBeNull()
+  })
 })
