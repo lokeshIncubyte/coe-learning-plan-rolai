@@ -19,4 +19,17 @@ describe('GalleryRow', () => {
 
     expect(onSelectPhoto).toHaveBeenCalledWith(photo)
   })
+
+  it('renders a thumbnail image referencing the photo id', () => {
+    const photo = {
+      id: '7',
+      author: 'Dave',
+      download_url: 'https://example.com/download/7',
+    }
+
+    render(<GalleryRow photo={photo} onSelectPhoto={vi.fn()} />)
+
+    const thumbnail = screen.getByRole('img')
+    expect(thumbnail).toHaveAttribute('src', expect.stringContaining('/id/7/'))
+  })
 })
