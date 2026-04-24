@@ -2,7 +2,7 @@
 
 A small React + TypeScript app that loads a gallery from the [Lorem Picsum](https://picsum.photos/) API, lets the user pick a photo, and shows a preview that can be resized and rendered with grayscale and blur effects. Preferences (selection, dimensions, effects) persist to `localStorage`.
 
-**Live demo:** https://coe-learning-plan-rolai-fork-6t5kjlfyi.vercel.app/
+**Live demo:** https://coe-learning-plan-rolai-fork.vercel.app/
 
 Built with TDD, one behavior per commit. The full execution log lives in [`docs/TDD-DETAILED-STEPS.md`](./docs/TDD-DETAILED-STEPS.md).
 
