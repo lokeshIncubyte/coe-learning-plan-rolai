@@ -9,7 +9,11 @@ import { Gallery } from './Gallery'
 import { Preview } from './Preview'
 
 const PREFS_KEY = 'picsum-lab-prefs'
-const DEFAULT_PREFS: PicsumLabPrefsData = { width: 600, height: 400 }
+const DEFAULT_PREFS: PicsumLabPrefsData = {
+  width: 600,
+  height: 400,
+  selectedPhotoId: null,
+}
 
 export function PicsumLabPage() {
   const galleryState = usePicsumGallery()

@@ -35,6 +35,7 @@ export type BuildImageUrlInput = {
 export type PicsumLabPrefsData = {
   width: number
   height: number
+  selectedPhotoId: string | null
 }
 
 export type StoredPicsumLabPrefsV1 = {

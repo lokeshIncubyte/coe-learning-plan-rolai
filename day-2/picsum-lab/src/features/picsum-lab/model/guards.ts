@@ -41,6 +41,8 @@ export function isStoredPicsumLabPrefsV1(value: unknown): value is StoredPicsumL
     'width' in value.data &&
     typeof value.data.width === 'number' &&
     'height' in value.data &&
-    typeof value.data.height === 'number'
+    typeof value.data.height === 'number' &&
+    'selectedPhotoId' in value.data &&
+    (typeof value.data.selectedPhotoId === 'string' || value.data.selectedPhotoId === null)
   )
 }
