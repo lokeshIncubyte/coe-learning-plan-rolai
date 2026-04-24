@@ -36,6 +36,12 @@ describe('Controls', () => {
     expect(onHeightChange).toHaveBeenCalledWith(480)
   })
 
+  it('reflects the grayscale prop on the grayscale checkbox', () => {
+    render(<Controls onWidthChange={vi.fn()} grayscale={true} />)
+
+    expect(screen.getByRole('checkbox', { name: /grayscale/i })).toBeChecked()
+  })
+
   it('calls onGrayscaleChange with boolean when grayscale checkbox is toggled', async () => {
     const user = userEvent.setup()
     const onGrayscaleChange = vi.fn()
