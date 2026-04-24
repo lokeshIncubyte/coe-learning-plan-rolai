@@ -288,6 +288,65 @@ describe('PicsumLabPage integration', () => {
     expect(screen.getByRole('checkbox', { name: /grayscale/i })).toBeChecked()
   })
 
+  it('drops a persisted selectedPhotoId that is not in the freshly-loaded gallery', async () => {
+    const storage = new Map<string, string>()
+    Object.defineProperty(globalThis, 'localStorage', {
+      configurable: true,
+      value: {
+        getItem: (key: string) => storage.get(key) ?? null,
+        setItem: (key: string, value: string) => {
+          storage.set(key, value)
+        },
+        removeItem: (key: string) => {
+          storage.delete(key)
+        },
+        clear: () => {
+          storage.clear()
+        },
+      },
+    })
+
+    localStorage.setItem(
+      'picsum-lab-prefs',
+      JSON.stringify({
+        version: 1,
+        savedAt: '2026-01-01T00:00:00.000Z',
+        data: {
+          width: 600,
+          height: 400,
+          selectedPhotoId: '9999',
+          effects: { grayscale: false, blur: false },
+        },
+      }),
+    )
+
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+      json: async () => [
+        {
+          id: '0',
+          author: 'Alejandro Escamilla',
+          width: 5000,
+          height: 3333,
+          url: 'https://unsplash.com/photos/yC-Yzbqy7PY',
+          download_url: 'https://picsum.photos/id/0/5000/3333',
+        },
+      ],
+    } as Response)
+
+    render(<PicsumLabPage />)
+
+    const galleryRegion = screen.getByRole('region', { name: /gallery/i })
+    const rows = await within(galleryRegion).findAllByRole('button')
+    await waitFor(() => {
+      for (const row of rows) {
+        expect(row).toHaveAttribute('aria-pressed', 'false')
+      }
+    })
+
+    const previewRegion = screen.getByRole('region', { name: /preview/i })
+    expect(within(previewRegion).queryByRole('img')).toBeNull()
+  })
+
   it('shows an error message in the gallery when the fetch rejects', async () => {
     vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('network down'))
 
