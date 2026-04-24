@@ -143,4 +143,15 @@ describe('PicsumLabPage integration', () => {
     const widthInput = screen.getByLabelText(/width/i)
     expect(widthInput).toHaveValue(640)
   })
+
+  it('shows an error message in the gallery when the fetch rejects', async () => {
+    vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('network down'))
+
+    render(<PicsumLabPage />)
+
+    const galleryRegion = screen.getByRole('region', { name: /gallery/i })
+    const errorAlert = await within(galleryRegion).findByRole('alert')
+
+    expect(errorAlert).toHaveTextContent(/network down/i)
+  })
 })
