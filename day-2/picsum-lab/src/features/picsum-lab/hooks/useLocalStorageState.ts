@@ -4,7 +4,7 @@ type StoredWithData<T> = {
   data: T
 }
 
-export function useLocalStorageState<T, TStored extends StoredWithData<T>>(
+export function useLocalStorageState<T, TStored extends StoredWithData<T> = StoredWithData<T>>(
   key: string,
   defaults: T,
   validate: (value: unknown) => value is TStored,
