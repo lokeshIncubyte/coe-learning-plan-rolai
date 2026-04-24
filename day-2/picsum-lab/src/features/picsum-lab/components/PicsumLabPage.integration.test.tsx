@@ -98,6 +98,36 @@ describe('PicsumLabPage integration', () => {
     expect(previewImage).toHaveAttribute('src', expect.stringContaining('/800/'))
   })
 
+  it('updates preview image URL height when the height input changes', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+      json: async () => [
+        {
+          id: '0',
+          author: 'Alejandro Escamilla',
+          width: 5000,
+          height: 3333,
+          url: 'https://unsplash.com/photos/yC-Yzbqy7PY',
+          download_url: 'https://picsum.photos/id/0/5000/3333',
+        },
+      ],
+    } as Response)
+
+    const user = userEvent.setup()
+    render(<PicsumLabPage />)
+
+    const galleryRegion = screen.getByRole('region', { name: /gallery/i })
+    const rows = await within(galleryRegion).findAllByRole('button')
+    await user.click(rows[0])
+
+    const heightInput = screen.getByLabelText(/height/i)
+    fireEvent.change(heightInput, { target: { value: '720' } })
+
+    const previewRegion = screen.getByRole('region', { name: /preview/i })
+    const previewImage = await within(previewRegion).findByRole('img')
+
+    expect(previewImage).toHaveAttribute('src', expect.stringContaining('/720'))
+  })
+
   it('pre-populates the width control from saved preferences on mount', async () => {
     const storage = new Map<string, string>()
     Object.defineProperty(globalThis, 'localStorage', {
