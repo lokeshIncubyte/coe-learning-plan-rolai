@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import './PicsumLabPage.css'
 import { useLocalStorageState } from '../hooks/useLocalStorageState'
 import { usePicsumGallery } from '../hooks/usePicsumGallery'
 import { buildPicsumImageUrl } from '../model/buildPicsumImageUrl'
