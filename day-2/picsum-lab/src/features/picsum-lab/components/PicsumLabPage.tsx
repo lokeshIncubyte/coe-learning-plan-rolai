@@ -48,9 +48,11 @@ export function PicsumLabPage() {
           width={width}
           height={height}
           grayscale={effects.grayscale}
+          blur={effects.blur}
           onWidthChange={setWidth}
           onHeightChange={setHeight}
           onGrayscaleChange={(enabled) => setEffects((prev) => ({ ...prev, grayscale: enabled }))}
+          onBlurChange={(enabled) => setEffects((prev) => ({ ...prev, blur: enabled }))}
         />
       </section>
 
