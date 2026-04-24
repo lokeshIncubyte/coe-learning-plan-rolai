@@ -16,12 +16,13 @@ export function PicsumLabPage() {
   const prefs = useLocalStorageState(PREFS_KEY, DEFAULT_PREFS, isStoredPicsumLabPrefsV1)
   const [selectedPhotoId, setSelectedPhotoId] = useState<string | null>(null)
   const [width, setWidth] = useState(prefs.width)
+  const [height, setHeight] = useState(prefs.height)
 
   const previewUrl = selectedPhotoId
     ? buildPicsumImageUrl({
         source: { kind: 'id', id: selectedPhotoId },
         width,
-        height: 400,
+        height,
         effects: { grayscale: false, blur: false },
       })
     : null
@@ -42,7 +43,12 @@ export function PicsumLabPage() {
 
       <section aria-label="Controls" role="region">
         <h2>Controls</h2>
-        <Controls width={width} onWidthChange={setWidth} />
+        <Controls
+          width={width}
+          height={height}
+          onWidthChange={setWidth}
+          onHeightChange={setHeight}
+        />
       </section>
 
       <section aria-label="Preview" role="region">
