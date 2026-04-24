@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useState } from 'react'
 
 type StoredWithData<T> = {
   data: T
@@ -8,8 +8,8 @@ export function useLocalStorageState<T, TStored extends StoredWithData<T>>(
   key: string,
   defaults: T,
   validate: (value: unknown) => value is TStored,
-): T {
-  return useMemo(() => {
+): readonly [T, (next: T) => void] {
+  const [value, setValue] = useState<T>(() => {
     const raw = localStorage.getItem(key)
     if (raw === null) {
       return defaults
@@ -27,5 +27,7 @@ export function useLocalStorageState<T, TStored extends StoredWithData<T>>(
     }
 
     return parsed.data
-  }, [defaults, key, validate])
+  })
+
+  return [value, setValue] as const
 }

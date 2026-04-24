@@ -63,7 +63,7 @@ describe('useLocalStorageState', () => {
       useLocalStorageState<PrefsData>(key, defaults, validateStoredPrefs),
     )
 
-    expect(result.current).toEqual(stored.data)
+    expect(result.current[0]).toEqual(stored.data)
   })
 
   it('returns a setter function as the second tuple entry', () => {
@@ -118,6 +118,6 @@ describe('useLocalStorageState', () => {
       useLocalStorageState<PrefsData>(key, defaults, validateStoredPrefs),
     )
 
-    expect(result.current).toEqual(defaults)
+    expect(result.current[0]).toEqual(defaults)
   })
 })

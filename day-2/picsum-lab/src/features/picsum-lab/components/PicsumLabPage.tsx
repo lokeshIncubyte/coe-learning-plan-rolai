@@ -18,7 +18,7 @@ const DEFAULT_PREFS: PicsumLabPrefsData = {
 
 export function PicsumLabPage() {
   const galleryState = usePicsumGallery()
-  const prefs = useLocalStorageState(PREFS_KEY, DEFAULT_PREFS, isStoredPicsumLabPrefsV1)
+  const [prefs] = useLocalStorageState(PREFS_KEY, DEFAULT_PREFS, isStoredPicsumLabPrefsV1)
   const [selectedPhotoId, setSelectedPhotoId] = useState<string | null>(null)
   const [width, setWidth] = useState(prefs.width)
   const [height, setHeight] = useState(prefs.height)
