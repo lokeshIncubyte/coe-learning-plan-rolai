@@ -1,8 +1,21 @@
+import { useState } from 'react'
 import { usePicsumGallery } from '../hooks/usePicsumGallery'
+import { buildPicsumImageUrl } from '../model/buildPicsumImageUrl'
 import { Gallery } from './Gallery'
+import { Preview } from './Preview'
 
 export function PicsumLabPage() {
   const galleryState = usePicsumGallery()
+  const [selectedPhotoId, setSelectedPhotoId] = useState<string | null>(null)
+
+  const previewUrl = selectedPhotoId
+    ? buildPicsumImageUrl({
+        source: { kind: 'id', id: selectedPhotoId },
+        width: 600,
+        height: 400,
+        effects: { grayscale: false, blur: false },
+      })
+    : null
 
   return (
     <>
@@ -11,8 +24,8 @@ export function PicsumLabPage() {
         {galleryState.status === 'success' && (
           <Gallery
             photos={galleryState.photos}
-            selectedPhotoId={null}
-            onSelectPhoto={() => {}}
+            selectedPhotoId={selectedPhotoId}
+            onSelectPhoto={(photo) => setSelectedPhotoId(photo.id)}
           />
         )}
       </section>
@@ -23,6 +36,7 @@ export function PicsumLabPage() {
 
       <section aria-label="Preview" role="region">
         <h2>Preview</h2>
+        <Preview url={previewUrl} />
       </section>
     </>
   )
