@@ -86,4 +86,4 @@ Used for `<img src>` when display size and effects differ from native dimensions
 
 ---
 
-[← Index](./README.md)
+[← Index](../README.md)

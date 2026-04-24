@@ -103,4 +103,4 @@ type StoredPicsumLabPrefsV1 = {
 
 ---
 
-[← Index](./README.md)
+[← Index](../README.md)
