@@ -4,6 +4,7 @@ import { clampDimension } from '../model/clampDimension'
 type ControlsProps = {
   width?: number
   height?: number
+  grayscale?: boolean
   onWidthChange: (width: number) => void
   onHeightChange?: (height: number) => void
   onGrayscaleChange?: (enabled: boolean) => void
@@ -14,6 +15,7 @@ type ControlsProps = {
 export function Controls({
   width,
   height,
+  grayscale,
   onWidthChange,
   onHeightChange,
   onGrayscaleChange,
@@ -64,7 +66,13 @@ export function Controls({
       </label>
       <label htmlFor="grayscale-input">
         Grayscale
-        <input id="grayscale-input" name="grayscale" type="checkbox" onChange={handleGrayscaleChange} />
+        <input
+          id="grayscale-input"
+          name="grayscale"
+          type="checkbox"
+          checked={grayscale ?? false}
+          onChange={handleGrayscaleChange}
+        />
       </label>
       <label htmlFor="blur-input">
         Blur
