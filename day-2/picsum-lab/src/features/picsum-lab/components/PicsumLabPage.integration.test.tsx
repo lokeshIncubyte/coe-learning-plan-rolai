@@ -347,6 +347,38 @@ describe('PicsumLabPage integration', () => {
     expect(within(previewRegion).queryByRole('img')).toBeNull()
   })
 
+  it('adds blur=N to preview image URL when blur amount is changed', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+      json: async () => [
+        {
+          id: '0',
+          author: 'Alejandro Escamilla',
+          width: 5000,
+          height: 3333,
+          url: 'https://unsplash.com/photos/yC-Yzbqy7PY',
+          download_url: 'https://picsum.photos/id/0/5000/3333',
+        },
+      ],
+    } as Response)
+
+    const user = userEvent.setup()
+    render(<PicsumLabPage />)
+
+    const galleryRegion = screen.getByRole('region', { name: /gallery/i })
+    const rows = await within(galleryRegion).findAllByRole('button')
+    await user.click(rows[0])
+
+    await user.click(screen.getByRole('checkbox', { name: /blur/i }))
+
+    const amountInput = screen.getByLabelText(/blur amount/i)
+    fireEvent.change(amountInput, { target: { value: '5' } })
+
+    const previewRegion = screen.getByRole('region', { name: /preview/i })
+    const previewImage = await within(previewRegion).findByRole('img')
+
+    expect(previewImage).toHaveAttribute('src', expect.stringContaining('blur=5'))
+  })
+
   it('shows an error message in the gallery when the fetch rejects', async () => {
     vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('network down'))
 

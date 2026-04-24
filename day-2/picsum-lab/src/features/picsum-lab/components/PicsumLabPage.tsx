@@ -4,6 +4,7 @@ import { useLocalStorageState } from '../hooks/useLocalStorageState'
 import { usePicsumGallery } from '../hooks/usePicsumGallery'
 import { buildPicsumImageUrl } from '../model/buildPicsumImageUrl'
 import { isStoredPicsumLabPrefsV1 } from '../model/guards'
+import { toBlurAmount } from '../model/toBlurAmount'
 import type { PicsumLabPrefsData } from '../model/types'
 import { Controls } from './Controls'
 import { Gallery } from './Gallery'
@@ -80,12 +81,19 @@ export function PicsumLabPage() {
             height={prefs.height}
             grayscale={prefs.effects.grayscale}
             blur={prefs.effects.blur}
+            blurAmount={prefs.effects.blurAmount}
             onWidthChange={(width) => setPrefs({ ...prefs, width })}
             onHeightChange={(height) => setPrefs({ ...prefs, height })}
             onGrayscaleChange={(grayscale) =>
               setPrefs({ ...prefs, effects: { ...prefs.effects, grayscale } })
             }
             onBlurChange={(blur) => setPrefs({ ...prefs, effects: { ...prefs.effects, blur } })}
+            onBlurAmountChange={(amount) =>
+              setPrefs({
+                ...prefs,
+                effects: { ...prefs.effects, blurAmount: toBlurAmount(amount) },
+              })
+            }
           />
         </section>
       </div>
