@@ -53,7 +53,7 @@ export function PicsumLabPage() {
 
   return (
     <div data-testid="lab-layout" className="lab-layout">
-      <div data-testid="layout-left" className="lab-layout__left">
+      <div data-testid="layout-left" data-scroll-container className="lab-layout__left">
         <section aria-label="Gallery" role="region">
           <h2>Gallery</h2>
           {(galleryState.status === 'idle' || galleryState.status === 'loading') && (
