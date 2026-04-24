@@ -11,6 +11,17 @@ describe('PicsumLabPage', () => {
     expect(screen.getByRole('region', { name: /preview/i })).toBeInTheDocument()
   })
 
+  it('wraps Gallery in a layout-left container and Preview in a layout-right container', () => {
+    render(<PicsumLabPage />)
+
+    const layout = screen.getByTestId('lab-layout')
+    const left = within(layout).getByTestId('layout-left')
+    const right = within(layout).getByTestId('layout-right')
+
+    expect(within(left).getByRole('region', { name: /gallery/i })).toBeInTheDocument()
+    expect(within(right).getByRole('region', { name: /preview/i })).toBeInTheDocument()
+  })
+
   it('renders a loading status inside the Gallery region while the fetch is pending', () => {
     vi.spyOn(globalThis, 'fetch').mockReturnValue(new Promise(() => {}))
 
