@@ -23,4 +23,11 @@ describe('TasksController', () => {
     jest.spyOn(tasksService, 'getAll').mockReturnValue([mockTask]);
     expect(controller.getAllTasks()).toStrictEqual([mockTask]);
   });
+
+  it('createTask() returns the task created by TasksService.create()', () => {
+    const dto = { title: 'Write tests', description: 'Red first' };
+    const expected: Task = { id: 'abc', title: 'Write tests', description: 'Red first', status: 'OPEN' };
+    jest.spyOn(tasksService, 'create').mockReturnValue(expected);
+    expect(controller.createTask(dto)).toStrictEqual(expected);
+  });
 });
