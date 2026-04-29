@@ -12,7 +12,19 @@ description: Execute one Red→Green→Refactor cycle from tdd-plan.md — branc
 
 ## Output
 
-One commit on `main` (`feat: <behavior>`), branch deleted locally, one or more checklist items ticked.
+One commit on `main` (see format below), branch deleted locally, one or more checklist items ticked.
+
+### Squash commit message format
+
+```
+feat(cycle-N): <one-line behavior>
+
+RED: <test file> — <what the assertion checked>
+GREEN: <files created/modified> — <minimum change that made RED pass>
+REFACTOR: <what was improved, or "none">
+```
+
+The subject line is `feat(cycle-N)` so commit history reads as an ordered log of behaviors. The body preserves the RED/GREEN/REFACTOR narrative that the squash erased from branch history.
 
 ## Rules
 
@@ -120,11 +132,18 @@ git commit -m "refactor: <what changed>"
 git checkout main
 git pull
 git merge --squash tdd/<cycle-slug>
-git commit -m "feat: <cycle behavior>"   # one clean commit on main
+git commit -m "$(cat <<'EOF'
+feat(cycle-N): <one-line behavior>
+
+RED: <test file> — <what the assertion checked>
+GREEN: <files created/modified> — <minimum change that made RED pass>
+REFACTOR: <what was improved, or "none">
+EOF
+)"
 git branch -D tdd/<cycle-slug>           # local cleanup
 ```
 
-The branch's RED/GREEN/REFACTOR commits become *one* `feat: …` commit on `main`. Detailed history is preserved by the branch's reflog.
+The branch's RED/GREEN/REFACTOR commits become *one* `feat(cycle-N): …` commit on `main`. The body preserves the RED/GREEN/REFACTOR narrative that the squash erased. Use the cycle number from `tdd-plan.md` (e.g. `feat(cycle-3): …`).
 
 ### 05b.15 — Tick the checklist (NO STOP)
 
@@ -138,5 +157,5 @@ Update `- [ ]` → `- [x]` in `checklist.md` for every Build/Validate/Verify ite
 | RED commit | `git commit -m "red: <behavior>"` |
 | GREEN commit | `git commit -m "green: <behavior>"` |
 | REFACTOR commit | `git commit -m "refactor: <change>"` |
-| Squash-merge | `git checkout main && git merge --squash <branch> && git commit -m "feat: <behavior>"` |
+| Squash-merge | `git checkout main && git merge --squash <branch> && git commit` (use HEREDOC with RED/GREEN/REFACTOR body — see 05b.14) |
 | Branch cleanup | `git branch -D <branch>` |

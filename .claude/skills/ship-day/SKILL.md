@@ -74,10 +74,22 @@ Verify each expectation explicitly — don't trust the pattern.
 ```bash
 git add <files>            # named files, NEVER `git add .`
 git status                 # confirm only intended files staged
-git commit -m "<subject>"  # one line, focuses on WHY not WHAT
+git commit                 # see message format below
 ```
 
 `git add .` accidentally stages secrets, build output left over from a failed `.gitignore`, and editor backups. Stage explicitly.
+
+**Commit message format** — use a subject + body when the commit aggregates multiple phases:
+
+```
+feat(<scope>): <one-line summary of what was shipped>
+
+- <phase or item 1>: <what it delivered>
+- <phase or item 2>: <what it delivered>
+- <any env quirks fixed or notable decisions>
+```
+
+Keep the subject under 72 characters. The body is where reviewers and future-you understand what each phase contributed without digging through individual cycle commits.
 
 **STOP — WAIT** if `git status` shows surprise files. Commit is irreversible without history rewrite.
 
