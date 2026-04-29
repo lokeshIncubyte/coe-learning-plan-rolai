@@ -41,19 +41,19 @@
 - [x] Subsequent `GET /tasks` reflects the created task
 
 ## 6. Ship — push to GitHub
-- [ ] Add a `README.md` with run instructions
-- [ ] `.gitignore` excludes `node_modules` and `dist`
-- [ ] Initial commit with a clean message
-- [ ] Push the Task Management backend repo to GitHub
+- [x] Add a `README.md` with run instructions
+- [x] `.gitignore` excludes `node_modules` and `dist`
+- [x] Initial commit with a clean message
+- [x] Push the Task Management backend repo to GitHub
 
 ---
 
 ## Success Criteria (from requirements)
-- [ ] NestJS project created for Task Management App
-- [ ] Demonstrates understanding of NestJS architecture
-- [ ] `TasksController` and `TasksService` implemented
-- [ ] Dependency injection used correctly
-- [ ] REST API exposes `GET` and `POST` endpoints
-- [ ] Request validation in place
-- [ ] Follows NestJS conventions
-- [ ] Backend pushed to GitHub
+- [x] NestJS project created for Task Management App
+- [x] Demonstrates understanding of NestJS architecture
+- [x] `TasksController` and `TasksService` implemented
+- [x] Dependency injection used correctly
+- [x] REST API exposes `GET` and `POST` endpoints
+- [x] Request validation in place
+- [x] Follows NestJS conventions
+- [x] Backend pushed to GitHub
