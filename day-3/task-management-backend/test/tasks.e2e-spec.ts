@@ -21,6 +21,13 @@ describe('Tasks API (e2e)', () => {
     await app.close();
   });
 
+  it('PATCH /tasks/:id returns 404 for unknown id', async () => {
+    await request(app.getHttpServer())
+      .patch('/tasks/nonexistent-id')
+      .send({ title: 'Updated Title' })
+      .expect(404);
+  });
+
   it('PATCH /tasks/:id returns 200 with updated task for valid id', async () => {
     const createRes = await request(app.getHttpServer())
       .post('/tasks')
