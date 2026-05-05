@@ -43,4 +43,16 @@ describe('TasksService', () => {
   it('getById() throws NotFoundException when task does not exist', () => {
     expect(() => service.getById('no-such-id')).toThrow(NotFoundException);
   });
+
+  it('update() applies partial fields and returns the updated task', () => {
+    const task = service.create({ title: 'Old', description: 'desc' });
+    const updated = service.update(task.id, { title: 'New' });
+    expect(updated.title).toBe('New');
+    expect(updated.description).toBe('desc');
+    expect(updated.status).toBe('OPEN');
+  });
+
+  it('update() throws NotFoundException when task does not exist', () => {
+    expect(() => service.update('ghost', { title: 'X' })).toThrow(NotFoundException);
+  });
 });

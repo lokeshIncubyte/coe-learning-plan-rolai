@@ -17,6 +17,12 @@ export class TasksService {
     return task;
   }
 
+  update(id: string, dto: Partial<{ title: string; description: string; status: TaskStatus }>): Task {
+    const task = this.getById(id);
+    Object.assign(task, dto);
+    return task;
+  }
+
   create(dto: { title: string; description: string; status?: TaskStatus }): Task {
     const task: Task = {
       id: crypto.randomUUID(),
