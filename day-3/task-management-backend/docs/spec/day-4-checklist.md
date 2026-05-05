@@ -14,22 +14,22 @@
 - [ ] `ValidationPipe` options: `whitelist`, `forbidNonWhitelisted`, `transform` → absorb into note 08 or 09
 
 ## 2. Refactor — harden existing API
-- [ ] Enable `whitelist: true` on global `ValidationPipe` (strips unknown fields from body)
-- [ ] Enable `transform: true` to auto-coerce path/query params to declared types
-- [ ] Add `@IsEnum(TaskStatus)` + `@IsOptional()` to `CreateTaskDto.status` so callers can override the default
+- [x] Enable `whitelist: true` on global `ValidationPipe` (strips unknown fields from body)
+- [x] Enable `transform: true` to auto-coerce path/query params to declared types
+- [x] Add `@IsEnum(TaskStatus)` + `@IsOptional()` to `CreateTaskDto.status` so callers can override the default
 
 ## 3. Build — complete CRUD
-- [ ] Add `getById(id: string): Task` to `TasksService` — throws `NotFoundException` when not found
-- [ ] Add `update(id: string, dto: UpdateTaskDto): Task` to `TasksService` — throws `NotFoundException` when not found
-- [ ] Add `remove(id: string): void` to `TasksService` — throws `NotFoundException` when not found
-- [ ] `GET /tasks/:id` — return single task (200) or 404
-- [ ] `PATCH /tasks/:id` — partial update, return updated task (200) or 404
-- [ ] `DELETE /tasks/:id` — remove task, return 204 (no body) or 404
+- [x] Add `getById(id: string): Task` to `TasksService` — throws `NotFoundException` when not found
+- [x] Add `update(id: string, dto: UpdateTaskDto): Task` to `TasksService` — throws `NotFoundException` when not found
+- [x] Add `remove(id: string): void` to `TasksService` — throws `NotFoundException` when not found
+- [x] `GET /tasks/:id` — return single task (200) or 404
+- [x] `PATCH /tasks/:id` — partial update, return updated task (200) or 404
+- [x] `DELETE /tasks/:id` — remove task, return 204 (no body) or 404
 
 ## 4. DTOs — UpdateTaskDto
-- [ ] Install `@nestjs/mapped-types`
-- [ ] Create `UpdateTaskDto` using `PartialType(CreateTaskDto)` — all fields optional, validators inherited
-- [ ] Wire `UpdateTaskDto` into `TasksController.updateTask()`
+- [x] Install `@nestjs/mapped-types`
+- [x] Create `UpdateTaskDto` using `PartialType(CreateTaskDto)` — all fields optional, validators inherited
+- [x] Wire `UpdateTaskDto` into `TasksController.updateTask()`
 
 ## 5. Service-to-service DI
 - [ ] Create `TaskStatsService` (`@Injectable`) — exposes `getStats(): { total: number; open: number }` by reading from `TasksService`
