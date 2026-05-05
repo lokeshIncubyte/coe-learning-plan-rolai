@@ -28,4 +28,9 @@ describe('TasksService', () => {
     expect(service.getAll()).toHaveLength(1);
     expect(service.getAll()[0]).toStrictEqual(task);
   });
+
+  it('create() uses caller-provided status when given', () => {
+    const task = service.create({ title: 'T', description: '', status: 'IN_PROGRESS' });
+    expect(task.status).toBe('IN_PROGRESS');
+  });
 });

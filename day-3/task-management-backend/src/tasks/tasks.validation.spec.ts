@@ -12,7 +12,7 @@ describe('POST /tasks — validation', () => {
     }).compile();
 
     app = module.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
     await app.init();
   });
 
@@ -31,6 +31,13 @@ describe('POST /tasks — validation', () => {
     const response = await request(app.getHttpServer())
       .post('/tasks')
       .send({ title: '', description: 'desc' });
+    expect(response.status).toBe(400);
+  });
+
+  it('rejects an invalid status value — expects 400', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/tasks')
+      .send({ title: 'T', status: 'FLYING' });
     expect(response.status).toBe(400);
   });
 });
