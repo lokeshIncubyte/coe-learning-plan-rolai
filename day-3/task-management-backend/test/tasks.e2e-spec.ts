@@ -21,6 +21,12 @@ describe('Tasks API (e2e)', () => {
     await app.close();
   });
 
+  it('DELETE /tasks/:id returns 404 for unknown id', async () => {
+    await request(app.getHttpServer())
+      .delete('/tasks/nonexistent-id')
+      .expect(404);
+  });
+
   it('DELETE /tasks/:id returns 204 with no body for valid id', async () => {
     const createRes = await request(app.getHttpServer())
       .post('/tasks')
