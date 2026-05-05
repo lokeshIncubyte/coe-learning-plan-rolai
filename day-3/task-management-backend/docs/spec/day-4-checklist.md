@@ -48,20 +48,20 @@
 - [x] `GET /tasks/stats` → 200 with `{ total, open }` counts
 
 ## 7. Ship
-- [ ] All existing tests still pass (`npm test`)
-- [ ] New tests cover `getById`, `update`, `remove`, and `TaskStatsService`
-- [ ] `README.md` updated with new endpoints
+- [x] All existing tests still pass (`npm test`)
+- [x] New tests cover `getById`, `update`, `remove`, and `TaskStatsService`
+- [x] `README.md` updated with new endpoints
 - [ ] Commit with a clean message
 - [ ] Push to GitHub
 
 ---
 
 ## Success Criteria (from requirements)
-- [ ] Full CRUD implemented for tasks
-- [ ] `UpdateTaskDto` uses `PartialType` — all fields optional, validation inherited
-- [ ] `NotFoundException` thrown from service layer (not controller)
-- [ ] `ValidationPipe` configured with `whitelist: true` and `transform: true`
-- [ ] Service-to-service dependency injection demonstrated via `TaskStatsService`
-- [ ] NestJS module boundaries respected — `TasksModule` owns all tasks providers
-- [ ] All tests pass
+- [x] Full CRUD implemented for tasks
+- [x] `UpdateTaskDto` uses `PartialType` — all fields optional, validation inherited
+- [x] `NotFoundException` thrown from service layer (not controller)
+- [x] `ValidationPipe` configured with `whitelist: true` and `transform: true`
+- [x] Service-to-service dependency injection demonstrated via `TaskStatsService`
+- [x] NestJS module boundaries respected — `TasksModule` owns all tasks providers
+- [x] All tests pass
 - [ ] Changes pushed to GitHub
