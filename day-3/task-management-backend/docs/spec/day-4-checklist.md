@@ -32,9 +32,9 @@
 - [x] Wire `UpdateTaskDto` into `TasksController.updateTask()`
 
 ## 5. Service-to-service DI
-- [ ] Create `TaskStatsService` (`@Injectable`) — exposes `getStats(): { total: number; open: number }` by reading from `TasksService`
-- [ ] Inject `TasksService` into `TaskStatsService` via constructor injection
-- [ ] Register `TaskStatsService` as a provider in `TasksModule`
+- [x] Create `TaskStatsService` (`@Injectable`) — exposes `getStats(): { total: number; open: number }` by reading from `TasksService`
+- [x] Inject `TasksService` into `TaskStatsService` via constructor injection
+- [x] Register `TaskStatsService` as a provider in `TasksModule`
 - [ ] Add `GET /tasks/stats` route to `TasksController` using `TaskStatsService`
 
 ## 6. Verify — manual smoke tests
