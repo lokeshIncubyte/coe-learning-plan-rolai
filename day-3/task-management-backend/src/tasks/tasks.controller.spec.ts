@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TasksController } from './tasks.controller';
 import { TasksService } from './tasks.service';
+import { TaskStatsService } from './tasks.stats.service';
 import { Task } from './task.interface';
 
 const mockTask: Task = { id: '1', title: 'T', description: '', status: 'OPEN' };
@@ -12,7 +13,10 @@ describe('TasksController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TasksController],
-      providers: [TasksService],
+      providers: [
+        TasksService,
+        { provide: TaskStatsService, useValue: { getStats: jest.fn() } },
+      ],
     }).compile();
 
     controller = module.get<TasksController>(TasksController);
