@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TasksController } from './tasks.controller';
 import { TasksService } from './tasks.service';
+import { TaskStatsService } from './tasks.stats.service';
 import { Task } from './task.interface';
 
 const mockTask: Task = { id: '1', title: 'T', description: '', status: 'OPEN' };
@@ -8,15 +9,20 @@ const mockTask: Task = { id: '1', title: 'T', description: '', status: 'OPEN' };
 describe('TasksController', () => {
   let controller: TasksController;
   let tasksService: TasksService;
+  let taskStatsService: TaskStatsService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TasksController],
-      providers: [TasksService],
+      providers: [
+        TasksService,
+        { provide: TaskStatsService, useValue: { getStats: jest.fn() } },
+      ],
     }).compile();
 
     controller = module.get<TasksController>(TasksController);
     tasksService = module.get<TasksService>(TasksService);
+    taskStatsService = module.get<TaskStatsService>(TaskStatsService);
   });
 
   it('getAllTasks() returns whatever TasksService.getAll() returns', () => {
@@ -47,5 +53,11 @@ describe('TasksController', () => {
     const spy = jest.spyOn(tasksService, 'remove').mockReturnValue();
     controller.removeTask('1');
     expect(spy).toHaveBeenCalledWith('1');
+  });
+
+  it('getStats() returns stats from TaskStatsService', () => {
+    const mockStats = { total: 3, open: 2 };
+    jest.spyOn(taskStatsService, 'getStats').mockReturnValue(mockStats);
+    expect(controller.getStats()).toStrictEqual(mockStats);
   });
 });
