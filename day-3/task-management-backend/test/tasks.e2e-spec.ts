@@ -21,6 +21,20 @@ describe('Tasks API (e2e)', () => {
     await app.close();
   });
 
+  it('POST /tasks with extra unknown field returns 201 and strips unknown field', async () => {
+    const res = await request(app.getHttpServer())
+      .post('/tasks')
+      .send({ title: 'Task with extra', description: 'desc', unknownField: 'should be stripped' })
+      .expect(201);
+
+    expect(res.body).not.toHaveProperty('unknownField');
+    expect(res.body).toMatchObject({
+      title: 'Task with extra',
+      description: 'desc',
+      status: 'OPEN',
+    });
+  });
+
   it('DELETE /tasks/:id returns 404 for unknown id', async () => {
     await request(app.getHttpServer())
       .delete('/tasks/nonexistent-id')
