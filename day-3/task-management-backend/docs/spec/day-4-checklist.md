@@ -38,14 +38,14 @@
 - [x] Add `GET /tasks/stats` route to `TasksController` using `TaskStatsService`
 
 ## 6. Verify — manual smoke tests
-- [ ] `GET /tasks/:id` with valid id → 200 with task object
-- [ ] `GET /tasks/:id` with unknown id → 404 with `{ statusCode: 404, message: "Task #<id> not found" }`
-- [ ] `PATCH /tasks/:id` with valid id + partial body → 200 with updated task
-- [ ] `PATCH /tasks/:id` with unknown id → 404
-- [ ] `DELETE /tasks/:id` with valid id → 204 (empty body)
-- [ ] `DELETE /tasks/:id` with unknown id → 404
-- [ ] `POST /tasks` with extra unknown field → 201, unknown field stripped from response
-- [ ] `GET /tasks/stats` → 200 with `{ total, open }` counts
+- [x] `GET /tasks/:id` with valid id → 200 with task object
+- [x] `GET /tasks/:id` with unknown id → 404 with `{ statusCode: 404, message: "Task #<id> not found" }`
+- [x] `PATCH /tasks/:id` with valid id + partial body → 200 with updated task
+- [x] `PATCH /tasks/:id` with unknown id → 404
+- [x] `DELETE /tasks/:id` with valid id → 204 (empty body)
+- [x] `DELETE /tasks/:id` with unknown id → 404
+- [x] `POST /tasks` with extra unknown field → 201, unknown field stripped from response
+- [x] `GET /tasks/stats` → 200 with `{ total, open }` counts
 
 ## 7. Ship
 - [ ] All existing tests still pass (`npm test`)
