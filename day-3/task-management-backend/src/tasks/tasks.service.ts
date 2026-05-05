@@ -23,6 +23,11 @@ export class TasksService {
     return task;
   }
 
+  remove(id: string): void {
+    this.getById(id);
+    this.tasks = this.tasks.filter(t => t.id !== id);
+  }
+
   create(dto: { title: string; description: string; status?: TaskStatus }): Task {
     const task: Task = {
       id: crypto.randomUUID(),

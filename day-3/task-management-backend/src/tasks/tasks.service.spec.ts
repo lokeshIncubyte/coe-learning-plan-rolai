@@ -55,4 +55,14 @@ describe('TasksService', () => {
   it('update() throws NotFoundException when task does not exist', () => {
     expect(() => service.update('ghost', { title: 'X' })).toThrow(NotFoundException);
   });
+
+  it('remove() deletes the task so getAll() no longer returns it', () => {
+    const task = service.create({ title: 'T', description: '' });
+    service.remove(task.id);
+    expect(service.getAll()).toHaveLength(0);
+  });
+
+  it('remove() throws NotFoundException when task does not exist', () => {
+    expect(() => service.remove('ghost')).toThrow(NotFoundException);
+  });
 });
