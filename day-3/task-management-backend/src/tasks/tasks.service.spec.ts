@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { NotFoundException } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 
 describe('TasksService', () => {
@@ -32,5 +33,14 @@ describe('TasksService', () => {
   it('create() uses caller-provided status when given', () => {
     const task = service.create({ title: 'T', description: '', status: 'IN_PROGRESS' });
     expect(task.status).toBe('IN_PROGRESS');
+  });
+
+  it('getById() returns the task when it exists', () => {
+    const task = service.create({ title: 'T', description: '' });
+    expect(service.getById(task.id)).toStrictEqual(task);
+  });
+
+  it('getById() throws NotFoundException when task does not exist', () => {
+    expect(() => service.getById('no-such-id')).toThrow(NotFoundException);
   });
 });
