@@ -42,4 +42,10 @@ describe('TasksController', () => {
     jest.spyOn(tasksService, 'update').mockReturnValue(updated);
     expect(controller.updateTask('1', dto)).toStrictEqual(updated);
   });
+
+  it('removeTask() calls service.remove() with the given id', () => {
+    const spy = jest.spyOn(tasksService, 'remove').mockReturnValue();
+    controller.removeTask('1');
+    expect(spy).toHaveBeenCalledWith('1');
+  });
 });
