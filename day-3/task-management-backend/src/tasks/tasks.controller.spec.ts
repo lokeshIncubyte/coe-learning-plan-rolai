@@ -30,4 +30,9 @@ describe('TasksController', () => {
     jest.spyOn(tasksService, 'create').mockReturnValue(expected);
     expect(controller.createTask(dto)).toStrictEqual(expected);
   });
+
+  it('getTaskById() returns the task from the service', () => {
+    jest.spyOn(tasksService, 'getById').mockReturnValue(mockTask);
+    expect(controller.getTaskById('1')).toStrictEqual(mockTask);
+  });
 });
