@@ -21,6 +21,32 @@ describe('Tasks API (e2e)', () => {
     await app.close();
   });
 
+  it('GET /tasks/stats returns 200 with total and open counts', async () => {
+    // Create two OPEN tasks and one DONE task
+    await request(app.getHttpServer())
+      .post('/tasks')
+      .send({ title: 'Task 1', description: 'desc' })
+      .expect(201);
+
+    await request(app.getHttpServer())
+      .post('/tasks')
+      .send({ title: 'Task 2', description: 'desc' })
+      .expect(201);
+
+    const doneTask = await request(app.getHttpServer())
+      .post('/tasks')
+      .send({ title: 'Task 3', description: 'desc', status: 'DONE' })
+      .expect(201);
+
+    expect(doneTask.body.status).toBe('DONE');
+
+    const statsRes = await request(app.getHttpServer())
+      .get('/tasks/stats')
+      .expect(200);
+
+    expect(statsRes.body).toEqual({ total: 3, open: 2 });
+  });
+
   it('POST /tasks with extra unknown field returns 201 and strips unknown field', async () => {
     const res = await request(app.getHttpServer())
       .post('/tasks')
