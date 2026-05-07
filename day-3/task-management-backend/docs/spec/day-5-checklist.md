@@ -22,9 +22,9 @@
 - [x] Add `.env` to `.gitignore` (verify it is already there) — confirmed at line 20
 
 ## 3. Prisma — install and initialise
-- [ ] Install Prisma CLI and client: `npm install prisma @prisma/client`
-- [ ] Initialise Prisma: `npx prisma init` — confirm `prisma/schema.prisma` and `.env` are created
-- [ ] Set `provider = "postgresql"` in `datasource db` block of `schema.prisma`
+- [x] Install Prisma CLI and client: `npm install prisma @prisma/client`
+- [x] Initialise Prisma: `npx prisma init` — Prisma 7 generates `prisma/schema.prisma` + `prisma.config.ts` (URL lives here, not in schema)
+- [x] Set `provider = "postgresql"` in `datasource db` block of `schema.prisma` — already set by init
 
 ## 4. Schema — define Task model
 - [ ] Define `Task` model in `prisma/schema.prisma` with fields:
