@@ -37,10 +37,10 @@
 - [x] Define `TaskStatus` enum in `schema.prisma`
 
 ## 5. Migrations — apply schema to database
-- [ ] Run first migration: `npx prisma migrate dev --name init`
-- [ ] Confirm migration file created under `prisma/migrations/`
-- [ ] Confirm table `Task` exists in database: `psql -U postgres -d task_management -c "\dt"`
-- [ ] Generate Prisma Client: `npx prisma generate` (auto-runs after migrate, verify `node_modules/.prisma/client` exists)
+- [x] Run first migration: `npx prisma migrate dev --name init`
+- [x] Confirm migration file created under `prisma/migrations/20260507100827_init/migration.sql`
+- [x] Confirm table `Task` exists in database — verified via `information_schema.tables` on Neon
+- [x] Generate Prisma Client: auto-ran after migrate; `generated/prisma/` updated
 
 ## 6. Connect NestJS — PrismaService
 - [ ] Create `src/prisma/prisma.service.ts` extending `PrismaClient`, implementing `OnModuleInit` and `OnModuleDestroy`
