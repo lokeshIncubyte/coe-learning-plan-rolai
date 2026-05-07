@@ -27,14 +27,14 @@
 - [x] Set `provider = "postgresql"` in `datasource db` block of `schema.prisma` — already set by init
 
 ## 4. Schema — define Task model
-- [ ] Define `Task` model in `prisma/schema.prisma` with fields:
+- [x] Define `Task` model in `prisma/schema.prisma` with fields:
   - `id` — `String @id @default(uuid())`
   - `title` — `String`
   - `description` — `String?`
   - `status` — `TaskStatus` (enum: `OPEN`, `IN_PROGRESS`, `DONE`)
   - `createdAt` — `DateTime @default(now())`
   - `updatedAt` — `DateTime @updatedAt`
-- [ ] Define `TaskStatus` enum in `schema.prisma`
+- [x] Define `TaskStatus` enum in `schema.prisma`
 
 ## 5. Migrations — apply schema to database
 - [ ] Run first migration: `npx prisma migrate dev --name init`

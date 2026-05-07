@@ -30,10 +30,12 @@ Thumbs.db
 *.swp
 *.swo
 
-# Markdown — exclude stray .md files except README and anything inside any docs/ folder
+# Markdown — exclude stray .md files except README, docs/, and cycles/
 *.md
 !README.md
 !docs/**
 !**/docs/**
+!cycles/**
+!**/cycles/**
 
 /generated/prisma
