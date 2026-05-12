@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Patch, Delete, Body, Param, HttpCode } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { TaskStatsService } from './tasks.stats.service';
-import type { Task } from './task.interface';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 
@@ -13,33 +12,33 @@ export class TasksController {
   ) {}
 
   @Get()
-  getAllTasks(): Task[] {
+  async getAllTasks() {
     return this.tasksService.getAll();
   }
 
   @Post()
-  createTask(@Body() dto: CreateTaskDto): Task {
+  async createTask(@Body() dto: CreateTaskDto) {
     return this.tasksService.create(dto);
   }
 
   @Get('stats')
-  getStats(): { total: number; open: number } {
+  async getStats() {
     return this.taskStatsService.getStats();
   }
 
   @Get(':id')
-  getTaskById(@Param('id') id: string): Task {
+  async getTaskById(@Param('id') id: string) {
     return this.tasksService.getById(id);
   }
 
   @Patch(':id')
-  updateTask(@Param('id') id: string, @Body() dto: UpdateTaskDto): Task {
+  async updateTask(@Param('id') id: string, @Body() dto: UpdateTaskDto) {
     return this.tasksService.update(id, dto);
   }
 
   @Delete(':id')
   @HttpCode(204)
-  removeTask(@Param('id') id: string): void {
-    this.tasksService.remove(id);
+  async removeTask(@Param('id') id: string): Promise<void> {
+    await this.tasksService.remove(id);
   }
 }

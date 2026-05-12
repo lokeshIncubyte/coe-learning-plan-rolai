@@ -2,9 +2,16 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TasksController } from './tasks.controller';
 import { TasksService } from './tasks.service';
 import { TaskStatsService } from './tasks.stats.service';
-import { Task } from './task.interface';
 
-const mockTask: Task = { id: '1', title: 'T', description: '', status: 'OPEN' };
+jest.mock('../../generated/prisma/client', () => {
+  class PrismaClient {
+    $connect = jest.fn().mockResolvedValue(undefined);
+    $disconnect = jest.fn().mockResolvedValue(undefined);
+  }
+  return { PrismaClient };
+});
+
+const mockTask = { id: '1', title: 'T', description: '', status: 'OPEN' };
 
 describe('TasksController', () => {
   let controller: TasksController;
@@ -12,10 +19,11 @@ describe('TasksController', () => {
   let taskStatsService: TaskStatsService;
 
   beforeEach(async () => {
+    jest.clearAllMocks();
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TasksController],
       providers: [
-        TasksService,
+        { provide: TasksService, useValue: { getAll: jest.fn(), create: jest.fn(), getById: jest.fn(), update: jest.fn(), remove: jest.fn() } },
         { provide: TaskStatsService, useValue: { getStats: jest.fn() } },
       ],
     }).compile();
@@ -25,39 +33,54 @@ describe('TasksController', () => {
     taskStatsService = module.get<TaskStatsService>(TaskStatsService);
   });
 
-  it('getAllTasks() returns whatever TasksService.getAll() returns', () => {
-    jest.spyOn(tasksService, 'getAll').mockReturnValue([mockTask]);
-    expect(controller.getAllTasks()).toStrictEqual([mockTask]);
+  // cycle-014 RED
+  it('getAllTasks() awaits TasksService.getAll()', async () => {
+    jest.spyOn(tasksService, 'getAll').mockResolvedValue([mockTask] as any);
+
+    const result = await controller.getAllTasks();
+
+    expect(result).toStrictEqual([mockTask]);
   });
 
-  it('createTask() returns the task created by TasksService.create()', () => {
-    const dto = { title: 'Write tests', description: 'Red first' };
-    const expected: Task = { id: 'abc', title: 'Write tests', description: 'Red first', status: 'OPEN' };
-    jest.spyOn(tasksService, 'create').mockReturnValue(expected);
-    expect(controller.createTask(dto)).toStrictEqual(expected);
+  it('createTask() awaits TasksService.create()', async () => {
+    jest.spyOn(tasksService, 'create').mockResolvedValue(mockTask as any);
+
+    const result = await controller.createTask({ title: 'T', description: '' });
+
+    expect(result).toStrictEqual(mockTask);
   });
 
-  it('getTaskById() returns the task from the service', () => {
-    jest.spyOn(tasksService, 'getById').mockReturnValue(mockTask);
-    expect(controller.getTaskById('1')).toStrictEqual(mockTask);
+  it('getTaskById() awaits TasksService.getById()', async () => {
+    jest.spyOn(tasksService, 'getById').mockResolvedValue(mockTask as any);
+
+    const result = await controller.getTaskById('1');
+
+    expect(result).toStrictEqual(mockTask);
   });
 
-  it('updateTask() returns the updated task from the service', () => {
-    const dto = { title: 'New' };
-    const updated: Task = { ...mockTask, title: 'New' };
-    jest.spyOn(tasksService, 'update').mockReturnValue(updated);
-    expect(controller.updateTask('1', dto)).toStrictEqual(updated);
+  it('updateTask() awaits TasksService.update()', async () => {
+    const updated = { ...mockTask, title: 'New' };
+    jest.spyOn(tasksService, 'update').mockResolvedValue(updated as any);
+
+    const result = await controller.updateTask('1', { title: 'New' });
+
+    expect(result).toStrictEqual(updated);
   });
 
-  it('removeTask() calls service.remove() with the given id', () => {
-    const spy = jest.spyOn(tasksService, 'remove').mockReturnValue();
-    controller.removeTask('1');
-    expect(spy).toHaveBeenCalledWith('1');
+  it('removeTask() awaits TasksService.remove()', async () => {
+    jest.spyOn(tasksService, 'remove').mockResolvedValue(undefined as any);
+
+    await controller.removeTask('1');
+
+    expect(tasksService.remove).toHaveBeenCalledWith('1');
   });
 
-  it('getStats() returns stats from TaskStatsService', () => {
+  it('getStats() awaits TaskStatsService.getStats()', async () => {
     const mockStats = { total: 3, open: 2 };
-    jest.spyOn(taskStatsService, 'getStats').mockReturnValue(mockStats);
-    expect(controller.getStats()).toStrictEqual(mockStats);
+    jest.spyOn(taskStatsService, 'getStats').mockResolvedValue(mockStats as any);
+
+    const result = await controller.getStats();
+
+    expect(result).toStrictEqual(mockStats);
   });
 });
