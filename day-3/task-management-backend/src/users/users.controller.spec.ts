@@ -37,4 +37,15 @@ describe('UsersController', () => {
     expect(usersService.create).toHaveBeenCalledWith(dto);
     expect(result).toStrictEqual(created);
   });
+
+  // cycle-020 RED
+  it('getUserById() delegates to UsersService.getById()', async () => {
+    const user = { id: '1', name: 'Alice', email: 'alice@example.com', createdAt: new Date(), tasks: [] };
+    jest.spyOn(usersService, 'getById').mockResolvedValue(user as any);
+
+    const result = await controller.getUserById('1');
+
+    expect(usersService.getById).toHaveBeenCalledWith('1');
+    expect(result).toStrictEqual(user);
+  });
 });

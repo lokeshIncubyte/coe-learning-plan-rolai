@@ -10,4 +10,9 @@ export class UsersController {
   async createUser(@Body() dto: CreateUserDto) {
     return this.usersService.create(dto);
   }
+
+  @Get(':id')
+  async getUserById(@Param('id') id: string) {
+    return this.usersService.getById(id);
+  }
 }
