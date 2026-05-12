@@ -18,3 +18,14 @@ it('AppModule provides PrismaService via PrismaModule', async () => {
   const prisma = module.get(PrismaService);
   expect(prisma).toBeDefined();
 });
+
+// cycle-021 RED
+it('AppModule provides UsersService via UsersModule', async () => {
+  const module = await Test.createTestingModule({
+    imports: [AppModule],
+  }).compile();
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { UsersService } = require('./users/users.service');
+  const users = module.get(UsersService);
+  expect(users).toBeDefined();
+});
