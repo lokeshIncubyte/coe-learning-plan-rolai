@@ -11,7 +11,9 @@ export class TasksService {
   }
 
   async getById(id: string): Promise<Task> {
-    return this.prisma.task.findUnique({ where: { id } }) as any;
+    const task = await this.prisma.task.findUnique({ where: { id } });
+    if (!task) throw new NotFoundException(`Task #${id} not found`);
+    return task as any;
   }
 
   update(id: string, dto: Partial<{ title: string; description: string; status: TaskStatus }>): Task {

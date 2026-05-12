@@ -43,39 +43,33 @@ describe('TasksService', () => {
     service = module.get<TasksService>(TasksService);
   });
 
-  // cycle-005: create() async via prisma
   it('create() delegates to prisma.task.create()', async () => {
-    const dto = { title: 'T', description: 'D' };
     const stored = { id: '1', title: 'T', description: 'D', status: 'OPEN', createdAt: new Date(), updatedAt: new Date() };
     jest.spyOn(mockPrisma.task, 'create').mockResolvedValue(stored as any);
-
-    const result = await service.create(dto);
-
+    const result = await service.create({ title: 'T', description: 'D' });
     expect(mockPrisma.task.create).toHaveBeenCalledWith({ data: { title: 'T', description: 'D' } });
     expect(result).toStrictEqual(stored);
   });
 
-  // cycle-006 RED
   it('getAll() delegates to prisma.task.findMany()', async () => {
     const rows = [{ id: '1', title: 'T', description: '', status: 'OPEN', createdAt: new Date(), updatedAt: new Date() }];
     jest.spyOn(mockPrisma.task, 'findMany').mockResolvedValue(rows as any);
-
     const result = await service.getAll();
-
     expect(mockPrisma.task.findMany).toHaveBeenCalled();
     expect(result).toStrictEqual(rows);
   });
 
-  // cycle-007 RED
   it('getById() delegates to prisma.task.findUnique()', async () => {
     const row = { id: '1', title: 'T', description: '', status: 'OPEN', createdAt: new Date(), updatedAt: new Date() };
     jest.spyOn(mockPrisma.task, 'findUnique').mockResolvedValue(row as any);
-
     const result = await service.getById('1');
-
     expect(mockPrisma.task.findUnique).toHaveBeenCalledWith({ where: { id: '1' } });
     expect(result).toStrictEqual(row);
   });
 
-  // error-path stubs removed — replaced by cycles 008, 010, 012
+  // cycle-008 RED
+  it('getById() throws NotFoundException when findUnique returns null', async () => {
+    jest.spyOn(mockPrisma.task, 'findUnique').mockResolvedValue(null);
+    await expect(service.getById('no-such-id')).rejects.toThrow(NotFoundException);
+  });
 });
