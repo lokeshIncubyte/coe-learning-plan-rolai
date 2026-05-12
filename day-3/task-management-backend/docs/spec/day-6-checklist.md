@@ -40,11 +40,11 @@
 - [x] `GET /users/:id` — get a user with their tasks (`include: { tasks: true }`)
 
 ## 4. Pagination on GET /tasks
-- [ ] Accept `?page=1&limit=10` query params (default: page 1, limit 10)
-- [ ] Create `PaginationDto` with `@IsOptional`, `@IsInt`, `@Min(1)` validation
-- [ ] Apply `skip = (page - 1) * limit`, `take = limit` in `findMany`
-- [ ] Return `{ data: Task[], total: number, page: number, limit: number }`
-- [ ] Update controller to accept `@Query() pagination: PaginationDto`
+- [x] Accept `?page=1&limit=10` query params (default: page 1, limit 10)
+- [x] Create `PaginationDto` with `@IsOptional`, `@IsInt`, `@Min(1)` validation
+- [x] Apply `skip = (page - 1) * limit`, `take = limit` in `findMany`
+- [x] Return `{ data: Task[], total: number, page: number, limit: number }`
+- [x] Update controller to accept `@Query() pagination: PaginationDto`
 
 ## 5. Database seeding
 - [ ] Create `prisma/seed.ts` — seed 2 users and 5 tasks (mix of statuses, some assigned to users)
