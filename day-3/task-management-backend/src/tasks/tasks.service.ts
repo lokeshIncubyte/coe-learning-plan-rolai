@@ -29,8 +29,8 @@ export class TasksService {
     }
   }
 
-  remove(id: string): void {
-    this.getById(id);
+  async remove(id: string): Promise<void> {
+    await this.prisma.task.delete({ where: { id } });
   }
 
   async create(dto: { title: string; description: string; status?: TaskStatus }): Promise<Task> {

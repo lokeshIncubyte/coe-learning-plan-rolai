@@ -87,4 +87,13 @@ describe('TasksService', () => {
 
     await expect(service.update('ghost', { title: 'X' })).rejects.toThrow(NotFoundException);
   });
+
+  // cycle-011 RED
+  it('remove() delegates to prisma.task.delete()', async () => {
+    jest.spyOn(mockPrisma.task, 'delete').mockResolvedValue({} as any);
+
+    await service.remove('1');
+
+    expect(mockPrisma.task.delete).toHaveBeenCalledWith({ where: { id: '1' } });
+  });
 });
