@@ -8,4 +8,8 @@ export class UsersService {
   async create(dto: { name: string; email: string }) {
     return this.prisma.user.create({ data: dto });
   }
+
+  async getById(id: string) {
+    return this.prisma.user.findUnique({ where: { id }, include: { tasks: true } });
+  }
 }

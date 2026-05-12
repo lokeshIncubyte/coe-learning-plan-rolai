@@ -29,7 +29,6 @@ describe('UsersService', () => {
     service = module.get<UsersService>(UsersService);
   });
 
-  // cycle-016 RED
   it('create() delegates to prisma.user.create()', async () => {
     const stored = { id: '1', name: 'Alice', email: 'alice@example.com', createdAt: new Date(), tasks: [] };
     jest.spyOn(mockPrisma.user, 'create').mockResolvedValue(stored as any);
@@ -38,5 +37,16 @@ describe('UsersService', () => {
 
     expect(mockPrisma.user.create).toHaveBeenCalledWith({ data: { name: 'Alice', email: 'alice@example.com' } });
     expect(result).toStrictEqual(stored);
+  });
+
+  // cycle-017 RED
+  it('getById() calls findUnique with include: { tasks: true }', async () => {
+    const user = { id: '1', name: 'Alice', email: 'alice@example.com', createdAt: new Date(), tasks: [] };
+    jest.spyOn(mockPrisma.user, 'findUnique').mockResolvedValue(user as any);
+
+    const result = await service.getById('1');
+
+    expect(mockPrisma.user.findUnique).toHaveBeenCalledWith({ where: { id: '1' }, include: { tasks: true } });
+    expect(result).toStrictEqual(user);
   });
 });
