@@ -49,4 +49,11 @@ describe('UsersService', () => {
     expect(mockPrisma.user.findUnique).toHaveBeenCalledWith({ where: { id: '1' }, include: { tasks: true } });
     expect(result).toStrictEqual(user);
   });
+
+  // cycle-018 RED
+  it('getById() throws NotFoundException when findUnique returns null', async () => {
+    jest.spyOn(mockPrisma.user, 'findUnique').mockResolvedValue(null);
+
+    await expect(service.getById('no-such-id')).rejects.toThrow(NotFoundException);
+  });
 });
