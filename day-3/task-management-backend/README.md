@@ -6,12 +6,31 @@ NestJS REST API — Days 3 & 4 of the CoE learning plan. In-memory task store wi
 
 - Node.js ≥ 18
 - npm ≥ 9
+- A [Neon](https://neon.tech) PostgreSQL database (free tier is fine)
 
 ## Setup
 
 ```bash
 npm install
 ```
+
+Copy the example env file and fill in your Neon connection string:
+
+```bash
+cp .env.example .env
+# edit .env and set DATABASE_URL to your Neon connection string
+# format: postgresql://<user>:<password>@<host>/<db>?sslmode=require
+```
+
+Run the initial migration to create the `Task` table:
+
+```bash
+npx prisma migrate deploy
+```
+
+### WSL2 note
+
+Neon endpoints publish both A and AAAA DNS records. WSL2 has no outbound IPv6 route, so Node connections to Neon time out when IPv6 is tried first. `npm run start:dev` and `npm run crud:test` both set `NODE_OPTIONS=--require ./scripts/wsl2-ipv4.cjs` to patch `dns.lookup` to IPv4-only. This shim is not applied in production (`start:prod`).
 
 ## Run
 
@@ -104,7 +123,10 @@ npm run test:watch
 npm run test:cov
 ```
 
-30 tests total: 21 unit, 9 e2e.
+```bash
+# run CRUD smoke test against Neon (create/findMany/findUnique/update/delete)
+npm run crud:test
+```
 
 ## Project structure
 
@@ -129,4 +151,5 @@ test/
 
 - [`docs/spec/day-4-requirements.md`](docs/spec/day-4-requirements.md) — Day 4 requirements
 - [`docs/spec/day-4-checklist.md`](docs/spec/day-4-checklist.md) — Day 4 checklist
+- [`docs/spec/day-5-checklist.md`](docs/spec/day-5-checklist.md) — Day 5 checklist (PostgreSQL & Prisma)
 - [`docs/notes/`](docs/notes/) — NestJS concept notes

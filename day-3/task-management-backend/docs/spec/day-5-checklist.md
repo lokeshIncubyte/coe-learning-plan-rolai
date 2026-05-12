@@ -52,10 +52,10 @@
 - [x] Confirm results are persisted (data visible in Prisma Studio or via `psql`)
 
 ## 8. Ship
-- [ ] All existing tests still pass (`npm test`)
-- [ ] `README.md` updated with Prisma/Neon setup instructions and `DATABASE_URL` note
-- [ ] Commit with a clean message
-- [ ] Push to GitHub
+- [x] All existing tests still pass (`npm test`)
+- [x] `README.md` updated with Prisma/Neon setup instructions and `DATABASE_URL` note
+- [x] Commit with a clean message
+- [x] Push to GitHub
 
 ---
 
@@ -67,4 +67,4 @@
 - [x] Prisma Client generated
 - [x] `PrismaService` wired into NestJS DI container via `PrismaModule`
 - [x] Basic CRUD operations work against the database via Prisma Client
-- [ ] Existing tests still pass
+- [x] Existing tests still pass
