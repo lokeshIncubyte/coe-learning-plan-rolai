@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { TasksService } from './tasks.service';
-import { TaskStatus } from './task.interface';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class TaskStatsService {
-  constructor(private readonly tasksService: TasksService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
-  getStats(): { total: number; open: number } {
-    const all = this.tasksService.getAll();
-    return {
-      total: all.length,
-      open: all.filter(t => t.status === TaskStatus.OPEN).length,
-    };
+  async getStats(): Promise<{ total: number; open: number }> {
+    const [total, open] = await Promise.all([
+      this.prisma.task.count(),
+      this.prisma.task.count({ where: { status: 'OPEN' } }),
+    ]);
+    return { total, open };
   }
 }

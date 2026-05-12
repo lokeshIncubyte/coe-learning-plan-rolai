@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TaskStatsService } from './tasks.stats.service';
-import { TasksService } from './tasks.service';
-import { TaskStatus } from './task.interface';
+import { PrismaService } from '../prisma/prisma.service';
 
 jest.mock('../../generated/prisma/client', () => {
   class PrismaClient {
@@ -11,27 +10,37 @@ jest.mock('../../generated/prisma/client', () => {
   return { PrismaClient };
 });
 
+const mockPrisma = {
+  task: {
+    count: jest.fn(),
+  },
+};
+
 describe('TaskStatsService', () => {
   let statsService: TaskStatsService;
-  let tasksService: TasksService;
 
   beforeEach(async () => {
+    jest.clearAllMocks();
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         TaskStatsService,
-        { provide: TasksService, useValue: { getAll: jest.fn() } },
+        { provide: PrismaService, useValue: mockPrisma },
       ],
     }).compile();
 
     statsService = module.get<TaskStatsService>(TaskStatsService);
-    tasksService = module.get<TasksService>(TasksService);
   });
 
-  it('getStats() returns total and open count from TasksService', () => {
-    jest.spyOn(tasksService, 'getAll').mockReturnValue([
-      { id: '1', title: 'A', description: '', status: TaskStatus.OPEN },
-      { id: '2', title: 'B', description: '', status: TaskStatus.DONE },
-    ]);
-    expect(statsService.getStats()).toStrictEqual({ total: 2, open: 1 });
+  // cycle-013 RED
+  it('getStats() calls prisma.task.count() for total and open', async () => {
+    jest.spyOn(mockPrisma.task, 'count')
+      .mockResolvedValueOnce(5)   // total
+      .mockResolvedValueOnce(3);  // open
+
+    const result = await statsService.getStats();
+
+    expect(mockPrisma.task.count).toHaveBeenCalledTimes(2);
+    expect(mockPrisma.task.count).toHaveBeenCalledWith({ where: { status: 'OPEN' } });
+    expect(result).toStrictEqual({ total: 5, open: 3 });
   });
 });
