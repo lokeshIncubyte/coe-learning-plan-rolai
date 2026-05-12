@@ -3,6 +3,14 @@ import { TaskStatsService } from './tasks.stats.service';
 import { TasksService } from './tasks.service';
 import { TaskStatus } from './task.interface';
 
+jest.mock('../../generated/prisma/client', () => {
+  class PrismaClient {
+    $connect = jest.fn().mockResolvedValue(undefined);
+    $disconnect = jest.fn().mockResolvedValue(undefined);
+  }
+  return { PrismaClient };
+});
+
 describe('TaskStatsService', () => {
   let statsService: TaskStatsService;
   let tasksService: TasksService;

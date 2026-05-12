@@ -1,41 +1,29 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Task, TaskStatus } from './task.interface';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class TasksService {
-  private tasks: Task[] = [];
+  constructor(private readonly prisma: PrismaService) {}
 
   getAll(): Task[] {
-    return this.tasks;
+    return [];
   }
 
   getById(id: string): Task {
-    const task = this.tasks.find(t => t.id === id);
-    if (!task) {
-      throw new NotFoundException(`Task #${id} not found`);
-    }
-    return task;
+    throw new NotFoundException(`Task #${id} not found`);
   }
 
   update(id: string, dto: Partial<{ title: string; description: string; status: TaskStatus }>): Task {
-    const task = this.getById(id);
-    Object.assign(task, dto);
-    return task;
+    this.getById(id);
+    return {} as Task;
   }
 
   remove(id: string): void {
     this.getById(id);
-    this.tasks = this.tasks.filter(t => t.id !== id);
   }
 
-  create(dto: { title: string; description: string; status?: TaskStatus }): Task {
-    const task: Task = {
-      id: crypto.randomUUID(),
-      title: dto.title,
-      description: dto.description,
-      status: dto.status ?? TaskStatus.OPEN,
-    };
-    this.tasks.push(task);
-    return task;
+  async create(dto: { title: string; description: string; status?: TaskStatus }): Promise<Task> {
+    return this.prisma.task.create({ data: { title: dto.title, description: dto.description } }) as any;
   }
 }
