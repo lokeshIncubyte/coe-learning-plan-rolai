@@ -66,16 +66,16 @@ describe('TasksService', () => {
     expect(result).toStrictEqual(rows);
   });
 
-  // getById / update / remove error paths still work via in-memory stub
-  it('getById() throws NotFoundException when task does not exist', () => {
-    expect(() => service.getById('no-such-id')).toThrow(NotFoundException);
+  // cycle-007 RED
+  it('getById() delegates to prisma.task.findUnique()', async () => {
+    const row = { id: '1', title: 'T', description: '', status: 'OPEN', createdAt: new Date(), updatedAt: new Date() };
+    jest.spyOn(mockPrisma.task, 'findUnique').mockResolvedValue(row as any);
+
+    const result = await service.getById('1');
+
+    expect(mockPrisma.task.findUnique).toHaveBeenCalledWith({ where: { id: '1' } });
+    expect(result).toStrictEqual(row);
   });
 
-  it('update() throws NotFoundException when task does not exist', () => {
-    expect(() => service.update('ghost', { title: 'X' })).toThrow(NotFoundException);
-  });
-
-  it('remove() throws NotFoundException when task does not exist', () => {
-    expect(() => service.remove('ghost')).toThrow(NotFoundException);
-  });
+  // error-path stubs removed — replaced by cycles 008, 010, 012
 });
