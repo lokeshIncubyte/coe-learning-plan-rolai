@@ -13,4 +13,12 @@ describe('Prisma schema — Task model', () => {
     expect(TaskStatus.IN_PROGRESS).toBe('IN_PROGRESS');
     expect(TaskStatus.DONE).toBe('DONE');
   });
+
+  // cycle-015 RED
+  it('User model exists in generated Prisma client', () => {
+    const fs = require('fs');
+    const path = require('path');
+    const userModelPath = path.resolve(__dirname, '../../generated/prisma/models/User.ts');
+    expect(fs.existsSync(userModelPath)).toBe(true);
+  });
 });
