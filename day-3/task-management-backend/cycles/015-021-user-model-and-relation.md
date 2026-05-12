@@ -17,7 +17,7 @@ id: cycle-015
 slug: schema-user-model
 covers: atomic
 prerequisite: none
-status: pending
+status: done
 ```
 
 ### Behavior
@@ -71,7 +71,7 @@ slug: users-service-create
 covers: happy-path
 prerequisite: cycle-015
 group: user-model-and-relation
-status: pending
+status: done
 ```
 
 ### Behavior
@@ -154,7 +154,7 @@ slug: users-service-getbyid-happy
 covers: happy-path
 prerequisite: cycle-016
 group: user-model-and-relation
-status: pending
+status: done
 ```
 
 ### Behavior
@@ -198,7 +198,7 @@ slug: users-service-getbyid-notfound
 covers: error-path
 prerequisite: cycle-017
 group: user-model-and-relation
-status: pending
+status: done
 ```
 
 ### Behavior
@@ -241,7 +241,7 @@ slug: users-controller-post
 covers: happy-path
 prerequisite: cycle-016
 group: user-model-and-relation
-status: pending
+status: done
 ```
 
 ### Behavior
@@ -339,7 +339,7 @@ slug: users-controller-getbyid
 covers: happy-path
 prerequisite: cycle-019
 group: user-model-and-relation
-status: pending
+status: done
 ```
 
 ### Behavior
@@ -384,7 +384,7 @@ slug: users-module-wiring
 covers: atomic
 prerequisite: cycle-020
 group: user-model-and-relation
-status: pending
+status: done
 ```
 
 ### Behavior
