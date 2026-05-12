@@ -1,10 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request = require('supertest');
+import { plainToInstance } from 'class-transformer';
+import { validate } from 'class-validator';
 import { TasksController } from './tasks.controller';
 import { TasksService } from './tasks.service';
 import { TaskStatsService } from './tasks.stats.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { PaginationDto } from './dto/pagination.dto';
 
 jest.mock('../../generated/prisma/client', () => {
   class PrismaClient {
@@ -57,5 +60,13 @@ describe('POST /tasks — validation', () => {
       .post('/tasks')
       .send({ title: 'T', status: 'FLYING' });
     expect(response.status).toBe(400);
+  });
+});
+
+describe('PaginationDto — validation', () => {
+  it('PaginationDto rejects a non-integer page', async () => {
+    const dto = plainToInstance(PaginationDto, { page: 'abc' });
+    const errors = await validate(dto);
+    expect(errors.length).toBeGreaterThan(0);
   });
 });
