@@ -27,17 +27,17 @@
 - [x] All existing controller tests still pass
 
 ## 3. User model and one-to-many relationship
-- [ ] Add `User` model to `prisma/schema.prisma`:
+- [x] Add `User` model to `prisma/schema.prisma`:
   - `id` — `String @id @default(uuid())`
   - `name` — `String`
   - `email` — `String @unique`
   - `createdAt` — `DateTime @default(now())`
   - `tasks` — relation field `Task[]`
-- [ ] Add `userId` foreign key to `Task` model (optional: `String?`) with `@relation`
-- [ ] Run migration: `npx prisma migrate dev --name add-user-task-relation`
-- [ ] Create `UsersModule`, `UsersService`, `UsersController`
-- [ ] `POST /users` — create a user
-- [ ] `GET /users/:id` — get a user with their tasks (`include: { tasks: true }`)
+- [x] Add `userId` foreign key to `Task` model (optional: `String?`) with `@relation`
+- [x] Run migration: `npx prisma migrate dev --name add-user-task-relation`
+- [x] Create `UsersModule`, `UsersService`, `UsersController`
+- [x] `POST /users` — create a user
+- [x] `GET /users/:id` — get a user with their tasks (`include: { tasks: true }`)
 
 ## 4. Pagination on GET /tasks
 - [ ] Accept `?page=1&limit=10` query params (default: page 1, limit 10)
