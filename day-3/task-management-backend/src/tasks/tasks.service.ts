@@ -30,7 +30,11 @@ export class TasksService {
   }
 
   async remove(id: string): Promise<void> {
-    await this.prisma.task.delete({ where: { id } });
+    try {
+      await this.prisma.task.delete({ where: { id } });
+    } catch (e) {
+      this.rethrowNotFound(e, id);
+    }
   }
 
   async create(dto: { title: string; description: string; status?: TaskStatus }): Promise<Task> {

@@ -96,4 +96,11 @@ describe('TasksService', () => {
 
     expect(mockPrisma.task.delete).toHaveBeenCalledWith({ where: { id: '1' } });
   });
+
+  // cycle-012 RED
+  it('remove() throws NotFoundException on P2025', async () => {
+    jest.spyOn(mockPrisma.task, 'delete').mockRejectedValue(p2025);
+
+    await expect(service.remove('ghost')).rejects.toThrow(NotFoundException);
+  });
 });
