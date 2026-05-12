@@ -54,9 +54,10 @@ describe('TasksService', () => {
   it('getAll() delegates to prisma.task.findMany()', async () => {
     const rows = [{ id: '1', title: 'T', description: '', status: 'OPEN', createdAt: new Date(), updatedAt: new Date() }];
     jest.spyOn(mockPrisma.task, 'findMany').mockResolvedValue(rows as any);
-    const result = await service.getAll();
-    expect(mockPrisma.task.findMany).toHaveBeenCalled();
-    expect(result).toStrictEqual(rows);
+    jest.spyOn(mockPrisma.task, 'count').mockResolvedValue(1);
+    const result = await service.getAll({ page: 1, limit: 10 });
+    expect(mockPrisma.task.findMany).toHaveBeenCalledWith({ skip: 0, take: 10 });
+    expect(result).toStrictEqual({ data: rows, total: 1, page: 1, limit: 10 });
   });
 
   it('getById() delegates to prisma.task.findUnique()', async () => {
@@ -102,5 +103,17 @@ describe('TasksService', () => {
     jest.spyOn(mockPrisma.task, 'delete').mockRejectedValue(p2025);
 
     await expect(service.remove('ghost')).rejects.toThrow(NotFoundException);
+  });
+
+  // cycle-023 RED
+  it('getAll(pagination) applies skip/take and returns paginated shape', async () => {
+    const rows = [{ id: '1', title: 'T', description: '', status: 'OPEN', createdAt: new Date(), updatedAt: new Date() }];
+    jest.spyOn(mockPrisma.task, 'findMany').mockResolvedValue(rows as any);
+    jest.spyOn(mockPrisma.task, 'count').mockResolvedValue(42);
+
+    const result = await service.getAll({ page: 2, limit: 5 } as any);
+
+    expect(mockPrisma.task.findMany).toHaveBeenCalledWith({ skip: 5, take: 5 });
+    expect(result).toStrictEqual({ data: rows, total: 42, page: 2, limit: 5 });
   });
 });
