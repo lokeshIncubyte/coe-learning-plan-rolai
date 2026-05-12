@@ -16,9 +16,8 @@ export class TasksService {
     return task as any;
   }
 
-  update(id: string, dto: Partial<{ title: string; description: string; status: TaskStatus }>): Task {
-    this.getById(id);
-    return {} as Task;
+  async update(id: string, dto: Partial<{ title: string; description: string; status: TaskStatus }>): Promise<Task> {
+    return this.prisma.task.update({ where: { id }, data: dto }) as any;
   }
 
   remove(id: string): void {

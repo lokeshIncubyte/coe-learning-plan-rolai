@@ -67,7 +67,15 @@ describe('TasksService', () => {
     expect(result).toStrictEqual(row);
   });
 
-  // cycle-008 RED
+  // cycle-009 RED
+  it('update() delegates to prisma.task.update()', async () => {
+    const row = { id: '1', title: 'New', description: '', status: 'OPEN', createdAt: new Date(), updatedAt: new Date() };
+    jest.spyOn(mockPrisma.task, 'update').mockResolvedValue(row as any);
+    const result = await service.update('1', { title: 'New' });
+    expect(mockPrisma.task.update).toHaveBeenCalledWith({ where: { id: '1' }, data: { title: 'New' } });
+    expect(result).toStrictEqual(row);
+  });
+
   it('getById() throws NotFoundException when findUnique returns null', async () => {
     jest.spyOn(mockPrisma.task, 'findUnique').mockResolvedValue(null);
     await expect(service.getById('no-such-id')).rejects.toThrow(NotFoundException);
