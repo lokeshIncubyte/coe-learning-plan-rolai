@@ -6,8 +6,8 @@ import { PrismaService } from '../prisma/prisma.service';
 export class TasksService {
   constructor(private readonly prisma: PrismaService) {}
 
-  getAll(): Task[] {
-    return [];
+  async getAll(): Promise<Task[]> {
+    return this.prisma.task.findMany() as any;
   }
 
   getById(id: string): Task {

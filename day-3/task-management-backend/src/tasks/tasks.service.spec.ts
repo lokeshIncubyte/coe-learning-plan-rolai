@@ -55,6 +55,17 @@ describe('TasksService', () => {
     expect(result).toStrictEqual(stored);
   });
 
+  // cycle-006 RED
+  it('getAll() delegates to prisma.task.findMany()', async () => {
+    const rows = [{ id: '1', title: 'T', description: '', status: 'OPEN', createdAt: new Date(), updatedAt: new Date() }];
+    jest.spyOn(mockPrisma.task, 'findMany').mockResolvedValue(rows as any);
+
+    const result = await service.getAll();
+
+    expect(mockPrisma.task.findMany).toHaveBeenCalled();
+    expect(result).toStrictEqual(rows);
+  });
+
   // getById / update / remove error paths still work via in-memory stub
   it('getById() throws NotFoundException when task does not exist', () => {
     expect(() => service.getById('no-such-id')).toThrow(NotFoundException);
