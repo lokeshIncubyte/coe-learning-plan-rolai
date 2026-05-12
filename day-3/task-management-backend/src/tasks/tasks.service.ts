@@ -16,8 +16,17 @@ export class TasksService {
     return task as any;
   }
 
+  private rethrowNotFound(e: unknown, id: string): never {
+    if ((e as any).code === 'P2025') throw new NotFoundException(`Task #${id} not found`);
+    throw e;
+  }
+
   async update(id: string, dto: Partial<{ title: string; description: string; status: TaskStatus }>): Promise<Task> {
-    return this.prisma.task.update({ where: { id }, data: dto }) as any;
+    try {
+      return await this.prisma.task.update({ where: { id }, data: dto }) as any;
+    } catch (e) {
+      this.rethrowNotFound(e, id);
+    }
   }
 
   remove(id: string): void {

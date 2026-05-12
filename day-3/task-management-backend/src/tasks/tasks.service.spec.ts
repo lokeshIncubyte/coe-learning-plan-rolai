@@ -80,4 +80,11 @@ describe('TasksService', () => {
     jest.spyOn(mockPrisma.task, 'findUnique').mockResolvedValue(null);
     await expect(service.getById('no-such-id')).rejects.toThrow(NotFoundException);
   });
+
+  // cycle-010 RED
+  it('update() throws NotFoundException on P2025', async () => {
+    jest.spyOn(mockPrisma.task, 'update').mockRejectedValue(p2025);
+
+    await expect(service.update('ghost', { title: 'X' })).rejects.toThrow(NotFoundException);
+  });
 });
