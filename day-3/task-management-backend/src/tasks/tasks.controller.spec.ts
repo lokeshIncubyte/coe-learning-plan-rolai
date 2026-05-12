@@ -33,13 +33,26 @@ describe('TasksController', () => {
     taskStatsService = module.get<TaskStatsService>(TaskStatsService);
   });
 
-  // cycle-014 RED
+  // cycle-014 RED (updated for paginated shape)
   it('getAllTasks() awaits TasksService.getAll()', async () => {
-    jest.spyOn(tasksService, 'getAll').mockResolvedValue([mockTask] as any);
+    const paginated = { data: [mockTask], total: 1, page: 1, limit: 10 };
+    jest.spyOn(tasksService, 'getAll').mockResolvedValue(paginated as any);
 
-    const result = await controller.getAllTasks();
+    const result = await controller.getAllTasks({ page: 1, limit: 10 } as any);
 
-    expect(result).toStrictEqual([mockTask]);
+    expect(result).toStrictEqual(paginated);
+  });
+
+  // cycle-024 RED
+  it('getAllTasks() passes pagination query to TasksService.getAll()', async () => {
+    const paginated = { data: [mockTask], total: 1, page: 1, limit: 10 };
+    jest.spyOn(tasksService, 'getAll').mockResolvedValue(paginated as any);
+    const dto = { page: 1, limit: 10 } as any;
+
+    const result = await controller.getAllTasks(dto);
+
+    expect(tasksService.getAll).toHaveBeenCalledWith(dto);
+    expect(result).toStrictEqual(paginated);
   });
 
   it('createTask() awaits TasksService.create()', async () => {
