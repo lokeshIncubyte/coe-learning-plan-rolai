@@ -47,8 +47,8 @@
 - [x] Update controller to accept `@Query() pagination: PaginationDto`
 
 ## 5. Database seeding
-- [ ] Create `prisma/seed.ts` — seed 2 users and 5 tasks (mix of statuses, some assigned to users)
-- [ ] Add `"prisma": { "seed": "npx tsx prisma/seed.ts" }` to `package.json`
+- [x] Create `prisma/seed.ts` — seed 2 users and 5 tasks (mix of statuses, some assigned to users)
+- [x] Add `"prisma": { "seed": "npx tsx prisma/seed.ts" }` to `package.json`
 - [ ] Run `npx prisma db seed` and confirm data in Neon
 
 ## 6. Error handling
