@@ -52,9 +52,9 @@
 - [ ] Run `npx prisma db seed` and confirm data in Neon
 
 ## 6. Error handling
-- [ ] Catch `PrismaClientKnownRequestError` with code `P2002` (unique constraint) → HTTP 409
-- [ ] Catch `P2025` (record not found) → HTTP 404 in all service methods
-- [ ] No raw Prisma errors leak through to API responses
+- [x] Catch `PrismaClientKnownRequestError` with code `P2002` (unique constraint) → HTTP 409
+- [x] Catch `P2025` (record not found) → HTTP 404 in all service methods
+- [x] No raw Prisma errors leak through to API responses
 
 ## 7. Ship
 - [ ] All tests pass (`npm test`)
