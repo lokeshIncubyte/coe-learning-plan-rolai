@@ -57,9 +57,9 @@
 - [x] No raw Prisma errors leak through to API responses
 
 ## 7. Ship
-- [ ] All tests pass (`npm test`)
-- [ ] `README.md` updated — new endpoints, pagination usage, seed command
-- [ ] Commit and push
+- [x] All tests pass (`npm test`)
+- [x] `README.md` updated — new endpoints, pagination usage, seed command
+- [x] Commit and push
 
 ---
 
