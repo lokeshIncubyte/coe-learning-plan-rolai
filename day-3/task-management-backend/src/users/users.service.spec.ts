@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { NotFoundException } from '@nestjs/common';
+import { ConflictException, NotFoundException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -37,6 +37,19 @@ describe('UsersService', () => {
 
     expect(mockPrisma.user.create).toHaveBeenCalledWith({ data: { name: 'Alice', email: 'alice@example.com' } });
     expect(result).toStrictEqual(stored);
+  });
+
+  // cycle-025 RED
+  it('create() throws ConflictException on duplicate email (P2002)', async () => {
+    const p2002 = Object.assign(new Error('Unique constraint failed on email'), {
+      code: 'P2002',
+      name: 'PrismaClientKnownRequestError',
+    });
+    jest.spyOn(mockPrisma.user, 'create').mockRejectedValue(p2002);
+
+    await expect(
+      service.create({ name: 'Alice', email: 'alice@example.com' }),
+    ).rejects.toThrow(ConflictException);
   });
 
   // cycle-017 RED
