@@ -1,3 +1,4 @@
+import { UnauthorizedException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
@@ -36,5 +37,28 @@ describe('AuthController', () => {
 
     expect(authService.register).toHaveBeenCalledWith(dto);
     expect(result).toStrictEqual(created);
+  });
+
+  // cycle-061 RED
+  it('login() returns the token when credentials are valid', async () => {
+    const user = { id: '1', email: 'alice@example.com' };
+    jest.spyOn(authService, 'validateUser').mockResolvedValue(user as any);
+    jest.spyOn(authService, 'login').mockReturnValue({ access_token: 'signed.jwt.token' } as any);
+
+    const result = await controller.login({ email: 'alice@example.com', password: 'S3cret!pw' } as any);
+
+    expect(authService.validateUser).toHaveBeenCalledWith('alice@example.com', 'S3cret!pw');
+    expect(authService.login).toHaveBeenCalledWith(user);
+    expect(result).toEqual({ access_token: 'signed.jwt.token' });
+  });
+
+  // cycle-061 RED
+  it('login() throws UnauthorizedException when credentials are invalid', async () => {
+    jest.spyOn(authService, 'validateUser').mockResolvedValue(null);
+
+    await expect(
+      controller.login({ email: 'alice@example.com', password: 'wrongPw' } as any),
+    ).rejects.toThrow(new UnauthorizedException('Invalid credentials'));
+    expect(authService.login).not.toHaveBeenCalled();
   });
 });
