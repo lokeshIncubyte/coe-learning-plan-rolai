@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
@@ -21,10 +21,17 @@ export class AuthService {
 
   async register(dto: RegisterDto): Promise<Omit<User, 'password'>> {
     const password = await bcrypt.hash(dto.password, SALT_ROUNDS);
-    const user = await this.prisma.user.create({
-      data: { name: dto.name, email: dto.email, password },
-    });
-    return this.stripPassword(user);
+    try {
+      const user = await this.prisma.user.create({
+        data: { name: dto.name, email: dto.email, password },
+      });
+      return this.stripPassword(user);
+    } catch (e) {
+      if ((e as { code?: string }).code === 'P2002') {
+        throw new ConflictException('Email already in use');
+      }
+      throw e;
+    }
   }
 
   private stripPassword(user: User): Omit<User, 'password'> {

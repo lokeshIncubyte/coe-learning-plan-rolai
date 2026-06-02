@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { ConflictException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { PrismaService } from '../prisma/prisma.service';
@@ -61,5 +62,29 @@ describe('AuthService', () => {
     });
     expect(result).not.toHaveProperty('password');
     expect(result).toMatchObject({ id: '1', email: 'alice@example.com', name: 'Alice' });
+  });
+
+  // cycle-057 RED
+  it('register() throws ConflictException on duplicate email (P2002)', async () => {
+    (bcrypt.hash as jest.Mock).mockResolvedValue('$2b$hashed');
+    const p2002 = Object.assign(new Error('Unique constraint failed on email'), {
+      code: 'P2002',
+    });
+    mockPrisma.user.create.mockRejectedValue(p2002);
+
+    await expect(
+      service.register({ name: 'Alice', email: 'alice@example.com', password: 'S3cret!pw' }),
+    ).rejects.toThrow(new ConflictException('Email already in use'));
+  });
+
+  // cycle-057 RED
+  it('register() rethrows non-P2002 errors unchanged', async () => {
+    (bcrypt.hash as jest.Mock).mockResolvedValue('$2b$hashed');
+    const other = Object.assign(new Error('Connection lost'), { code: 'P1001' });
+    mockPrisma.user.create.mockRejectedValue(other);
+
+    await expect(
+      service.register({ name: 'Alice', email: 'alice@example.com', password: 'S3cret!pw' }),
+    ).rejects.toThrow('Connection lost');
   });
 });
