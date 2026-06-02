@@ -1,7 +1,7 @@
 ---
 id: cycle-042
 slug: task-card-responsive-accessible
-status: pending
+status: done
 source: "Day 9 §3/§4 'cards ... status badges' + user stories A, B, D"
 covers: atomic
 ---
