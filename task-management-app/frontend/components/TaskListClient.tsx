@@ -7,9 +7,13 @@ import { DeleteTaskButton } from './DeleteTaskButton'
 export function TaskListClient({
   tasks,
   deleteTask,
+  onSuccess,
+  onError,
 }: {
   tasks: Task[]
   deleteTask: (id: string) => Promise<void>
+  onSuccess?: (message: string) => void
+  onError?: (message: string) => void
 }) {
   const [items, setItems] = useState<Task[]>(tasks)
   const [error, setError] = useState<string | null>(null)
@@ -20,9 +24,11 @@ export function TaskListClient({
     setItems((current) => current.filter((t) => t.id !== id))
     try {
       await deleteTask(id)
+      onSuccess?.('Task deleted')
     } catch {
       setItems(previous)
       setError("Couldn't delete the task. Please try again.")
+      onError?.("Couldn't delete the task. Please try again.")
     }
   }
 

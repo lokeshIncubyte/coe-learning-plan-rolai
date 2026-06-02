@@ -1,7 +1,7 @@
 ---
 id: cycle-046
 slug: task-list-client-delete-toast
-status: pending
+status: done
 source: "Day 9 §5 'Toast notifications for ... delete success and failure' + user stories I, J"
 covers: error-path
 ---

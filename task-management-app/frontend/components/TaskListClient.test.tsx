@@ -27,3 +27,26 @@ describe('TaskListClient optimistic delete', () => {
     expect(screen.getByText(/couldn't delete the task/i)).toBeInTheDocument()
   })
 })
+
+const toastTasks: Task[] = [
+  { id: 'a', title: 'Alpha', description: null, status: 'OPEN', userId: null, createdAt: '', updatedAt: '' },
+]
+
+describe('TaskListClient delete toasts', () => {
+  it('calls onSuccess after a successful delete', async () => {
+    const onSuccess = vi.fn()
+    render(<TaskListClient tasks={toastTasks} deleteTask={vi.fn().mockResolvedValue(undefined)} onSuccess={onSuccess} />)
+    await userEvent.click(screen.getByRole('button', { name: /delete/i }))
+    await userEvent.click(screen.getByRole('button', { name: /confirm/i }))
+    expect(onSuccess).toHaveBeenCalledWith('Task deleted')
+  })
+
+  it('calls onError and keeps the task when delete fails', async () => {
+    const onError = vi.fn()
+    render(<TaskListClient tasks={toastTasks} deleteTask={vi.fn().mockRejectedValue(new Error('boom'))} onError={onError} />)
+    await userEvent.click(screen.getByRole('button', { name: /delete/i }))
+    await userEvent.click(screen.getByRole('button', { name: /confirm/i }))
+    expect(onError).toHaveBeenCalledWith("Couldn't delete the task. Please try again.")
+    expect(await screen.findByText('Alpha')).toBeInTheDocument()
+  })
+})
