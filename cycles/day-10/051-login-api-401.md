@@ -1,7 +1,7 @@
 ---
 id: cycle-051
 slug: login-api-401
-status: pending
+status: done
 source: "Day 10 user story D (login with wrong credentials → 401) / story I (visible error)"
 covers: error-path
 ---

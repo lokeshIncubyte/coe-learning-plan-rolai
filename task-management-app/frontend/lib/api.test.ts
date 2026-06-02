@@ -205,4 +205,17 @@ describe('login', () => {
     expect(JSON.parse(init.body)).toEqual({ email: 'alice@example.com', password: 'S3cret!pw' })
     expect(token).toBe('mock.jwt.abc')
   })
+
+  it('throws with the backend message on 401', async () => {
+    process.env.NEXT_PUBLIC_API_URL = 'http://localhost:3001'
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 401,
+      json: async () => ({ statusCode: 401, message: 'Invalid credentials', error: 'Unauthorized' }),
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const { login } = await import('./api')
+    await expect(login('alice@example.com', 'wrongPw')).rejects.toThrow('Invalid credentials')
+  })
 })
