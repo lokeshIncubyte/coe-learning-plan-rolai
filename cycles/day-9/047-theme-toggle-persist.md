@@ -1,7 +1,7 @@
 ---
 id: cycle-047
 slug: theme-toggle-persist
-status: pending
+status: done
 source: "Day 9 §6 'Dark mode toggle (class strategy), persists across reloads' + user story L"
 covers: atomic
 ---
