@@ -1,7 +1,7 @@
 ---
 id: cycle-055
 slug: site-header-auth-state
-status: pending
+status: done
 source: "Day 10 checklist §5: Show auth state in the header (logged-in user / logout button); user stories H & L"
 covers: atomic
 ---
