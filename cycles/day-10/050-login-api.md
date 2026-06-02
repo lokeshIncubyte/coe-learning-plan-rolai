@@ -1,7 +1,7 @@
 ---
 id: cycle-050
 slug: login-api
-status: pending
+status: done
 source: "Day 10 checklist §4: Submit → POST /auth/login; user story C (login returns a signed JWT)"
 covers: happy-path
 ---

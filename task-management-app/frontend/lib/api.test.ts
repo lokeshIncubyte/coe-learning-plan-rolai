@@ -178,3 +178,31 @@ describe('deleteTask', () => {
     await expect(deleteTask('task-0001')).rejects.toThrow()
   })
 })
+
+describe('login', () => {
+  beforeEach(() => {
+    process.env.NEXT_PUBLIC_API_URL = 'http://localhost:3001'
+  })
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('POSTs credentials to /auth/login and returns the access_token', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => ({ access_token: 'mock.jwt.abc' }),
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const { login } = await import('./api')
+    const token = await login('alice@example.com', 'S3cret!pw')
+
+    const [url, init] = fetchMock.mock.calls[0]
+    expect(String(url)).toBe('http://localhost:3001/auth/login')
+    expect(init.method).toBe('POST')
+    expect(init.headers['Content-Type']).toBe('application/json')
+    expect(JSON.parse(init.body)).toEqual({ email: 'alice@example.com', password: 'S3cret!pw' })
+    expect(token).toBe('mock.jwt.abc')
+  })
+})

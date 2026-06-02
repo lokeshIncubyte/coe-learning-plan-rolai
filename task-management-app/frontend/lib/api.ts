@@ -79,6 +79,18 @@ export async function deleteTask(id: string): Promise<void> {
   throw new Error(`Failed to delete task: ${res.status}`)
 }
 
+export async function login(email: string, password: string): Promise<string> {
+  const res = await fetch(apiUrl('/auth/login'), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
+  })
+  if (!res.ok) {
+    throw new Error(`Failed to log in: ${res.status}`)
+  }
+  return (await res.json()).access_token
+}
+
 export async function getTask(id: string): Promise<Task | null> {
   const res = await fetch(apiUrl(`/tasks/${id}`), {
     cache: 'no-store',
