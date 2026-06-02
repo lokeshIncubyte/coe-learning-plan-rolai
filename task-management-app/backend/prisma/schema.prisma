@@ -4,8 +4,11 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  // The project is CommonJS (tsconfig module=nodenext, no package "type"); the
+  // prisma-client generator defaults to ESM, which breaks `node dist`. Emit CJS.
+  moduleFormat = "cjs"
 }
 
 datasource db {
