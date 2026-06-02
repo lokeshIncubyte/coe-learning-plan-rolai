@@ -1,7 +1,7 @@
 ---
 id: cycle-040
 slug: optimistic-delete-rollback
-status: pending
+status: done
 source: "Checklist §6: optimistic delete removes row immediately, rolls back on failure (User Story E)"
 covers: error-path
 ---
