@@ -34,6 +34,17 @@ export class AuthService {
     }
   }
 
+  async validateUser(
+    email: string,
+    password: string,
+  ): Promise<Omit<User, 'password'> | null> {
+    const user = await this.prisma.user.findUnique({ where: { email } });
+    if (!user || !user.password) return null;
+    const ok = await bcrypt.compare(password, user.password);
+    if (!ok) return null;
+    return this.stripPassword(user);
+  }
+
   private stripPassword(user: User): Omit<User, 'password'> {
     const { password: _omit, ...rest } = user;
     return rest;
