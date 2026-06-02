@@ -31,6 +31,24 @@ export async function getTasks(page = 1, limit = 10): Promise<Paginated<Task>> {
   return res.json()
 }
 
+export type CreateTaskInput = {
+  title: string
+  description?: string | null
+  status: TaskStatus
+}
+
+export async function createTask(input: CreateTaskInput): Promise<Task> {
+  const res = await fetch(apiUrl('/tasks'), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(input),
+  })
+  if (!res.ok) {
+    throw new Error(`Failed to create task: ${res.status}`)
+  }
+  return res.json()
+}
+
 export async function getTask(id: string): Promise<Task | null> {
   const res = await fetch(apiUrl(`/tasks/${id}`), {
     cache: 'no-store',
