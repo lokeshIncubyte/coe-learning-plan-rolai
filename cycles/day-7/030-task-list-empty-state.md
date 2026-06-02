@@ -1,7 +1,7 @@
 ---
 id: cycle-030
 slug: task-list-empty-state
-status: pending
+status: done
 source: "§4 renders the list / Empty state when there are no tasks (user story B)"
 covers: error-path
 ---
