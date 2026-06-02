@@ -1,7 +1,8 @@
 import Link from 'next/link'
+import type { ReactNode } from 'react'
 import { ThemeToggle } from './ThemeToggle'
 
-export function SiteHeader() {
+export function SiteHeader({ authSlot }: { authSlot?: ReactNode }) {
   return (
     <header className="border-b border-gray-200 dark:border-gray-800">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
@@ -19,7 +20,10 @@ export function SiteHeader() {
             Tasks
           </Link>
         </nav>
-        <ThemeToggle />
+        <div className="flex items-center gap-4">
+          {authSlot}
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   )

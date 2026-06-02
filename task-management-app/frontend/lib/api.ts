@@ -104,6 +104,28 @@ export async function login(email: string, password: string): Promise<string> {
   return (await res.json()).access_token
 }
 
+export type AuthUser = {
+  id: string
+  email: string
+}
+
+export async function getMe(): Promise<AuthUser | null> {
+  const t = getToken()
+  if (!t) return null
+  const res = await fetch(apiUrl('/auth/me'), {
+    cache: 'no-store',
+    headers: { ...authHeaders() },
+  })
+  if (res.status === 401) {
+    clearToken()
+    return null
+  }
+  if (!res.ok) {
+    throw new Error(`Failed to fetch current user: ${res.status}`)
+  }
+  return res.json()
+}
+
 export async function getTask(id: string): Promise<Task | null> {
   const res = await fetch(apiUrl(`/tasks/${id}`), {
     cache: 'no-store',

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
+import { HeaderAuth } from "@/components/HeaderAuth";
 import { ToastProvider } from "@/components/ToastProvider";
 
 const themeInitScript = `
@@ -43,7 +44,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <ToastProvider>
-          <SiteHeader />
+          <SiteHeader authSlot={<HeaderAuth />} />
           {children}
         </ToastProvider>
       </body>
