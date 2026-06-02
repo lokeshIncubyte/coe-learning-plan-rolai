@@ -16,8 +16,16 @@ import { test, expect } from '@playwright/test'
 
 test.describe.configure({ mode: 'serial' })
 
-test.beforeEach(async ({ request }) => {
+test.beforeEach(async ({ request, page }) => {
   await request.post('http://localhost:3001/__test__/reset')
+  // Day 10 added client-side auth gating: task pages redirect to /login unless
+  // a token is stored. Seed a valid token so these CRUD flows run signed-in
+  // (the mock accepts any Bearer mock.jwt.* token).
+  await page.addInitScript(() => {
+    try {
+      localStorage.setItem('access_token', 'mock.jwt.user')
+    } catch {}
+  })
 })
 
 // Story A — Add a new task via a form (happy path)
