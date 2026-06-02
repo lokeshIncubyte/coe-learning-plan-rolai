@@ -1,18 +1,18 @@
 # Day 6 Checklist — NestJS + Prisma Complete Backend
 
 **Project:** Task Management App — replace in-memory store with database
-**Reference:** [`requirements.md`](requirements.md), [`prisma-crud-relations-concepts-map.md`](../notes/prisma-crud-relations-concepts-map.md)
+**Reference:** [`requirements.md`](requirements.md), [`prisma-crud-relations-concepts-map.md`](../task-management-app/docs/notes/prisma-crud-relations-concepts-map.md)
 **Directory:** continues in `day-3/task-management-backend/`
 
 ---
 
 ## 1. Learn — concepts before code
-- [x] Prisma Client CRUD methods: `findMany`, `findUnique`, `create`, `update`, `delete` → [`prisma-crud-relations-concepts-map.md`](../notes/prisma-crud-relations-concepts-map.md)
-- [x] Filtering (`where`), ordering (`orderBy`), pagination (`skip`/`take`) → [`prisma-crud-relations-concepts-map.md`](../notes/prisma-crud-relations-concepts-map.md)
-- [x] Prisma relations: one-to-many schema syntax, `@relation`, foreign key fields → [`prisma-crud-relations-concepts-map.md`](../notes/prisma-crud-relations-concepts-map.md)
-- [x] Querying related data: `include`, nested `select`, nested writes → [`prisma-crud-relations-concepts-map.md`](../notes/prisma-crud-relations-concepts-map.md)
-- [x] Error handling: `PrismaClientKnownRequestError`, codes `P2002`, `P2025` → [`prisma-crud-relations-concepts-map.md`](../notes/prisma-crud-relations-concepts-map.md)
-- [x] Transactions: `prisma.$transaction([...])` and interactive transactions → [`prisma-crud-relations-concepts-map.md`](../notes/prisma-crud-relations-concepts-map.md)
+- [x] Prisma Client CRUD methods: `findMany`, `findUnique`, `create`, `update`, `delete` → [`prisma-crud-relations-concepts-map.md`](../task-management-app/docs/notes/prisma-crud-relations-concepts-map.md)
+- [x] Filtering (`where`), ordering (`orderBy`), pagination (`skip`/`take`) → [`prisma-crud-relations-concepts-map.md`](../task-management-app/docs/notes/prisma-crud-relations-concepts-map.md)
+- [x] Prisma relations: one-to-many schema syntax, `@relation`, foreign key fields → [`prisma-crud-relations-concepts-map.md`](../task-management-app/docs/notes/prisma-crud-relations-concepts-map.md)
+- [x] Querying related data: `include`, nested `select`, nested writes → [`prisma-crud-relations-concepts-map.md`](../task-management-app/docs/notes/prisma-crud-relations-concepts-map.md)
+- [x] Error handling: `PrismaClientKnownRequestError`, codes `P2002`, `P2025` → [`prisma-crud-relations-concepts-map.md`](../task-management-app/docs/notes/prisma-crud-relations-concepts-map.md)
+- [x] Transactions: `prisma.$transaction([...])` and interactive transactions → [`prisma-crud-relations-concepts-map.md`](../task-management-app/docs/notes/prisma-crud-relations-concepts-map.md)
 
 ## 2. Replace in-memory TasksService with Prisma
 - [x] Inject `PrismaService` into `TasksService`

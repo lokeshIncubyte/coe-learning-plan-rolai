@@ -1,6 +1,6 @@
 # TypeScript + React Concepts Used in Picsum Lab
 
-Maps the **TypeScript Advanced & React Basics** learning goals to where each concept actually lives in the `picsum-lab` codebase. All paths are relative to `day-2/picsum-lab/`.
+Maps the **TypeScript Advanced & React Basics** learning goals to where each concept actually lives in the `picsum-lab` codebase. All paths are relative to `picsum-lab/`.
 
 ---
 

@@ -7,10 +7,10 @@
 ---
 
 ## 1. Learn — concepts before code
-- [ ] NestJS modules deep dive: feature modules, shared modules, re-exporting, global modules → [`06-modules-deep-dive.md`](../notes/06-modules-deep-dive.md)
-- [ ] Providers and DI patterns: `@Injectable`, custom providers, service-to-service injection → [`07-providers-di.md`](../notes/07-providers-di.md)
-- [ ] DTOs and mapped types: `PartialType`, `PickType`, `OmitType` from `@nestjs/mapped-types` → [`08-dtos-mapped-types.md`](../notes/08-dtos-mapped-types.md)
-- [ ] Exception handling: `NotFoundException`, `HttpException` hierarchy, throwing from services → [`09-exception-handling.md`](../notes/09-exception-handling.md)
+- [ ] NestJS modules deep dive: feature modules, shared modules, re-exporting, global modules → [`06-modules-deep-dive.md`](../task-management-app/docs/notes/06-modules-deep-dive.md)
+- [ ] Providers and DI patterns: `@Injectable`, custom providers, service-to-service injection → [`07-providers-di.md`](../task-management-app/docs/notes/07-providers-di.md)
+- [ ] DTOs and mapped types: `PartialType`, `PickType`, `OmitType` from `@nestjs/mapped-types` → [`08-dtos-mapped-types.md`](../task-management-app/docs/notes/08-dtos-mapped-types.md)
+- [ ] Exception handling: `NotFoundException`, `HttpException` hierarchy, throwing from services → [`09-exception-handling.md`](../task-management-app/docs/notes/09-exception-handling.md)
 - [ ] `ValidationPipe` options: `whitelist`, `forbidNonWhitelisted`, `transform` → absorb into note 08 or 09
 
 ## 2. Refactor — harden existing API

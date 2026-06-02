@@ -1,16 +1,16 @@
 # Day 3 Checklist — NestJS Introduction & First API
 
 **Project:** Task Management App — backend kickoff
-**Reference:** [`requirements.md`](requirements.md), [`nestjs-restful-crud-api.pdf`](../references/nestjs-restful-crud-api.pdf)
+**Reference:** [`requirements.md`](requirements.md), [`nestjs-restful-crud-api.pdf`](../task-management-app/docs/references/nestjs-restful-crud-api.pdf)
 
 ---
 
 ## 1. Learn — concepts before code
-- [x] What NestJS is, and why use it over plain Express → [`01-what-is-nestjs.md`](../notes/01-what-is-nestjs.md)
-- [x] NestJS architecture: **modules**, **controllers**, **services** — what each one owns → [`02-architecture.md`](../notes/02-architecture.md)
-- [x] Dependency Injection in NestJS — what gets injected, how, and why → [`03-dependency-injection.md`](../notes/03-dependency-injection.md)
-- [x] Common decorators: `@Module`, `@Controller`, `@Injectable`, `@Get`, `@Post`, `@Body`, `@Param` → [`04-decorators.md`](../notes/04-decorators.md)
-- [x] NestJS project structure and naming conventions (`*.module.ts`, `*.controller.ts`, `*.service.ts`, `*.dto.ts`) → [`05-project-structure.md`](../notes/05-project-structure.md)
+- [x] What NestJS is, and why use it over plain Express → [`01-what-is-nestjs.md`](../task-management-app/docs/notes/01-what-is-nestjs.md)
+- [x] NestJS architecture: **modules**, **controllers**, **services** — what each one owns → [`02-architecture.md`](../task-management-app/docs/notes/02-architecture.md)
+- [x] Dependency Injection in NestJS — what gets injected, how, and why → [`03-dependency-injection.md`](../task-management-app/docs/notes/03-dependency-injection.md)
+- [x] Common decorators: `@Module`, `@Controller`, `@Injectable`, `@Get`, `@Post`, `@Body`, `@Param` → [`04-decorators.md`](../task-management-app/docs/notes/04-decorators.md)
+- [x] NestJS project structure and naming conventions (`*.module.ts`, `*.controller.ts`, `*.service.ts`, `*.dto.ts`) → [`05-project-structure.md`](../task-management-app/docs/notes/05-project-structure.md)
 
 ## 2. Setup — scaffold the backend
 - [x] ~~Install Nest CLI globally~~ — used `npx @nestjs/cli@latest` instead (no global install)

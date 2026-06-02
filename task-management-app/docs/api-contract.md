@@ -9,7 +9,7 @@
 | Setting | Value |
 |---------|-------|
 | **Dev base URL** | `http://localhost:3001` |
-| **Port** | `3001` (hardcoded in [`main.ts`](../src/main.ts); port 3000 reserved on this machine) |
+| **Port** | `3001` (hardcoded in [`main.ts`](../backend/src/main.ts); port 3000 reserved on this machine) |
 | **Content-Type** | `application/json` for all request bodies |
 | **Validation** | Global `ValidationPipe` — every endpoint inherits the same 400 error envelope |
 
@@ -139,4 +139,4 @@ Content-Type: application/json
 
 ---
 
-[← Index](../README.md)
+[← Index](../backend/README.md)

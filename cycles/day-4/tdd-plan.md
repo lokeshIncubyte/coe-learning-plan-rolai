@@ -1,6 +1,6 @@
 # TDD Plan — Day 4 — Modules, Providers & DTOs
 
-**Checklist:** [`day-4-checklist.md`](day-4-checklist.md) — §2 Refactor + §3 Build + §4 DTOs + §5 DI
+**Checklist:** [`day-4-checklist.md`](../../checklists/day-4-checklist.md) — §2 Refactor + §3 Build + §4 DTOs + §5 DI
 **Cycles:** 6–14 (continuing from Day 3)
 
 ---

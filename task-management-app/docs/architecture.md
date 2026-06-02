@@ -13,9 +13,9 @@ HTTP client
           → (Repository / DB)  ← planned; not built in day-3
 ```
 
-- Controllers ([`tasks.controller.ts`](../src/tasks/tasks.controller.ts)) do not hold state or business logic — they delegate everything to the service.
-- Services ([`tasks.service.ts`](../src/tasks/tasks.service.ts)) do not read the raw `Request` object or reference NestJS HTTP primitives.
-- Validation happens at the HTTP boundary via a global `ValidationPipe` before the controller method is called — see [`main.ts`](../src/main.ts).
+- Controllers ([`tasks.controller.ts`](../backend/src/tasks/tasks.controller.ts)) do not hold state or business logic — they delegate everything to the service.
+- Services ([`tasks.service.ts`](../backend/src/tasks/tasks.service.ts)) do not read the raw `Request` object or reference NestJS HTTP primitives.
+- Validation happens at the HTTP boundary via a global `ValidationPipe` before the controller method is called — see [`main.ts`](../backend/src/main.ts).
 
 ---
 
@@ -42,10 +42,10 @@ src/
 
 | Module | Role | Owns | Does not own |
 |--------|------|------|--------------|
-| `AppModule` ([`app.module.ts`](../src/app.module.ts)) | Root module; wires the application together | Imports `TasksModule`; declares scaffold `AppController` | Business logic |
-| `TasksModule` ([`tasks/tasks.module.ts`](../src/tasks/tasks.module.ts)) | Feature module for the Tasks resource | `TasksController`, `TasksService` | Persistence (in-memory only; DB layer planned) |
-| `TasksController` ([`tasks/tasks.controller.ts`](../src/tasks/tasks.controller.ts)) | HTTP interface for tasks | Route decorators, `@Body()` extraction, return value | State, UUIDs, business rules |
-| `TasksService` ([`tasks/tasks.service.ts`](../src/tasks/tasks.service.ts)) | Business logic + in-memory store | `Task[]` array, UUID generation, `getAll()`, `create()` | HTTP concerns, validation |
+| `AppModule` ([`app.module.ts`](../backend/src/app.module.ts)) | Root module; wires the application together | Imports `TasksModule`; declares scaffold `AppController` | Business logic |
+| `TasksModule` ([`tasks/tasks.module.ts`](../backend/src/tasks/tasks.module.ts)) | Feature module for the Tasks resource | `TasksController`, `TasksService` | Persistence (in-memory only; DB layer planned) |
+| `TasksController` ([`tasks/tasks.controller.ts`](../backend/src/tasks/tasks.controller.ts)) | HTTP interface for tasks | Route decorators, `@Body()` extraction, return value | State, UUIDs, business rules |
+| `TasksService` ([`tasks/tasks.service.ts`](../backend/src/tasks/tasks.service.ts)) | Business logic + in-memory store | `Task[]` array, UUID generation, `getAll()`, `create()` | HTTP concerns, validation |
 
 ---
 
@@ -86,4 +86,4 @@ POST /tasks  {}  (or title: '')
 
 ---
 
-[← Index](../README.md)
+[← Index](../backend/README.md)

@@ -217,6 +217,6 @@ prisma/
 
 ## Docs
 
-- [`docs/spec/checklist.md`](docs/spec/checklist.md) — Day 3 checklist
-- [`docs/spec/day-6-checklist.md`](docs/spec/day-6-checklist.md) — Day 6 checklist (Prisma, users, pagination, error handling)
-- [`docs/notes/`](docs/notes/) — NestJS and Prisma concept notes
+- [`docs/spec/checklist.md`](../../checklists/checklist.md) — Day 3 checklist
+- [`docs/spec/day-6-checklist.md`](../../checklists/day-6-checklist.md) — Day 6 checklist (Prisma, users, pagination, error handling)
+- [`docs/notes/`](../docs/notes/) — NestJS and Prisma concept notes

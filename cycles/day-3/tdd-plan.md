@@ -1,6 +1,6 @@
 # TDD Plan — Day 3 Tasks API
 
-**Source checklist:** [`checklist.md`](checklist.md)
+**Source checklist:** [`checklist.md`](../../checklists/checklist.md)
 **Date:** 2026-04-29
 **Cycles:** 5
 **Covers:** checklist §3 Build + §4 Validate (§5 Verify smoke tests run in `/verify-day`, not here)
@@ -192,4 +192,4 @@ No cycles were removed. All five passed the trivially-green check:
 
 ---
 
-> Day 4 cycles (6–14) are in [`tdd-plan-day4.md`](tdd-plan-day4.md).
+> Day 4 cycles (6–14) are in [`tdd-plan-day4.md`](../day-4/tdd-plan.md).

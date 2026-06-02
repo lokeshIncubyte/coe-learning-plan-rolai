@@ -6,7 +6,7 @@ Types and shapes used inside the app. **HTTP contract**: [API contract](./api-co
 
 ## Status enum
 
-Defined in [`src/tasks/task.interface.ts`](../src/tasks/task.interface.ts).
+Defined in [`src/tasks/task.interface.ts`](../backend/src/tasks/task.interface.ts).
 
 ```ts
 type TaskStatus = 'OPEN' | 'IN_PROGRESS' | 'DONE';
@@ -18,7 +18,7 @@ String-typed literal union (not a numeric enum) — serialises to readable JSON 
 
 ## Domain entity
 
-Defined in [`src/tasks/task.interface.ts`](../src/tasks/task.interface.ts).
+Defined in [`src/tasks/task.interface.ts`](../backend/src/tasks/task.interface.ts).
 
 ```ts
 interface Task {
@@ -42,7 +42,7 @@ Returned to clients as the response body of `POST /tasks` and as elements of `GE
 
 ## DTO — input shape
 
-Defined in [`src/tasks/dto/create-task.dto.ts`](../src/tasks/dto/create-task.dto.ts).
+Defined in [`src/tasks/dto/create-task.dto.ts`](../backend/src/tasks/dto/create-task.dto.ts).
 
 ```ts
 class CreateTaskDto {
@@ -66,7 +66,7 @@ There is no separate output DTO — the `Task` entity is returned directly.
 
 ## Persistence store
 
-Owned by [`TasksService`](../src/tasks/tasks.service.ts).
+Owned by [`TasksService`](../backend/src/tasks/tasks.service.ts).
 
 ```ts
 private tasks: Task[] = [];
@@ -79,10 +79,10 @@ In-memory array. **Throwaway** — resets on every server restart. Will be repla
 ## Cross-cutting implementation notes
 
 - **IDs are server-generated** via `crypto.randomUUID()` (Node ≥ 19 built-in). Clients never send an `id` field; it is not on `CreateTaskDto`.
-- **ValidationPipe is global** — registered in [`main.ts`](../src/main.ts) via `app.useGlobalPipes(new ValidationPipe())`. It intercepts every incoming request before the controller method is called.
+- **ValidationPipe is global** — registered in [`main.ts`](../backend/src/main.ts) via `app.useGlobalPipes(new ValidationPipe())`. It intercepts every incoming request before the controller method is called.
 - **`whitelist` not yet set** — the pipe is instantiated with defaults. Unknown extra fields in the body are passed through rather than stripped. Adding `new ValidationPipe({ whitelist: true })` in a future day would silently drop fields not on the DTO.
 - **`import type`** is used for `Task` in decorated controller signatures — required by `isolatedModules: true` + `emitDecoratorMetadata: true` (TypeScript TS1272).
 
 ---
 
-[← Index](../README.md)
+[← Index](../backend/README.md)

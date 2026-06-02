@@ -7,12 +7,12 @@
 ---
 
 ## 1. Learn — concepts before code
-- [x] PostgreSQL basics: databases, tables, rows, data types, primary keys → [`postgresql-prisma-concepts-map.md`](../postgresql-prisma-concepts-map.md)
-- [x] SQL fundamentals: `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `WHERE`, `ORDER BY` → [`postgresql-prisma-concepts-map.md`](../postgresql-prisma-concepts-map.md)
-- [x] Prisma ORM overview: what it is, why type-safe, how it differs from raw SQL / ActiveRecord ORMs → [`postgresql-prisma-concepts-map.md`](../postgresql-prisma-concepts-map.md)
-- [x] Prisma schema language: `model`, field types, `@id`, `@default`, `@updatedAt`, enums → [`postgresql-prisma-concepts-map.md`](../postgresql-prisma-concepts-map.md)
-- [x] Prisma migrations: `prisma migrate dev` vs `prisma migrate deploy`, migration files → [`postgresql-prisma-concepts-map.md`](../postgresql-prisma-concepts-map.md)
-- [x] Prisma Client: generated typed client, `findMany`, `findUnique`, `create`, `update`, `delete` patterns → [`postgresql-prisma-concepts-map.md`](../postgresql-prisma-concepts-map.md)
+- [x] PostgreSQL basics: databases, tables, rows, data types, primary keys → [`postgresql-prisma-concepts-map.md`](../task-management-app/docs/postgresql-prisma-concepts-map.md)
+- [x] SQL fundamentals: `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `WHERE`, `ORDER BY` → [`postgresql-prisma-concepts-map.md`](../task-management-app/docs/postgresql-prisma-concepts-map.md)
+- [x] Prisma ORM overview: what it is, why type-safe, how it differs from raw SQL / ActiveRecord ORMs → [`postgresql-prisma-concepts-map.md`](../task-management-app/docs/postgresql-prisma-concepts-map.md)
+- [x] Prisma schema language: `model`, field types, `@id`, `@default`, `@updatedAt`, enums → [`postgresql-prisma-concepts-map.md`](../task-management-app/docs/postgresql-prisma-concepts-map.md)
+- [x] Prisma migrations: `prisma migrate dev` vs `prisma migrate deploy`, migration files → [`postgresql-prisma-concepts-map.md`](../task-management-app/docs/postgresql-prisma-concepts-map.md)
+- [x] Prisma Client: generated typed client, `findMany`, `findUnique`, `create`, `update`, `delete` patterns → [`postgresql-prisma-concepts-map.md`](../task-management-app/docs/postgresql-prisma-concepts-map.md)
 
 ## 2. Setup — PostgreSQL
 - [x] Install PostgreSQL locally **or** use cloud — using Neon cloud PostgreSQL

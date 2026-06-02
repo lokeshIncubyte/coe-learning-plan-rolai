@@ -16,7 +16,7 @@ A module is a class decorated with `@Module()` that groups related controllers a
 
 **Feature module** — scopes the tasks feature into one folder:
 
-[`src/tasks/tasks.module.ts`](../src/tasks/tasks.module.ts)
+[`src/tasks/tasks.module.ts`](../backend/src/tasks/tasks.module.ts)
 ```ts
 @Module({
   controllers: [TasksController],
@@ -27,7 +27,7 @@ export class TasksModule {}
 
 **Root module** — the application graph entry point; wires `TasksModule` in:
 
-[`src/app.module.ts`](../src/app.module.ts)
+[`src/app.module.ts`](../backend/src/app.module.ts)
 ```ts
 @Module({
   imports: [TasksModule],
@@ -45,7 +45,7 @@ export class AppModule {}
 
 A controller handles incoming HTTP requests and returns responses. It owns the route binding and `@Body()`/`@Param()` extraction — nothing else. Business logic lives in the service.
 
-[`src/tasks/tasks.controller.ts`](../src/tasks/tasks.controller.ts)
+[`src/tasks/tasks.controller.ts`](../backend/src/tasks/tasks.controller.ts)
 ```ts
 @Controller('tasks')
 export class TasksController {
@@ -73,7 +73,7 @@ export class TasksController {
 
 A service is a plain TypeScript class decorated with `@Injectable()`. The decorator registers it with Nest's IoC container. Services hold all business logic and in-memory/database state — nothing HTTP-specific lives here.
 
-[`src/tasks/tasks.service.ts`](../src/tasks/tasks.service.ts)
+[`src/tasks/tasks.service.ts`](../backend/src/tasks/tasks.service.ts)
 ```ts
 @Injectable()
 export class TasksService {
@@ -108,14 +108,14 @@ Nest's DI container resolves providers by type. Declaring a typed constructor pa
 
 **Constructor injection** — the only pattern used in this project:
 
-[`src/tasks/tasks.controller.ts`](../src/tasks/tasks.controller.ts)
+[`src/tasks/tasks.controller.ts`](../backend/src/tasks/tasks.controller.ts)
 ```ts
 constructor(private readonly tasksService: TasksService) {}
 ```
 
 **Provider registration** — the module is the declaration site:
 
-[`src/tasks/tasks.module.ts`](../src/tasks/tasks.module.ts)
+[`src/tasks/tasks.module.ts`](../backend/src/tasks/tasks.module.ts)
 ```ts
 @Module({
   controllers: [TasksController],
@@ -169,7 +169,7 @@ A DTO (Data Transfer Object) is a class — not an interface — that describes 
 
 **`CreateTaskDto`** — the only DTO in the codebase today:
 
-[`src/tasks/dto/create-task.dto.ts`](../src/tasks/dto/create-task.dto.ts)
+[`src/tasks/dto/create-task.dto.ts`](../backend/src/tasks/dto/create-task.dto.ts)
 ```ts
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
@@ -188,7 +188,7 @@ export class CreateTaskDto {
 
 **Global `ValidationPipe`** — intercepts every request before the controller is called:
 
-[`src/main.ts`](../src/main.ts)
+[`src/main.ts`](../backend/src/main.ts)
 ```ts
 app.useGlobalPipes(new ValidationPipe());
 await app.listen(process.env.PORT ?? 3001);
@@ -204,7 +204,7 @@ A POST body that fails validation never reaches `createTask()` — the pipe thro
 
 The `Task` interface and `TaskStatus` type define the domain model used across the feature. Kept separate from the DTO so the entity and the input shape can diverge independently.
 
-[`src/tasks/task.interface.ts`](../src/tasks/task.interface.ts)
+[`src/tasks/task.interface.ts`](../backend/src/tasks/task.interface.ts)
 ```ts
 export type TaskStatus = 'OPEN' | 'IN_PROGRESS' | 'DONE';
 
@@ -228,7 +228,7 @@ Three test files use `Test.createTestingModule()` to spin up the DI container in
 
 **Unit test — service** (direct instantiation via DI):
 
-[`src/tasks/tasks.service.spec.ts`](../src/tasks/tasks.service.spec.ts)
+[`src/tasks/tasks.service.spec.ts`](../backend/src/tasks/tasks.service.spec.ts)
 ```ts
 const module: TestingModule = await Test.createTestingModule({
   providers: [TasksService],
@@ -238,7 +238,7 @@ service = module.get<TasksService>(TasksService);
 
 **Unit test — controller** (service mocked via `jest.spyOn`):
 
-[`src/tasks/tasks.controller.spec.ts`](../src/tasks/tasks.controller.spec.ts)
+[`src/tasks/tasks.controller.spec.ts`](../backend/src/tasks/tasks.controller.spec.ts)
 ```ts
 const module: TestingModule = await Test.createTestingModule({
   controllers: [TasksController],
@@ -250,7 +250,7 @@ tasksService = module.get<TasksService>(TasksService);
 
 **Integration-level validation test** (real HTTP pipe, no external server):
 
-[`src/tasks/tasks.validation.spec.ts`](../src/tasks/tasks.validation.spec.ts)
+[`src/tasks/tasks.validation.spec.ts`](../backend/src/tasks/tasks.validation.spec.ts)
 ```ts
 app = module.createNestApplication();
 app.useGlobalPipes(new ValidationPipe());
