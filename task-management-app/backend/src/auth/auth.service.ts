@@ -45,6 +45,11 @@ export class AuthService {
     return this.stripPassword(user);
   }
 
+  login(user: { id: string; email: string }) {
+    const payload = { sub: user.id, email: user.email };
+    return { access_token: this.jwt.sign(payload) };
+  }
+
   private stripPassword(user: User): Omit<User, 'password'> {
     const { password: _omit, ...rest } = user;
     return rest;

@@ -129,4 +129,14 @@ describe('AuthService', () => {
 
     expect(result).toBeNull();
   });
+
+  // cycle-059 RED
+  it('login() signs a JWT with { sub, email } and returns { access_token }', () => {
+    mockJwt.sign.mockReturnValue('signed.jwt.token');
+
+    const result = service.login({ id: '1', email: 'alice@example.com' } as any);
+
+    expect(mockJwt.sign).toHaveBeenCalledWith({ sub: '1', email: 'alice@example.com' });
+    expect(result).toEqual({ access_token: 'signed.jwt.token' });
+  });
 });
