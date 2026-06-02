@@ -1,7 +1,7 @@
 ---
 id: cycle-048
 slug: delete-button-aria-focus
-status: pending
+status: done
 source: "Day 9 §6 'ARIA labels on icon-only buttons ... visible focus rings' + user stories N, O"
 covers: validation
 ---

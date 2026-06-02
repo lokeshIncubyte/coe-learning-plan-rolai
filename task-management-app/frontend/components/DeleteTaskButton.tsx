@@ -2,6 +2,9 @@
 
 import { useState } from 'react'
 
+const focusRing =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2'
+
 export function DeleteTaskButton({ onConfirm }: { onConfirm: () => void | Promise<void> }) {
   const [confirming, setConfirming] = useState(false)
 
@@ -9,10 +12,18 @@ export function DeleteTaskButton({ onConfirm }: { onConfirm: () => void | Promis
     return (
       <div>
         <span>Delete this task?</span>
-        <button type="button" onClick={() => onConfirm()}>
+        <button
+          type="button"
+          onClick={() => onConfirm()}
+          className={`text-red-600 ${focusRing} focus-visible:ring-red-500`}
+        >
           Confirm
         </button>
-        <button type="button" onClick={() => setConfirming(false)}>
+        <button
+          type="button"
+          onClick={() => setConfirming(false)}
+          className={`${focusRing} focus-visible:ring-gray-400`}
+        >
           Cancel
         </button>
       </div>
@@ -20,7 +31,12 @@ export function DeleteTaskButton({ onConfirm }: { onConfirm: () => void | Promis
   }
 
   return (
-    <button type="button" onClick={() => setConfirming(true)}>
+    <button
+      type="button"
+      aria-label="Delete task"
+      onClick={() => setConfirming(true)}
+      className={`text-red-600 ${focusRing} focus-visible:ring-red-500`}
+    >
       Delete
     </button>
   )

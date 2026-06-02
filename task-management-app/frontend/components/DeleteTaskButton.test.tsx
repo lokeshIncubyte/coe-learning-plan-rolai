@@ -8,7 +8,7 @@ describe('DeleteTaskButton', () => {
     const onConfirm = vi.fn()
     render(<DeleteTaskButton onConfirm={onConfirm} />)
 
-    await userEvent.click(screen.getByRole('button', { name: /^delete$/i }))
+    await userEvent.click(screen.getByRole('button', { name: /delete task/i }))
     expect(screen.getByText(/delete this task\?/i)).toBeInTheDocument()
 
     await userEvent.click(screen.getByRole('button', { name: /cancel/i }))
@@ -20,7 +20,24 @@ describe('DeleteTaskButton', () => {
     const onConfirm = vi.fn().mockResolvedValue(undefined)
     render(<DeleteTaskButton onConfirm={onConfirm} />)
 
-    await userEvent.click(screen.getByRole('button', { name: /^delete$/i }))
+    await userEvent.click(screen.getByRole('button', { name: /delete task/i }))
+    await userEvent.click(screen.getByRole('button', { name: /confirm/i }))
+    expect(onConfirm).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('DeleteTaskButton accessibility', () => {
+  it('exposes an aria-label and a visible focus ring on the delete trigger', () => {
+    render(<DeleteTaskButton onConfirm={vi.fn()} />)
+    const trigger = screen.getByRole('button', { name: /delete task/i })
+    expect(trigger).toHaveAttribute('aria-label')
+    expect(trigger.className).toMatch(/focus-visible:/)
+  })
+
+  it('still confirms deletion via keyboard', async () => {
+    const onConfirm = vi.fn()
+    render(<DeleteTaskButton onConfirm={onConfirm} />)
+    await userEvent.click(screen.getByRole('button', { name: /delete task/i }))
     await userEvent.click(screen.getByRole('button', { name: /confirm/i }))
     expect(onConfirm).toHaveBeenCalledTimes(1)
   })

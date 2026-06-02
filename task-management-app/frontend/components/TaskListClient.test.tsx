@@ -16,7 +16,7 @@ describe('TaskListClient optimistic delete', () => {
     render(<TaskListClient tasks={tasks} deleteTask={deleteTask} />)
 
     const milkRow = screen.getByText('Buy milk').closest('li')!
-    await userEvent.click(within(milkRow).getByRole('button', { name: /^delete$/i }))
+    await userEvent.click(within(milkRow).getByRole('button', { name: /delete task/i }))
     await userEvent.click(within(milkRow).getByRole('button', { name: /confirm/i }))
 
     expect(screen.queryByText('Buy milk')).not.toBeInTheDocument()
