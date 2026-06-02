@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, HttpCode, Query } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, HttpCode, Query, UseGuards } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { TaskStatsService } from './tasks.stats.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { PaginationDto } from './dto/pagination.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('tasks')
 export class TasksController {
@@ -18,6 +19,7 @@ export class TasksController {
   }
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   async createTask(@Body() dto: CreateTaskDto) {
     return this.tasksService.create(dto);
   }
