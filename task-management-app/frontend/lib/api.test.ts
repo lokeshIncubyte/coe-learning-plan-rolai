@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { getTasks, getTask, createTask, updateTask } from './api'
+import { getTasks, getTask, createTask, updateTask, deleteTask } from './api'
 
 describe('getTasks', () => {
   beforeEach(() => {
@@ -145,5 +145,36 @@ describe('updateTask', () => {
     expect(init.headers['Content-Type']).toBe('application/json')
     expect(JSON.parse(init.body)).toEqual({ title: 'Buy oat milk' })
     expect(result).toEqual(updated)
+  })
+})
+
+describe('deleteTask', () => {
+  beforeEach(() => {
+    process.env.NEXT_PUBLIC_API_URL = 'http://localhost:3001'
+  })
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('issues a DELETE to /tasks/:id and resolves on success', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true, status: 204, json: async () => ({}) })
+    vi.stubGlobal('fetch', fetchMock)
+
+    await expect(deleteTask('task-0001')).resolves.toBeUndefined()
+    const [url, init] = fetchMock.mock.calls[0]
+    expect(String(url)).toBe('http://localhost:3001/tasks/task-0001')
+    expect(init.method).toBe('DELETE')
+  })
+
+  it('treats 404 as already deleted and resolves', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: false, status: 404, json: async () => ({}) })
+    vi.stubGlobal('fetch', fetchMock)
+    await expect(deleteTask('missing')).resolves.toBeUndefined()
+  })
+
+  it('throws on other non-ok statuses so the caller can roll back', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: false, status: 500, json: async () => ({}) })
+    vi.stubGlobal('fetch', fetchMock)
+    await expect(deleteTask('task-0001')).rejects.toThrow()
   })
 })

@@ -71,6 +71,14 @@ export async function updateTask(id: string, input: UpdateTaskInput): Promise<Ta
   return sendTaskJson(`/tasks/${id}`, 'PATCH', input, 'Failed to update task')
 }
 
+export async function deleteTask(id: string): Promise<void> {
+  const res = await fetch(apiUrl(`/tasks/${id}`), { method: 'DELETE' })
+  if (res.ok || res.status === 404) {
+    return
+  }
+  throw new Error(`Failed to delete task: ${res.status}`)
+}
+
 export async function getTask(id: string): Promise<Task | null> {
   const res = await fetch(apiUrl(`/tasks/${id}`), {
     cache: 'no-store',

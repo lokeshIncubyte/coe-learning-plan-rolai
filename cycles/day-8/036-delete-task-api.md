@@ -1,7 +1,7 @@
 ---
 id: cycle-036
 slug: delete-task-api
-status: pending
+status: done
 source: "Checklist §2/§5: deleteTask(id) DELETE /tasks/:id; handle already-deleted 404 (User Story D/E)"
 covers: error-path
 ---
