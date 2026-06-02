@@ -1,7 +1,7 @@
 ---
 id: cycle-039
 slug: delete-button-confirmation
-status: pending
+status: done
 source: "Checklist §5: confirmation step before delete; Cancel keeps the task (User Story D)"
 covers: validation
 ---
