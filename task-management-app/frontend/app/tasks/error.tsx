@@ -14,9 +14,14 @@ export default function Error({
   }, [error])
 
   return (
-    <main>
-      <h2>Something went wrong loading tasks.</h2>
-      <button onClick={() => reset()}>Try again</button>
+    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center gap-4 px-4 py-16 text-center">
+      <h2 className="text-xl font-semibold">Something went wrong loading tasks.</h2>
+      <button
+        onClick={() => reset()}
+        className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+      >
+        Try again
+      </button>
     </main>
   )
 }
