@@ -1,7 +1,7 @@
 ---
 id: cycle-027
 slug: get-task-not-found
-status: pending
+status: done
 source: "§4 getTask(id) helper; §5 Handle the task-not-found case (404)"
 covers: error-path
 ---

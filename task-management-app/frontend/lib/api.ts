@@ -30,3 +30,16 @@ export async function getTasks(page = 1, limit = 10): Promise<Paginated<Task>> {
   }
   return res.json()
 }
+
+export async function getTask(id: string): Promise<Task | null> {
+  const res = await fetch(apiUrl(`/tasks/${id}`), {
+    cache: 'no-store',
+  })
+  if (res.status === 404) {
+    return null
+  }
+  if (!res.ok) {
+    throw new Error(`Failed to fetch task: ${res.status}`)
+  }
+  return res.json()
+}
