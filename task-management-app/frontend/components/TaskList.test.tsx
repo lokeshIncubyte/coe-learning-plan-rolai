@@ -16,9 +16,31 @@ describe('TaskList', () => {
     expect(screen.getAllByRole('link')).toHaveLength(2)
   })
 
-  it('shows an empty state and no rows when there are no tasks', () => {
+  it('shows an empty state when there are no tasks', () => {
     render(<TaskList tasks={[]} />)
     expect(screen.getByText('No tasks yet')).toBeInTheDocument()
-    expect(screen.queryAllByRole('link')).toHaveLength(0)
+  })
+})
+
+const tasks: Task[] = [
+  { id: 'a', title: 'One', description: null, status: 'OPEN', userId: null, createdAt: '', updatedAt: '' },
+  { id: 'b', title: 'Two', description: null, status: 'DONE', userId: null, createdAt: '', updatedAt: '' },
+]
+
+describe('TaskList layout and empty state', () => {
+  it('renders cards in a responsive multi-column grid', () => {
+    const { container } = render(<TaskList tasks={tasks} />)
+    const grid = container.querySelector('ul')!
+    expect(grid.className).toMatch(/\bgrid\b/)
+    expect(grid.className).toMatch(/grid-cols-1/)
+    expect(grid.className).toMatch(/sm:grid-cols-2|lg:grid-cols-/)
+    expect(grid.className).toMatch(/gap-/)
+  })
+
+  it('shows a friendly empty state with a create call-to-action when there are no tasks', () => {
+    render(<TaskList tasks={[]} />)
+    expect(screen.getByText(/no tasks yet/i)).toBeInTheDocument()
+    const cta = screen.getByRole('link', { name: /create|new|first task/i })
+    expect(cta).toHaveAttribute('href', '/tasks/new')
   })
 })

@@ -1,7 +1,7 @@
 ---
 id: cycle-043
 slug: task-list-grid-empty-state
-status: pending
+status: done
 source: "Day 9 §4 'multi-column grid' + §5 'empty states styled' + user stories B, F"
 covers: atomic
 ---
