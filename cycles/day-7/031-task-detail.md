@@ -1,7 +1,7 @@
 ---
 id: cycle-031
 slug: task-detail
-status: pending
+status: done
 source: "§5 Render full task details (title, description, status, timestamps) (user story C)"
 covers: happy-path
 ---
