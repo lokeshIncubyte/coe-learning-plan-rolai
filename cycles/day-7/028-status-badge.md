@@ -1,7 +1,7 @@
 ---
 id: cycle-028
 slug: status-badge
-status: pending
+status: done
 source: "§4/§5 each row shows the task's status (user stories A, C)"
 covers: atomic
 ---
