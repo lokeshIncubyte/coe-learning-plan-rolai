@@ -1,4 +1,4 @@
-import { getToken } from './auth'
+import { getToken, clearToken } from './auth'
 
 export type TaskStatus = 'OPEN' | 'IN_PROGRESS' | 'DONE'
 
@@ -34,6 +34,7 @@ export async function getTasks(page = 1, limit = 10): Promise<Paginated<Task>> {
     headers: { ...authHeaders() },
   })
   if (!res.ok) {
+    if (res.status === 401) clearToken()
     throw new Error(`Failed to fetch tasks: ${res.status}`)
   }
   return res.json()

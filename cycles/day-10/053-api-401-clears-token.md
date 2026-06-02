@@ -1,7 +1,7 @@
 ---
 id: cycle-053
 slug: api-401-clears-token
-status: pending
+status: done
 source: "Day 10 checklist §5: Handle 401 from the API (token expired); user story K (session expiry)"
 covers: error-path
 ---

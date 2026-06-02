@@ -261,3 +261,27 @@ describe('Authorization header', () => {
     expect(init.headers['Authorization']).toBeUndefined()
   })
 })
+
+describe('401 handling', () => {
+  beforeEach(() => {
+    process.env.NEXT_PUBLIC_API_URL = 'http://localhost:3001'
+    localStorage.setItem('access_token', 'mock.jwt.expired')
+  })
+  afterEach(() => {
+    vi.restoreAllMocks()
+    localStorage.clear()
+  })
+
+  it('clears the stored token and throws when getTasks returns 401', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 401,
+      json: async () => ({ statusCode: 401, message: 'Unauthorized', error: 'Unauthorized' }),
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const { getTasks } = await import('./api')
+    await expect(getTasks(1, 10)).rejects.toThrow()
+    expect(localStorage.getItem('access_token')).toBeNull()
+  })
+})
