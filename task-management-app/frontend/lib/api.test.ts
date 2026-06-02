@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { getTasks, getTask, createTask } from './api'
+import { getTasks, getTask, createTask, updateTask } from './api'
 
 describe('getTasks', () => {
   beforeEach(() => {
@@ -113,5 +113,37 @@ describe('createTask', () => {
     await expect(
       createTask({ title: '', description: null, status: 'OPEN' }),
     ).rejects.toThrow('title should not be empty')
+  })
+})
+
+describe('updateTask', () => {
+  beforeEach(() => {
+    process.env.NEXT_PUBLIC_API_URL = 'http://localhost:3001'
+  })
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('PATCHes the partial input as JSON and returns the updated task', async () => {
+    const updated = {
+      id: 'task-0001',
+      title: 'Buy oat milk',
+      description: 'Full fat',
+      status: 'OPEN',
+      userId: null,
+      createdAt: 'x',
+      updatedAt: 'y',
+    }
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true, status: 200, json: async () => updated })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const result = await updateTask('task-0001', { title: 'Buy oat milk' })
+
+    const [url, init] = fetchMock.mock.calls[0]
+    expect(String(url)).toBe('http://localhost:3001/tasks/task-0001')
+    expect(init.method).toBe('PATCH')
+    expect(init.headers['Content-Type']).toBe('application/json')
+    expect(JSON.parse(init.body)).toEqual({ title: 'Buy oat milk' })
+    expect(result).toEqual(updated)
   })
 })

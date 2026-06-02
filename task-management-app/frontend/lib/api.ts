@@ -37,9 +37,16 @@ export type CreateTaskInput = {
   status: TaskStatus
 }
 
-export async function createTask(input: CreateTaskInput): Promise<Task> {
-  const res = await fetch(apiUrl('/tasks'), {
-    method: 'POST',
+export type UpdateTaskInput = Partial<CreateTaskInput>
+
+async function sendTaskJson(
+  path: string,
+  method: 'POST' | 'PATCH',
+  input: CreateTaskInput | UpdateTaskInput,
+  fallbackMessage: string,
+): Promise<Task> {
+  const res = await fetch(apiUrl(path), {
+    method,
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(input),
   })
@@ -50,10 +57,18 @@ export async function createTask(input: CreateTaskInput): Promise<Task> {
       ? raw.join(', ')
       : typeof raw === 'string'
         ? raw
-        : `Failed to create task: ${res.status}`
+        : `${fallbackMessage}: ${res.status}`
     throw new Error(message)
   }
   return res.json()
+}
+
+export async function createTask(input: CreateTaskInput): Promise<Task> {
+  return sendTaskJson('/tasks', 'POST', input, 'Failed to create task')
+}
+
+export async function updateTask(id: string, input: UpdateTaskInput): Promise<Task> {
+  return sendTaskJson(`/tasks/${id}`, 'PATCH', input, 'Failed to update task')
 }
 
 export async function getTask(id: string): Promise<Task | null> {

@@ -1,7 +1,7 @@
 ---
 id: cycle-035
 slug: update-task-api
-status: pending
+status: done
 source: "Checklist §2/§4: updateTask(id) partial PATCH; UpdateTaskInput type (User Story C)"
 covers: happy-path
 ---
