@@ -1,7 +1,7 @@
 ---
 id: cycle-037
 slug: task-form-validation
-status: pending
+status: done
 source: "Checklist §3/§6: controlled inputs + client validation, required trimmed title (User Story B)"
 covers: validation
 ---
