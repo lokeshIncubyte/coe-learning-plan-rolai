@@ -1,7 +1,7 @@
 ---
 id: cycle-054
 slug: login-form
-status: pending
+status: done
 source: "Day 10 checklist §4: login form (Client Component); user stories H & I"
 covers: validation
 ---
