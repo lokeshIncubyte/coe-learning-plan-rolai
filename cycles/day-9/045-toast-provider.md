@@ -1,7 +1,7 @@
 ---
 id: cycle-045
 slug: toast-provider
-status: pending
+status: done
 source: "Day 9 §5 'Toast notifications for create/update/delete success and failure' + user stories G, H, I, J"
 covers: atomic
 ---
