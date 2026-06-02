@@ -1,7 +1,7 @@
 ---
 id: cycle-032
 slug: site-header-nav
-status: pending
+status: done
 source: "§3 root layout with shared header/nav (user story H)"
 covers: atomic
 ---
