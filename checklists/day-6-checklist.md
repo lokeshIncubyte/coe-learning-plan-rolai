@@ -49,7 +49,7 @@
 ## 5. Database seeding
 - [x] Create `prisma/seed.ts` — seed 2 users and 5 tasks (mix of statuses, some assigned to users)
 - [x] Add `"prisma": { "seed": "npx tsx prisma/seed.ts" }` to `package.json`
-- [ ] Run `npx prisma db seed` and confirm data in Neon
+- [x] Run `npx prisma db seed` and confirm data in Neon
 
 ## 6. Error handling
 - [x] Catch `PrismaClientKnownRequestError` with code `P2002` (unique constraint) → HTTP 409
@@ -64,9 +64,9 @@
 ---
 
 ## Success Criteria
-- [ ] `GET /tasks` queries Neon, not in-memory array
-- [ ] All CRUD endpoints work end-to-end with the database
-- [ ] `POST /users` creates a user; `GET /users/:id` returns user with tasks
-- [ ] `GET /tasks?page=2&limit=5` returns the correct slice
-- [ ] `npx prisma db seed` populates the database with test data
-- [ ] Database errors map to correct HTTP status codes
+- [x] `GET /tasks` queries Neon, not in-memory array
+- [x] All CRUD endpoints work end-to-end with the database
+- [x] `POST /users` creates a user; `GET /users/:id` returns user with tasks
+- [x] `GET /tasks?page=2&limit=5` returns the correct slice
+- [x] `npx prisma db seed` populates the database with test data
+- [x] Database errors map to correct HTTP status codes

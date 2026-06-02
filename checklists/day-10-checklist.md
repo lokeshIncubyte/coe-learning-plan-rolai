@@ -15,37 +15,37 @@
 - [ ] Deployment basics: Vercel (frontend) + Railway/Render (backend) + env vars → [`notes/20-deployment.md`]
 
 ## 2. Backend — auth foundation
-- [ ] Install `@nestjs/jwt`, `@nestjs/passport`, `passport`, `passport-jwt`, `bcrypt`
-- [ ] Add `password` (hashed) to the `User` model + migration
-- [ ] `AuthModule` / `AuthService` — register (hash with bcrypt) and validate credentials
-- [ ] `POST /auth/register` — create a user with a hashed password
-- [ ] `POST /auth/login` — verify password, return a signed JWT
-- [ ] Configure `JwtModule` with secret from env (`JWT_SECRET`) and an expiry
+- [x] Install `@nestjs/jwt`, `@nestjs/passport`, `passport`, `passport-jwt`, `bcrypt`
+- [x] Add `password` (hashed) to the `User` model + migration
+- [x] `AuthModule` / `AuthService` — register (hash with bcrypt) and validate credentials
+- [x] `POST /auth/register` — create a user with a hashed password
+- [x] `POST /auth/login` — verify password, return a signed JWT
+- [x] Configure `JwtModule` with secret from env (`JWT_SECRET`) and an expiry
 
 ## 3. Backend — protect routes
-- [ ] Implement `JwtStrategy` + `JwtAuthGuard`
-- [ ] Protect the task routes (`POST/PATCH/DELETE /tasks`, optionally `GET`) with the guard
+- [x] Implement `JwtStrategy` + `JwtAuthGuard`
+- [x] Protect the task routes (`POST/PATCH/DELETE /tasks`, optionally `GET`) with the guard
 - [ ] Scope tasks to the authenticated user (`userId` from the token) where appropriate
-- [ ] Unauthenticated requests to protected routes return 401
+- [x] Unauthenticated requests to protected routes return 401
 
 ## 4. Frontend — login flow
-- [ ] `app/login/page.tsx` — login form (Client Component)
-- [ ] Submit → `POST /auth/login`; store the JWT securely (httpOnly cookie preferred, or document the localStorage trade-off)
-- [ ] Attach the token to API requests in `lib/api.ts` (Authorization: Bearer)
-- [ ] `app/register/page.tsx` (optional) — registration form
-- [ ] Logout clears the token and redirects
+- [x] `app/login/page.tsx` — login form (Client Component)
+- [x] Submit → `POST /auth/login`; store the JWT securely (httpOnly cookie preferred, or document the localStorage trade-off)
+- [x] Attach the token to API requests in `lib/api.ts` (Authorization: Bearer)
+- [x] `app/register/page.tsx` (optional) — registration form
+- [x] Logout clears the token and redirects
 
 ## 5. Frontend — protected routes
-- [ ] Redirect unauthenticated users away from task pages (middleware or per-page check)
-- [ ] Show auth state in the header (logged-in user / logout button)
-- [ ] Handle 401 from the API (token expired → redirect to login)
+- [x] Redirect unauthenticated users away from task pages (middleware or per-page check)
+- [x] Show auth state in the header (logged-in user / logout button)
+- [x] Handle 401 from the API (token expired → redirect to login)
 
 ## 6. Verify — auth flow
-- [ ] Register a user → password stored hashed in the DB (not plaintext)
-- [ ] Login → receives a JWT; protected calls succeed with it
-- [ ] Protected call without a token → 401
-- [ ] Frontend redirects unauthenticated users to `/login`
-- [ ] Logout → can no longer reach protected pages
+- [x] Register a user → password stored hashed in the DB (not plaintext)
+- [x] Login → receives a JWT; protected calls succeed with it
+- [x] Protected call without a token → 401
+- [x] Frontend redirects unauthenticated users to `/login`
+- [x] Logout → can no longer reach protected pages
 
 ## 7. Deploy
 - [ ] Deploy the backend (Railway/Render) with `DATABASE_URL` + `JWT_SECRET` env vars; run migrations
@@ -54,19 +54,19 @@
 - [ ] Smoke test the deployed app end-to-end (register → login → CRUD)
 
 ## 8. Document & Ship
-- [ ] Create deployment documentation (`docs/deployment.md`) — env vars, steps, URLs
+- [x] Create deployment documentation (`docs/deployment.md`) — env vars, steps, URLs
 - [ ] `README.md` updated with live URLs and auth/setup instructions
-- [ ] Final commit and push
+- [x] Final commit and push
 
 ---
 
 ## Success Criteria (from next.md)
-- [ ] JWT authentication implemented in the backend
-- [ ] Passwords hashed with bcrypt
-- [ ] API routes protected with guards
-- [ ] Login page created in the frontend
-- [ ] JWT stored securely
-- [ ] Protected routes implemented
-- [ ] Auth flow works end-to-end in the Task Management app
-- [ ] Deployment guide created
+- [x] JWT authentication implemented in the backend
+- [x] Passwords hashed with bcrypt
+- [x] API routes protected with guards
+- [x] Login page created in the frontend
+- [x] JWT stored securely
+- [x] Protected routes implemented
+- [x] Auth flow works end-to-end in the Task Management app
+- [x] Deployment guide created
 - [ ] Task Management App is complete (deployed and functional)
