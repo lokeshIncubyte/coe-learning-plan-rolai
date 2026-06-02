@@ -1,7 +1,7 @@
 ---
 id: cycle-029
 slug: task-card
-status: pending
+status: done
 source: "§4 Each task links to /tasks/[id]; user story A/C"
 covers: atomic
 ---
