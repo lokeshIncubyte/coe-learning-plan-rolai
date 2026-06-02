@@ -219,3 +219,45 @@ describe('login', () => {
     await expect(login('alice@example.com', 'wrongPw')).rejects.toThrow('Invalid credentials')
   })
 })
+
+describe('Authorization header', () => {
+  beforeEach(() => {
+    process.env.NEXT_PUBLIC_API_URL = 'http://localhost:3001'
+    localStorage.clear()
+  })
+  afterEach(() => {
+    vi.restoreAllMocks()
+    localStorage.clear()
+  })
+
+  it('attaches Bearer token to createTask when a token is stored', async () => {
+    localStorage.setItem('access_token', 'mock.jwt.abc')
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 201,
+      json: async () => ({ id: 't1', title: 'x', description: null, status: 'OPEN', userId: null, createdAt: 'x', updatedAt: 'x' }),
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const { createTask } = await import('./api')
+    await createTask({ title: 'x', description: null, status: 'OPEN' })
+
+    const [, init] = fetchMock.mock.calls[0]
+    expect(init.headers['Authorization']).toBe('Bearer mock.jwt.abc')
+  })
+
+  it('omits Authorization when no token is stored', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 201,
+      json: async () => ({ id: 't1', title: 'x', description: null, status: 'OPEN', userId: null, createdAt: 'x', updatedAt: 'x' }),
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    const { createTask } = await import('./api')
+    await createTask({ title: 'x', description: null, status: 'OPEN' })
+
+    const [, init] = fetchMock.mock.calls[0]
+    expect(init.headers['Authorization']).toBeUndefined()
+  })
+})

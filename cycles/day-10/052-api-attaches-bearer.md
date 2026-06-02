@@ -1,7 +1,7 @@
 ---
 id: cycle-052
 slug: api-attaches-bearer
-status: pending
+status: done
 source: "Day 10 checklist §4: Attach the token to API requests in lib/api.ts (Authorization: Bearer)"
 covers: atomic
 ---

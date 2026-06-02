@@ -1,3 +1,5 @@
+import { getToken } from './auth'
+
 export type TaskStatus = 'OPEN' | 'IN_PROGRESS' | 'DONE'
 
 export type Task = {
@@ -21,9 +23,15 @@ function apiUrl(path: string): string {
   return `${process.env.NEXT_PUBLIC_API_URL}${path}`
 }
 
+function authHeaders(): Record<string, string> {
+  const t = getToken()
+  return t ? { Authorization: `Bearer ${t}` } : {}
+}
+
 export async function getTasks(page = 1, limit = 10): Promise<Paginated<Task>> {
   const res = await fetch(apiUrl(`/tasks?page=${page}&limit=${limit}`), {
     cache: 'no-store',
+    headers: { ...authHeaders() },
   })
   if (!res.ok) {
     throw new Error(`Failed to fetch tasks: ${res.status}`)
@@ -47,7 +55,7 @@ async function sendTaskJson(
 ): Promise<Task> {
   const res = await fetch(apiUrl(path), {
     method,
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
     body: JSON.stringify(input),
   })
   if (!res.ok) {
@@ -72,7 +80,10 @@ export async function updateTask(id: string, input: UpdateTaskInput): Promise<Ta
 }
 
 export async function deleteTask(id: string): Promise<void> {
-  const res = await fetch(apiUrl(`/tasks/${id}`), { method: 'DELETE' })
+  const res = await fetch(apiUrl(`/tasks/${id}`), {
+    method: 'DELETE',
+    headers: { ...authHeaders() },
+  })
   if (res.ok || res.status === 404) {
     return
   }
@@ -95,6 +106,7 @@ export async function login(email: string, password: string): Promise<string> {
 export async function getTask(id: string): Promise<Task | null> {
   const res = await fetch(apiUrl(`/tasks/${id}`), {
     cache: 'no-store',
+    headers: { ...authHeaders() },
   })
   if (res.status === 404) {
     return null
