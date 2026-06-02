@@ -21,8 +21,9 @@ export function TaskForm({ onSubmit, submitLabel, initialValues }: TaskFormProps
   const [description, setDescription] = useState(initialValues?.description ?? '')
   const [status, setStatus] = useState<Status>(initialValues?.status ?? 'OPEN')
   const [error, setError] = useState('')
+  const [pending, setPending] = useState(false)
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const trimmed = title.trim()
     if (!trimmed) {
@@ -30,7 +31,14 @@ export function TaskForm({ onSubmit, submitLabel, initialValues }: TaskFormProps
       return
     }
     setError('')
-    onSubmit({ title: trimmed, description: description.trim(), status })
+    setPending(true)
+    try {
+      await onSubmit({ title: trimmed, description: description.trim(), status })
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e))
+    } finally {
+      setPending(false)
+    }
   }
 
   return (
@@ -62,7 +70,9 @@ export function TaskForm({ onSubmit, submitLabel, initialValues }: TaskFormProps
 
       {error && <p>{error}</p>}
 
-      <button type="submit">{submitLabel}</button>
+      <button type="submit" disabled={pending}>
+        {pending ? 'Saving…' : submitLabel}
+      </button>
     </form>
   )
 }

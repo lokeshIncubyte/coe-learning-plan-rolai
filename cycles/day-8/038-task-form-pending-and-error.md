@@ -1,7 +1,7 @@
 ---
 id: cycle-038
 slug: task-form-pending-and-error
-status: pending
+status: done
 source: "Checklist §6: disable submit while pending; surface backend errors inline (User Stories G & F)"
 covers: error-path
 ---

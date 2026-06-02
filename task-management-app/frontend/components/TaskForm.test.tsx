@@ -25,4 +25,21 @@ describe('TaskForm validation', () => {
 
     expect(onSubmit).toHaveBeenCalledWith({ title: 'Buy milk', description: 'Full fat', status: 'OPEN' })
   })
+
+  it('shows a pending state and surfaces a rejection message', async () => {
+    let reject!: (e: Error) => void
+    const onSubmit = vi.fn().mockReturnValue(new Promise<void>((_, r) => { reject = r }))
+    render(<TaskForm onSubmit={onSubmit} submitLabel="Create" />)
+
+    await userEvent.type(screen.getByLabelText(/title/i), 'Buy milk')
+    await userEvent.click(screen.getByRole('button', { name: /create/i }))
+
+    const pendingBtn = screen.getByRole('button', { name: /saving/i })
+    expect(pendingBtn).toBeDisabled()
+
+    reject(new Error('title should not be empty'))
+    expect(await screen.findByText(/title should not be empty/i)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /create/i })).toBeEnabled()
+    expect(screen.getByLabelText(/title/i)).toHaveValue('Buy milk')
+  })
 })
