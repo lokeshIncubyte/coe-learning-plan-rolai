@@ -101,4 +101,17 @@ describe('createTask', () => {
     expect(JSON.parse(init.body)).toEqual({ title: 'Buy milk', description: 'Full fat', status: 'OPEN' })
     expect(result).toEqual(created)
   })
+
+  it('throws with the backend validation message on 400', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 400,
+      json: async () => ({ statusCode: 400, error: 'Bad Request', message: ['title should not be empty'] }),
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    await expect(
+      createTask({ title: '', description: null, status: 'OPEN' }),
+    ).rejects.toThrow('title should not be empty')
+  })
 })

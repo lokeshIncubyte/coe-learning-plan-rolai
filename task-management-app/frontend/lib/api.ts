@@ -44,7 +44,14 @@ export async function createTask(input: CreateTaskInput): Promise<Task> {
     body: JSON.stringify(input),
   })
   if (!res.ok) {
-    throw new Error(`Failed to create task: ${res.status}`)
+    const body = await res.json().catch(() => null)
+    const raw = body?.message
+    const message = Array.isArray(raw)
+      ? raw.join(', ')
+      : typeof raw === 'string'
+        ? raw
+        : `Failed to create task: ${res.status}`
+    throw new Error(message)
   }
   return res.json()
 }

@@ -1,7 +1,7 @@
 ---
 id: cycle-034
 slug: create-task-api-400-error
-status: pending
+status: done
 source: "Checklist §3: Show validation errors from the backend (400) inline (User Story F)"
 covers: error-path
 ---
