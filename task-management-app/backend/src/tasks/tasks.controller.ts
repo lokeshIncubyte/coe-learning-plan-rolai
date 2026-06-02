@@ -35,11 +35,13 @@ export class TasksController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   async updateTask(@Param('id') id: string, @Body() dto: UpdateTaskDto) {
     return this.tasksService.update(id, dto);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   @HttpCode(204)
   async removeTask(@Param('id') id: string): Promise<void> {
     await this.tasksService.remove(id);
