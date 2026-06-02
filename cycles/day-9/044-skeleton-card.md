@@ -1,7 +1,7 @@
 ---
 id: cycle-044
 slug: skeleton-card
-status: pending
+status: done
 source: "Day 9 §5 'Loading skeletons for the listing' + user story E"
 covers: atomic
 ---

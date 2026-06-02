@@ -2,6 +2,8 @@ import Link from 'next/link'
 import type { Task } from '@/lib/api'
 import { TaskCard } from './TaskCard'
 
+export const TASK_GRID_CLASS = 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'
+
 export function TaskList({ tasks }: { tasks: Task[] }) {
   if (tasks.length === 0) {
     return (
@@ -17,7 +19,7 @@ export function TaskList({ tasks }: { tasks: Task[] }) {
     )
   }
   return (
-    <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <ul className={TASK_GRID_CLASS}>
       {tasks.map((task) => (
         <li key={task.id}>
           <TaskCard task={task} />
