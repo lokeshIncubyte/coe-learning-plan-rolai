@@ -2,7 +2,13 @@ import { defineConfig, devices } from '@playwright/test'
 
 export default defineConfig({
   testDir: './e2e',
-  fullyParallel: true,
+  // The mock API (e2e/mock-api/server.mjs) is a SINGLE shared in-memory instance
+  // that each test resets + mutates in beforeEach. Running spec files in parallel
+  // across workers lets one file's reset wipe another file's state mid-test, so
+  // the whole suite must run on a single worker. Tests within a file still run in
+  // declaration order; mutating files additionally use `mode: 'serial'`.
+  fullyParallel: false,
+  workers: 1,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   reporter: 'list',

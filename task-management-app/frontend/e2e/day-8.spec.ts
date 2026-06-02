@@ -203,8 +203,10 @@ test('surfaces a not-found error when saving an edit for a deleted task', async 
   await page.getByRole('button', { name: 'Save changes' }).click()
 
   // Stays on the edit form and shows a feedback message (not found).
+  // (Day 9 added toast notifications, so the not-found text now appears both as
+  // the inline form alert AND a toast — assert on the inline form alert.)
   await expect(page).toHaveURL(/\/edit$/)
-  await expect(page.getByText(/not found/i)).toBeVisible()
+  await expect(page.locator('form p[role="alert"]').filter({ hasText: /not found/i })).toBeVisible()
   // A way back to the task is still offered.
   await expect(page.getByRole('link', { name: 'Cancel' })).toBeVisible()
 })
