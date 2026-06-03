@@ -61,4 +61,10 @@ describe('AuthController', () => {
     ).rejects.toThrow(new UnauthorizedException('Invalid credentials'));
     expect(authService.login).not.toHaveBeenCalled();
   });
+
+  // cycle-064 RED — GET /auth/me returns the authenticated user from the JWT
+  it('me() returns the current user (id + email) from the request', () => {
+    const req = { user: { userId: 'u-123', email: 'alice@example.com' } };
+    expect(controller.me(req as any)).toEqual({ id: 'u-123', email: 'alice@example.com' });
+  });
 });
