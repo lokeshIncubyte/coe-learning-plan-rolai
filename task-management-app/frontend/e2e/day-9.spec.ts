@@ -163,14 +163,35 @@ test('shows a friendly empty state with a CTA when there are no tasks', async ({
   await expect(page).toHaveURL(/\/tasks\/new$/)
 })
 
-// Story E — Loading skeletons while data loads.
-// NOTE: loading.tsx (TaskListSkeleton) IS implemented and wired, but the
-// /tasks page fetches its data SERVER-SIDE (getTasks runs on the Next server).
-// Playwright's page.route cannot intercept/delay a server-side fetch, and the
-// route-segment fallback is flushed too fast to catch deterministically from
-// the browser. There is no reliable user-observable way to hold the skeleton
-// open from an e2e test, so this scenario is intentionally omitted here. The
-// skeleton's rendering is covered by the TaskListSkeleton unit test.
+// Story E — Loading skeleton while the list data loads.
+// TasksView is a client component that fetches via lib/api getTasks in the
+// browser, so page.route CAN delay the list GET and hold the skeleton open.
+// The skeleton (TaskListSkeleton) renders a role=status / aria-busy region;
+// once the response resolves the task rows replace it.
+test('shows the list loading skeleton while data loads, then renders the rows', async ({
+  page,
+}) => {
+  let release: () => void = () => {}
+  const gate = new Promise<void>((resolve) => {
+    release = resolve
+  })
+  await page.route(/localhost:3001\/tasks\?/, async (route) => {
+    if (route.request().method() !== 'GET') return route.continue()
+    await gate
+    return route.continue()
+  })
+
+  await page.goto('/tasks')
+
+  const skeleton = page.getByRole('status', { name: 'Loading tasks' })
+  await expect(skeleton).toBeVisible()
+  await expect(skeleton).toHaveAttribute('aria-busy', 'true')
+  await expect(page.getByRole('listitem')).toHaveCount(0)
+
+  release()
+  await expect(page.getByRole('listitem')).toHaveCount(5)
+  await expect(skeleton).toBeHidden()
+})
 
 // Story G — Toast on successful task create
 test('shows a success toast after creating a task', async ({ page }) => {
@@ -337,4 +358,103 @@ test('icon-only toggle has an aria-label and form inputs are label-associated', 
   await expect(page.getByLabel('Title')).toBeVisible()
   await expect(page.getByLabel('Description')).toBeVisible()
   await expect(page.getByLabel('Status')).toBeVisible()
+})
+
+// Story M (forms) — Dark mode legibility across the list, a detail page AND the
+// new-task form. Beyond the listing, the create form's fields must stay
+// visible and usable in dark mode (Story L only proved the toggle persists;
+// the existing M test only covered list + detail content).
+test('content and form fields stay visible and usable across pages in dark mode', async ({
+  page,
+}) => {
+  await page.goto('/tasks')
+  await page.getByRole('button', { name: 'Toggle dark mode' }).click()
+  await expect(page.locator('html')).toHaveClass(/dark/)
+
+  // Listing: heading + a task title + a badge remain visible.
+  await expect(page.getByRole('heading', { name: 'Tasks', level: 1 })).toBeVisible()
+  await expect(page.getByText('Write project proposal')).toBeVisible()
+  await expect(page.getByText('Open').first()).toBeVisible()
+
+  // Detail page: dark mode persists and the content is visible.
+  await page.getByRole('link', { name: /Deploy to staging/ }).click()
+  await expect(page).toHaveURL(/\/tasks\/task-\d+$/)
+  await expect(page.locator('html')).toHaveClass(/dark/)
+  await expect(page.getByRole('heading', { name: 'Deploy to staging', level: 1 })).toBeVisible()
+  await expect(page.getByText('Done')).toBeVisible()
+
+  // New-task form: dark mode persists and every field is visible AND usable.
+  await page.goto('/tasks/new')
+  await expect(page.locator('html')).toHaveClass(/dark/)
+
+  const title = page.getByLabel('Title')
+  const description = page.getByLabel('Description')
+  const status = page.getByLabel('Status')
+  await expect(title).toBeVisible()
+  await expect(description).toBeVisible()
+  await expect(status).toBeVisible()
+
+  // Fields accept input / selection in dark mode (legible + interactive).
+  await title.fill('Dark mode task')
+  await expect(title).toHaveValue('Dark mode task')
+  await description.fill('Created while in dark mode')
+  await expect(description).toHaveValue('Created while in dark mode')
+  await status.selectOption('IN_PROGRESS')
+  await expect(status).toHaveValue('IN_PROGRESS')
+
+  await expect(page.getByRole('button', { name: 'Create task' })).toBeVisible()
+})
+
+// Story N — Keyboard navigation reaches the interactive controls in a sensible
+// order and focused controls carry a visible focus style. Goes beyond the
+// theme toggle: it exercises the header nav links, the "New task" link and the
+// task cards, asserting each focused element advertises a focus-visible style.
+test('keyboard tabbing reaches header + list controls with a visible focus style', async ({
+  page,
+}) => {
+  // Desktop width so the nav links show inline (no collapse toggle).
+  await page.setViewportSize({ width: 1280, height: 900 })
+  await page.goto('/tasks')
+  await expect(page.getByRole('heading', { name: 'Tasks', level: 1 })).toBeVisible()
+  await expect(page.getByRole('listitem')).toHaveCount(5)
+
+  // Helper: tab until a given element is focused (bounded), so the test is
+  // resilient to extra focusable controls between the ones we assert on.
+  async function tabUntilFocused(locator: ReturnType<typeof page.locator>, max = 12) {
+    for (let i = 0; i < max; i++) {
+      if (await locator.evaluate((el) => el === document.activeElement).catch(() => false)) {
+        return true
+      }
+      await page.keyboard.press('Tab')
+    }
+    return await locator.evaluate((el) => el === document.activeElement).catch(() => false)
+  }
+
+  // Start from the document body so Tab order begins at the top of the page.
+  await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+
+  // The Home nav link is reachable by keyboard and becomes focused.
+  const homeLink = page.getByRole('banner').getByRole('link', { name: 'Home' })
+  expect(await tabUntilFocused(homeLink)).toBe(true)
+  await expect(homeLink).toBeFocused()
+
+  // The "New task" link is reachable and focused after further tabbing.
+  const newTask = page.getByRole('link', { name: 'New task' })
+  expect(await tabUntilFocused(newTask)).toBe(true)
+  await expect(newTask).toBeFocused()
+
+  // The first task card is reachable; it carries a focus-visible outline style
+  // (visible focus indicator beyond the default).
+  const firstCard = page.getByRole('link', { name: /Write project proposal/ })
+  expect(await tabUntilFocused(firstCard)).toBe(true)
+  await expect(firstCard).toBeFocused()
+  await expect(firstCard).toHaveClass(/focus-visible:outline/)
+
+  // Focus order is sensible: the focused card is below the focused nav links
+  // (header precedes the list in tab order, matching visual order).
+  const homeBox = await homeLink.boundingBox()
+  const cardBox = await firstCard.boundingBox()
+  expect(homeBox).not.toBeNull()
+  expect(cardBox).not.toBeNull()
+  expect(cardBox!.y).toBeGreaterThan(homeBox!.y)
 })
