@@ -12,6 +12,11 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  // Allow the Next.js frontend (browser/client components) to call the API.
+  app.enableCors({
+    origin: process.env.FRONTEND_ORIGIN ?? 'http://localhost:3002',
+    credentials: true,
+  });
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   await app.listen(process.env.PORT ?? 3001);
 }
