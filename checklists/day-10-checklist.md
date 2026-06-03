@@ -48,14 +48,14 @@
 - [x] Logout → can no longer reach protected pages
 
 ## 7. Deploy
-- [ ] Deploy the backend (Railway/Render) with `DATABASE_URL` + `JWT_SECRET` env vars; run migrations
-- [ ] Deploy the frontend to Vercel with `NEXT_PUBLIC_API_URL` pointing at the deployed backend
-- [ ] CORS configured on the backend to allow the deployed frontend origin
-- [ ] Smoke test the deployed app end-to-end (register → login → CRUD)
+- [x] Deploy the backend (Railway/Render) with `DATABASE_URL` + `JWT_SECRET` env vars; run migrations
+- [x] Deploy the frontend to Vercel with `NEXT_PUBLIC_API_URL` pointing at the deployed backend
+- [x] CORS configured on the backend to allow the deployed frontend origin
+- [x] Smoke test the deployed app end-to-end (register → login → CRUD)
 
 ## 8. Document & Ship
 - [x] Create deployment documentation (`docs/deployment.md`) — env vars, steps, URLs
-- [ ] `README.md` updated with live URLs and auth/setup instructions
+- [x] `README.md` updated with live URLs and auth/setup instructions
 - [x] Final commit and push
 
 ---
@@ -69,4 +69,4 @@
 - [x] Protected routes implemented
 - [x] Auth flow works end-to-end in the Task Management app
 - [x] Deployment guide created
-- [ ] Task Management App is complete (deployed and functional)
+- [x] Task Management App is complete (deployed and functional)

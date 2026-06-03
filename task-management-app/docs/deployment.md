@@ -1,11 +1,23 @@
 # Deployment Guide — Task Management App
 
+## 🚀 Live deployment
+
+| Piece | Host | URL |
+|-------|------|-----|
+| Frontend | Vercel | **https://task-management-rolai.vercel.app** |
+| Backend API | Railway | **https://backend-production-94c7.up.railway.app** |
+| Database | Neon Postgres | (managed) |
+
+Verified end-to-end: register → login (JWT) → guarded task mutations (401 without token, 201 with), task list/stats served from Neon, CORS allows the Vercel origin. The frontend protects `/tasks` — a signed-out visitor is redirected to `/login`.
+
+---
+
 The app has three pieces:
 
-| Piece | Tech | Suggested host |
+| Piece | Tech | Host |
 |-------|------|----------------|
-| Database | PostgreSQL | [Neon](https://neon.tech) (already used in dev) |
-| Backend API | NestJS 11 + Prisma 7 | [Railway](https://railway.app) or [Render](https://render.com) |
+| Database | PostgreSQL | [Neon](https://neon.tech) |
+| Backend API | NestJS 11 + Prisma 7 | [Railway](https://railway.app) |
 | Frontend | Next.js 16 (App Router) | [Vercel](https://vercel.com) |
 
 ---
@@ -99,7 +111,8 @@ Then open the frontend, log in, and confirm the task list loads and CRUD works.
 
 ---
 
-## 6. Status / deferred
+## 6. Status
 
-- **Done & verified locally:** backend CRUD + users + pagination + auth (JWT/bcrypt/guards) against Neon; frontend pages, CRUD, styling, auth flows (44 unit + 38 e2e frontend tests, 49 backend tests).
-- **Not yet performed:** the actual cloud deploys (Vercel/Railway) and wiring the **frontend to the real backend** — the frontend e2e suite currently runs against an in-memory mock API (`frontend/e2e/mock-api`) for determinism. Point `NEXT_PUBLIC_API_URL` at the deployed backend and enable CORS to connect them for real.
+- **Deployed & verified end-to-end** (see Live deployment above): backend on Railway (CRUD + users + pagination + JWT/bcrypt/guards against Neon), frontend on Vercel wired to it via `NEXT_PUBLIC_API_URL`, CORS allowing the Vercel origin. 44 unit + 38 e2e frontend tests, 49 backend tests.
+- **Note:** the Playwright e2e suite runs against an in-memory mock API (`frontend/e2e/mock-api`) for deterministic CI — this is intentional and separate from the live deployment.
+- **Backend deploy details:** Railway service `backend` in project `task-management-rolai-api`; build `npx prisma generate && npm run build`; pre-deploy `npx prisma migrate deploy`; start `node dist/src/main.js`; env vars `DATABASE_URL`, `JWT_SECRET` (fresh prod secret), `FRONTEND_ORIGIN`.

@@ -2,6 +2,14 @@
 
 Incubyte Center of Excellence learning plan. Work is organized **by project**, since the main project (the Task Management App) spans many days.
 
+## Live Task Management App
+
+- **Frontend** (Vercel): https://task-management-rolai.vercel.app
+- **Backend API** (Railway): https://backend-production-94c7.up.railway.app
+- **Database**: Neon Postgres
+
+Auth-protected — open the frontend, register/login, then use the app. Setup & redeploy steps: [`task-management-app/docs/deployment.md`](task-management-app/docs/deployment.md).
+
 ## Structure
 
 ```
