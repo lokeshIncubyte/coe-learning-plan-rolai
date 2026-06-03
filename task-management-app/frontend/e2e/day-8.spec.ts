@@ -9,10 +9,9 @@ import { test, expect } from '@playwright/test'
 //   - /tasks/[id]/edit     -> EditTaskForm (pre-filled, save, error surfaced)
 //   - /tasks/[id]          -> DeleteTaskControl (confirm/cancel delete)
 //
-// NOT wired into any page this day, so NOT covered as a user flow:
-//   - Story E (optimistic delete + rollback in the LIST): TaskListClient exists
-//     but the list page renders the non-interactive TaskList. No user-reachable
-//     optimistic-delete-in-list flow exists, so it is omitted.
+// Story E (optimistic delete + rollback in the LIST) is now wired: /tasks renders
+// TaskListClient (via TasksView), so a user can delete a task straight from the
+// list with immediate removal, rollback on failure, and success/error toasts.
 
 test.describe.configure({ mode: 'serial' })
 
@@ -187,6 +186,59 @@ test('shows an error and keeps typed values when the create request fails', asyn
   await expect(page.locator('form p')).toBeVisible()
 })
 
+// Story E — Optimistic delete from the LIST with rollback on failure
+test('optimistic delete from the list: row disappears, rolls back on failure, then deletes', async ({
+  page,
+}) => {
+  await page.goto('/tasks')
+
+  // Find the "Review pull requests" task's row in the list.
+  const row = page.locator('li', { hasText: 'Review pull requests' })
+  await expect(row).toBeVisible()
+
+  // --- First attempt: make the DELETE fail. ---
+  let shouldFail = true
+  await page.route('**/tasks/*', async (route) => {
+    if (route.request().method() === 'DELETE' && shouldFail) {
+      // Delay the failure so the optimistic removal is observable before rollback.
+      await new Promise((r) => setTimeout(r, 600))
+      return route.fulfill({
+        status: 500,
+        contentType: 'application/json',
+        body: JSON.stringify({ statusCode: 500, message: 'Internal Server Error' }),
+      })
+    }
+    return route.continue()
+  })
+
+  await row.getByRole('button', { name: 'Delete task' }).click()
+  await row.getByRole('button', { name: 'Confirm' }).click()
+
+  // Optimistically removed immediately...
+  await expect(page.getByText('Review pull requests')).toBeHidden()
+  // ...then rolled back when the request fails, with an error toast.
+  await expect(page.getByText('Review pull requests')).toBeVisible()
+  // An error toast is shown (the toast is a <div role="alert">, distinct from the
+  // inline <p role="alert"> rendered by the list).
+  await expect(
+    page.locator('div[role="alert"]').filter({ hasText: /couldn't delete the task/i }),
+  ).toBeVisible()
+
+  // --- Second attempt: allow the DELETE to succeed. ---
+  shouldFail = false
+  const restoredRow = page.locator('li', { hasText: 'Review pull requests' })
+  await restoredRow.getByRole('button', { name: 'Delete task' }).click()
+  await restoredRow.getByRole('button', { name: 'Confirm' }).click()
+
+  // Gone for good, and a success toast is shown.
+  await expect(page.getByText('Review pull requests')).toBeHidden()
+  await expect(page.getByRole('status').filter({ hasText: 'Task deleted' })).toBeVisible()
+
+  // Still gone after a refresh (the backend really deleted it).
+  await page.reload()
+  await expect(page.getByText('Review pull requests')).toBeHidden()
+})
+
 // Story H — Editing a task that no longer exists (404 path)
 // The app surfaces the backend's not-found message inline rather than a
 // custom friendly string; we assert the user gets feedback and stays on the
@@ -202,6 +254,9 @@ test('surfaces a not-found error when saving an edit for a deleted task', async 
   const id = page.url().split('/').pop()!
   await page.getByRole('link', { name: 'Edit' }).click()
   await expect(page).toHaveURL(/\/edit$/)
+  // Wait for the form to finish loading the task before mutating server state,
+  // so we're genuinely deleting it "out from under" a loaded form.
+  await expect(page.getByLabel('Title')).toHaveValue('Plan sprint')
 
   // Delete the task out from under the form via the API.
   await request.delete(`http://localhost:3001/tasks/${id}`)

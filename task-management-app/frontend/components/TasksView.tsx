@@ -3,13 +3,15 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { getTasks, type Task } from '@/lib/api'
+import { deleteTask, getTasks, type Task } from '@/lib/api'
 import { getToken } from '@/lib/auth'
-import { TaskList } from './TaskList'
+import { TaskListClient } from './TaskListClient'
 import { TaskListSkeleton } from './TaskListSkeleton'
+import { useToast } from './ToastProvider'
 
 export function TasksView() {
   const router = useRouter()
+  const toast = useToast()
   const [tasks, setTasks] = useState<Task[] | null>(null)
   const [error, setError] = useState<string | null>(null)
 
@@ -54,7 +56,12 @@ export function TasksView() {
       ) : tasks === null ? (
         <TaskListSkeleton />
       ) : (
-        <TaskList tasks={tasks} />
+        <TaskListClient
+          tasks={tasks}
+          deleteTask={deleteTask}
+          onSuccess={(message) => toast.success(message)}
+          onError={(message) => toast.error(message)}
+        />
       )}
     </main>
   )
