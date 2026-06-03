@@ -77,4 +77,34 @@ describe('Protected POST /tasks (e2e)', () => {
     expect(res.body).toMatchObject({ id: '1', title: 'Buy milk' });
     expect(mockPrisma.task.create).toHaveBeenCalled();
   });
+
+  // 10G — a token signed with the wrong secret must be rejected
+  it('returns 401 for a token signed with the wrong secret', async () => {
+    const forged = new JwtService({ secret: 'wrong-secret' }).sign({
+      sub: '1',
+      email: 'alice@example.com',
+    });
+
+    await request(app.getHttpServer())
+      .post('/tasks')
+      .set('Authorization', `Bearer ${forged}`)
+      .send({ title: 'Buy milk', description: '' })
+      .expect(401);
+    expect(mockPrisma.task.create).not.toHaveBeenCalled();
+  });
+
+  // 10G — an expired token must be rejected (ignoreExpiration: false)
+  it('returns 401 for an expired token', async () => {
+    const expired = jwt.sign(
+      { sub: '1', email: 'alice@example.com' },
+      { expiresIn: '-1s' },
+    );
+
+    await request(app.getHttpServer())
+      .post('/tasks')
+      .set('Authorization', `Bearer ${expired}`)
+      .send({ title: 'Buy milk', description: '' })
+      .expect(401);
+    expect(mockPrisma.task.create).not.toHaveBeenCalled();
+  });
 });
