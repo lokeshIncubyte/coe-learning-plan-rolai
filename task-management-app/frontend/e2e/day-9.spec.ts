@@ -13,10 +13,10 @@ import { test, expect } from '@playwright/test'
 //   - TaskForm pending "Saving…" disabled button
 //   - SiteHeader nav (Home / Tasks) + ThemeToggle (aria-label, persists via localStorage)
 //
-// NOT covered as a user flow (not implemented this day):
-//   - Story C "collapsing/menu" nav: the header nav is a simple flex row that
-//     fits on mobile; there is no hamburger/menu toggle to exercise. We instead
-//     assert nav links remain reachable at mobile width (which IS implemented).
+// Story C — Navigation usable on small screens: below the `sm` breakpoint the
+//   primary nav links collapse behind an accessible menu toggle (button with
+//   aria-label + aria-expanded) that reveals them; at >= sm they show inline
+//   without a toggle. Covered by the two Story C tests below.
 //
 // Tests that mutate the shared in-memory mock run serially and reset state.
 
@@ -98,16 +98,46 @@ test('listing uses a multi-column grid at desktop width', async ({ page }) => {
   expect(b!.x).toBeGreaterThan(a!.x + a!.width - 1)
 })
 
-// Story C — Navigation reachable at mobile width
-test('header nav links remain reachable on a narrow screen', async ({ page }) => {
+// Story C — On a narrow screen the nav collapses behind a menu toggle that
+// reveals the links; activating a link navigates.
+test('mobile nav collapses behind a menu toggle that reveals working links', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 720 })
   await page.goto('/tasks')
 
-  const nav = page.getByRole('navigation')
+  const nav = page.getByRole('navigation', { name: 'Primary' })
+  const toggle = page.getByRole('button', { name: 'Toggle navigation menu' })
+
+  // The toggle is the visible control; the links are collapsed (hidden) initially.
+  await expect(toggle).toBeVisible()
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+  await expect(nav.getByRole('link', { name: 'Home' })).toBeHidden()
+  await expect(nav.getByRole('link', { name: 'Tasks' })).toBeHidden()
+
+  // Activating the toggle reveals the links and reports the expanded state.
+  await toggle.click()
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true')
+  await expect(nav.getByRole('link', { name: 'Home' })).toBeVisible()
+  const tasksLink = nav.getByRole('link', { name: 'Tasks' })
+  await expect(tasksLink).toBeVisible()
+
+  // The revealed link navigates.
+  await tasksLink.click()
+  await expect(page).toHaveURL(/\/tasks$/)
+  await expect(page.getByRole('heading', { name: 'Tasks', level: 1 })).toBeVisible()
+})
+
+// Story C (desktop) — at >= sm the links show inline with no menu toggle.
+test('desktop nav shows links inline without a menu toggle', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 })
+  await page.goto('/tasks')
+
+  const nav = page.getByRole('navigation', { name: 'Primary' })
   await expect(nav.getByRole('link', { name: 'Home' })).toBeVisible()
   await expect(nav.getByRole('link', { name: 'Tasks' })).toBeVisible()
+  // The collapse toggle is hidden at desktop width.
+  await expect(page.getByRole('button', { name: 'Toggle navigation menu' })).toBeHidden()
 
-  // Tapping Home navigates there without breaking the layout.
+  // Links work inline.
   await nav.getByRole('link', { name: 'Home' }).click()
   await expect(page).toHaveURL(/\/$/)
   await expect(page.getByRole('heading', { name: 'Task Management', level: 1 })).toBeVisible()
