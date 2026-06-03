@@ -8,12 +8,12 @@
 ---
 
 ## 1. Learn — concepts before code
-- [ ] Next.js App Router architecture: `app/` directory, route segments, the request lifecycle → [`notes/01-app-router.md`]
-- [ ] Server Components vs Client Components — what runs where, when to reach for `'use client'` → [`notes/02-server-vs-client.md`]
-- [ ] File-based routing in `app/`: `page.tsx`, `layout.tsx`, nested routes, route groups → [`notes/03-file-routing.md`]
-- [ ] Dynamic routes: `[id]` segments and the `params` prop → absorb into note 03
-- [ ] Data fetching in Server Components: `async` components, `fetch`, caching/revalidation → [`notes/04-data-fetching.md`]
-- [ ] Loading and error UI conventions: `loading.tsx`, `error.tsx`, Suspense boundaries → [`notes/05-loading-error.md`]
+- [x] Next.js App Router architecture: `app/` directory, route segments, the request lifecycle → [`notes/01-app-router.md`]
+- [x] Server Components vs Client Components — what runs where, when to reach for `'use client'` → [`notes/02-server-vs-client.md`]
+- [x] File-based routing in `app/`: `page.tsx`, `layout.tsx`, nested routes, route groups → [`notes/03-file-routing.md`]
+- [x] Dynamic routes: `[id]` segments and the `params` prop → absorb into note 03
+- [x] Data fetching in Server Components: `async` components, `fetch`, caching/revalidation → [`notes/04-data-fetching.md`]
+- [x] Loading and error UI conventions: `loading.tsx`, `error.tsx`, Suspense boundaries → [`notes/05-loading-error.md`]
 
 ## 2. Setup — scaffold the frontend
 - [x] Create the project: `npx create-next-app@latest task-management-frontend --typescript --app --eslint` → lives at `day-7/task-management-frontend/`
@@ -64,7 +64,7 @@
 
 ## Success Criteria (from next.md)
 - [x] Next.js project created for the Task Management frontend
-- [ ] Understands Server vs Client Components (documented in notes)
+- [x] Understands Server vs Client Components (documented in notes)
 - [x] File-based routing implemented (`app/` pages + dynamic route)
 - [x] Pages with shared layouts created
 - [x] Task listing and detail pages built

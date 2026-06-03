@@ -8,13 +8,13 @@
 ---
 
 ## 1. Learn — concepts before code
-- [ ] Client Components and the `'use client'` directive — when a component must be client-side → [`notes/06-client-components.md`]
-- [ ] Form handling in Next.js: native forms vs controlled React forms → [`notes/07-forms.md`]
-- [ ] Controlled components and local state with `useState` → absorb into note 07
-- [ ] Server Actions for form submission (`'use server'`, `<form action={...}>`) → [`notes/08-server-actions.md`]
-- [ ] Client-side validation patterns + surfacing backend 400/409 errors → [`notes/09-form-validation.md`]
-- [ ] Optimistic UI updates: `useOptimistic` / local state, then reconcile → [`notes/10-optimistic-ui.md`]
-- [ ] Revalidation after mutations: `revalidatePath` / `router.refresh()` → absorb into note 08
+- [x] Client Components and the `'use client'` directive — when a component must be client-side → [`notes/06-client-components.md`]
+- [x] Form handling in Next.js: native forms vs controlled React forms → [`notes/07-forms.md`]
+- [x] Controlled components and local state with `useState` → absorb into note 07
+- [x] Server Actions for form submission (`'use server'`, `<form action={...}>`) → [`notes/08-server-actions.md`]
+- [x] Client-side validation patterns + surfacing backend 400/409 errors → [`notes/09-form-validation.md`]
+- [x] Optimistic UI updates: `useOptimistic` / local state, then reconcile → [`notes/10-optimistic-ui.md`]
+- [x] Revalidation after mutations: `revalidatePath` / `router.refresh()` → absorb into note 08
 
 ## 2. Decide — mutation strategy
 - [x] Choose the mutation approach: **Server Actions** (recommended) vs client `fetch` to the API helper

@@ -7,12 +7,12 @@
 ---
 
 ## 1. Learn — concepts before code
-- [ ] JWT authentication basics: structure (header.payload.signature), signing, expiry, verification → [`notes/16-jwt.md`]
-- [ ] Password hashing with bcrypt: salting, why never store plaintext → [`notes/17-bcrypt.md`]
-- [ ] NestJS auth: `@nestjs/passport`, `@nestjs/jwt`, strategies, `AuthGuard` → [`notes/18-nestjs-auth.md`]
-- [ ] Guards and protecting routes; reading the user off the request → absorb into note 18
-- [ ] Next.js authentication patterns: storing tokens, attaching them to API calls, protecting routes → [`notes/19-nextjs-auth.md`]
-- [ ] Deployment basics: Vercel (frontend) + Railway/Render (backend) + env vars → [`notes/20-deployment.md`]
+- [x] JWT authentication basics: structure (header.payload.signature), signing, expiry, verification → [`notes/16-jwt.md`]
+- [x] Password hashing with bcrypt: salting, why never store plaintext → [`notes/17-bcrypt.md`]
+- [x] NestJS auth: `@nestjs/passport`, `@nestjs/jwt`, strategies, `AuthGuard` → [`notes/18-nestjs-auth.md`]
+- [x] Guards and protecting routes; reading the user off the request → absorb into note 18
+- [x] Next.js authentication patterns: storing tokens, attaching them to API calls, protecting routes → [`notes/19-nextjs-auth.md`]
+- [x] Deployment basics: Vercel (frontend) + Railway/Render (backend) + env vars → [`notes/20-deployment.md`]
 
 ## 2. Backend — auth foundation
 - [x] Install `@nestjs/jwt`, `@nestjs/passport`, `passport`, `passport-jwt`, `bcrypt`

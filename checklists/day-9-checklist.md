@@ -7,12 +7,12 @@
 ---
 
 ## 1. Learn — concepts before code
-- [ ] Tailwind CSS with Next.js: setup, the utility-first model, `@theme`/config → [`notes/11-tailwind.md`]
-- [ ] Utility-first workflow: spacing, flex/grid, typography, color scales → absorb into note 11
-- [ ] Responsive design with Tailwind breakpoints (`sm` / `md` / `lg`) → [`notes/12-responsive.md`]
-- [ ] Component libraries (shadcn/ui) — when to adopt vs hand-roll → [`notes/13-component-libraries.md`] (optional)
-- [ ] Dark mode strategies (`class` strategy, theme toggle) → [`notes/14-dark-mode.md`]
-- [ ] Accessibility basics: semantic HTML, keyboard navigation, ARIA, focus states → [`notes/15-accessibility.md`]
+- [x] Tailwind CSS with Next.js: setup, the utility-first model, `@theme`/config → [`notes/11-tailwind.md`]
+- [x] Utility-first workflow: spacing, flex/grid, typography, color scales → absorb into note 11
+- [x] Responsive design with Tailwind breakpoints (`sm` / `md` / `lg`) → [`notes/12-responsive.md`]
+- [x] Component libraries (shadcn/ui) — when to adopt vs hand-roll → [`notes/13-component-libraries.md`] (optional)
+- [x] Dark mode strategies (`class` strategy, theme toggle) → [`notes/14-dark-mode.md`]
+- [x] Accessibility basics: semantic HTML, keyboard navigation, ARIA, focus states → [`notes/15-accessibility.md`]
 
 ## 2. Setup — Tailwind
 - [x] Confirm Tailwind is installed/configured (or add it: `npm install -D tailwindcss postcss autoprefixer` + init)
